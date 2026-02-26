@@ -73,7 +73,7 @@ packages:
 
   # Basic boot screen with ESPHome logo and device diagnostic info
   loading_screen: !include esphome-lvgl-panel/pages/loading_480px.yaml
-  info_screen: !include esphome-modular-lvgl-buttons/pages/info.yaml
+  info_screen: !include esphome-lvgl-panel/pages/info.yaml
 
   # Weather packages
   # Display weather forecast using direct HA action (no template sensor needed!)
