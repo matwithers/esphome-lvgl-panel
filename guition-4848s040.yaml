@@ -167,11 +167,13 @@ text_sensor:
     id: leaf_range
     on_value:
       then:
-        - lvgl.label.update:
-            id: ev_range
-            text:
-              format: "%s mi"
-              args: ['id(leaf_range).state.c_str()']
+      - lvgl.label.update:
+          id: ev_range
+          text: !lambda |-
+            float range = atof(id(leaf_range).state.c_str());
+            char buf[16];
+            snprintf(buf, sizeof(buf), "%.0f mi", range);
+            return std::string(buf);
 
 lvgl:
   pages:
