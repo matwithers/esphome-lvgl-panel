@@ -180,7 +180,7 @@ lvgl:
                   text: "---°"
                   id: weather_temperature_today
                   align: center
-                  text_align: center
+                  text_align: right
                   text_font: font_display_72
 
         - container:
@@ -196,7 +196,7 @@ lvgl:
               - image:
                   src: unknown_100
                   id: weather_condition_icon
-                  align: center
+                  align: left_mid
 
         - container:
             grid_cell_x_align: stretch
