@@ -87,7 +87,7 @@ packages:
   weather_today_200: !include
     file: esphome-lvgl-panel/weather_homeassistant/weather_today.yaml
     vars:
-      size: 100
+      size: 80
       weather_entity: weather.met_office_totton
       weather_summary: sensor.home_hourly_summary
 
