@@ -98,15 +98,15 @@ packages:
     height: SIZE_CONTENT
     bg_color: gray50
     radius: 3
-    pad_top: 1
-    pad_bottom: 1
+    pad_top: 0
+    pad_bottom: 0
     layout:
       type: flex
       flex_flow: COLUMN
       flex_align_cross: center
       flex_align_track: center
       pad_column: 0
-      pad_row: 1
+      pad_row: 0
 
   - &forecast_obj_base
     height: SIZE_CONTENT
