@@ -174,16 +174,23 @@ lvgl:
               flex_align_cross: center
               pad_row: 4   # controls spacing between time & date
             widgets:
-              - label:
-                  text: "12:00"
-                  id: current_time
-                  text_align: center
-                  text_font: font_display_72
-              - label:
-                  text: "September 19"
-                  id: month_day
-                  text_font: font_body_20
-                  text_align: center
+              - obj:
+                  width: 100%
+                  height: SIZE_CONTENT
+                  layout:
+                    type: flex
+                    flex_flow: COLUMN
+                    flex_align_cross: center
+                    pad_row: 2
+                  widgets:
+                    - label:
+                        id: current_time
+                        text: "12:00"
+                        text_font: font_display_72
+                    - label:
+                        id: month_day
+                        text: "September 19"
+                        text_font: font_body_20
 
         - container:
             grid_cell_x_align: stretch
