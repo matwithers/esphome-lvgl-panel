@@ -110,7 +110,7 @@ packages:
   - &forecast_obj_base
     height: SIZE_CONTENT
     width: SIZE_CONTENT
-    bg_color: color_surface
+    #bg_color: color_surface
     radius: 3
     pad_top: 2
     pad_bottom: 2
@@ -232,17 +232,14 @@ lvgl:
               - label:
                   text: "EV"
                   text_font: font_body_20
-                  text_color: color_primary_text
               - label:
                   id: ev_battery_level
                   text: "--%"
                   text_font: font_display_48
-                  text_color: color_primary_text
               - label:
                   id: ev_range
                   text: "-- mi"
                   text_font: font_body_24
-                  text_color: color_primary_text
 
         - container:
             grid_cell_x_align: stretch
