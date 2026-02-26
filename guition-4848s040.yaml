@@ -98,15 +98,15 @@ packages:
     height: SIZE_CONTENT
     bg_color: gray50
     radius: 3
-    pad_top: 0
-    pad_bottom: 0
+    pad_top: 2
+    pad_bottom: 2
     layout:
       type: flex
       flex_flow: COLUMN
       flex_align_cross: center
       flex_align_track: center
       pad_column: 0
-      pad_row: 0
+      pad_row: 2
 
   - &forecast_obj_base
     height: SIZE_CONTENT
@@ -165,8 +165,8 @@ lvgl:
             grid_cell_column_pos: 0
             grid_cell_row_span: 3
             grid_cell_column_span: 2
-            outline_width: 1   # debug
-            outline_color: red # debug
+            #outline_width: 1   # debug
+            #outline_color: red # debug
             layout:
               type: flex
               flex_flow: COLUMN
@@ -192,8 +192,8 @@ lvgl:
             grid_cell_column_pos: 0
             grid_cell_row_span: 3
             grid_cell_column_span: 2
-            outline_width: 1   # debug
-            outline_color: red # debug
+            #outline_width: 1   # debug
+            #outline_color: red # debug
             widgets:
               - obj:
                   <<: *now_forecast_obj_base
@@ -216,8 +216,8 @@ lvgl:
             grid_cell_column_pos: 0
             grid_cell_row_span: 3
             grid_cell_column_span: 4
-            outline_width: 1   # debug code - This is for visualizing boundries remove for production
-            outline_color: red # debug code - This is for visualizing boundries remove for production
+            #outline_width: 1   # debug code - This is for visualizing boundries remove for production
+            #outline_color: red # debug code - This is for visualizing boundries remove for production
             layout: 1x4
             widgets:
               - obj:
