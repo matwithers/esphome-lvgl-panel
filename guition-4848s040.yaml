@@ -98,8 +98,8 @@ packages:
     height: SIZE_CONTENT
     bg_color: gray50
     radius: 3
-    pad_top: 2
-    pad_bottom: 2
+    pad_top: 1
+    pad_bottom: 1
     layout:
       type: flex
       flex_flow: COLUMN
