@@ -165,25 +165,24 @@ lvgl:
             grid_cell_column_pos: 0
             grid_cell_row_span: 3
             grid_cell_column_span: 2
-            #outline_width: 1   # debug
-            #outline_color: red # debug
+            layout:
+              type: flex
+              flex_flow: COLUMN
+              flex_align_main: center
+              flex_align_cross: center
+              pad_row: 2
             widgets:
               - label:
                   id: current_time
-                  text: "12:00"
-                  #align: top_mid
                   width: 100%
                   text_align: center
                   text_font: font_display_72
-
+                  pad_bottom: -6   # <-- key adjustment
               - label:
                   id: month_day
-                  text: "February 26"
-                  #align: bottom_mid
                   width: 100%
                   text_align: center
-                  text_font: font_body_20
-                  pad_top: 40
+                  text_font: font_body_24
 
         - container:
             grid_cell_x_align: stretch
