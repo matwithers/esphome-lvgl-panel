@@ -140,7 +140,7 @@ script:
     then:
       - lvgl.label.update:
           id: current_time
-          text: !lambda 'return id(system_time).now().strftime("%l:%M");'  # 12-hour format, no am/pm
+          text: !lambda 'return id(system_time).now().strftime("%H:%M");'  # 12-hour format, no am/pm
       - lvgl.label.update:
           id: month_day
           text: !lambda |- # Month Day
