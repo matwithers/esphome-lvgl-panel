@@ -232,7 +232,7 @@ lvgl:
                     - label:
                         id: forecast_day_0
                         <<: *forecast_label_base
-                        text: ???
+                        text: "???
                     - image:
                         id: forecast_condition_icon_0
                         <<: *forecast_label_base
