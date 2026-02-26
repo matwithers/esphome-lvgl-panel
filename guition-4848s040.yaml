@@ -154,32 +154,7 @@ lvgl:
       <<: !include esphome-modular-lvgl-buttons/widgets/swipe_navigation.yaml
       bg_color: slate_blue_gray
       widgets:
-        - container:
-            grid_cell_x_align: stretch
-            grid_cell_y_align: stretch
-            grid_cell_row_pos: 0
-            grid_cell_column_pos: 0
-            grid_cell_row_span: 3
-            grid_cell_column_span: 2
-            outline_width: 1   # debug
-            outline_color: red # debug
-            layout:
-              type: flex
-              flex_flow: COLUMN
-              flex_align_main: center
-              flex_align_cross: center
-              pad_row: 4   # controls spacing between time & date
-            widgets:
-              - label:
-                  text: "12:00"
-                  id: current_time
-                  text_align: center
-                  text_font: font_display_72
-              - label:
-                  text: "September 19"
-                  id: month_day
-                  text_font: font_body_20
-                  text_align: center
+
 
         - container:
             grid_cell_x_align: stretch
@@ -232,7 +207,7 @@ lvgl:
                     - label:
                         id: forecast_day_0
                         <<: *forecast_label_base
-                        text: "???
+                        text: ???
                     - image:
                         id: forecast_condition_icon_0
                         <<: *forecast_label_base
