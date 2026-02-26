@@ -153,7 +153,7 @@ script:
 lvgl:
   pages:
     - id: main_page
-      layout: 10x4
+      layout: 100x4
       styles: page_style
       <<: !include esphome-modular-lvgl-buttons/widgets/swipe_navigation.yaml
       bg_color: slate_blue_gray
@@ -163,7 +163,7 @@ lvgl:
             grid_cell_y_align: stretch
             grid_cell_row_pos: 0
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
+            grid_cell_row_span: 33
             grid_cell_column_span: 2
             outline_width: 1   # debug
             outline_color: red # debug
@@ -188,9 +188,9 @@ lvgl:
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 3
+            grid_cell_row_pos: 33
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
+            grid_cell_row_span: 33
             grid_cell_column_span: 2
             outline_width: 1   # debug
             outline_color: red # debug
@@ -212,9 +212,9 @@ lvgl:
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 6
+            grid_cell_row_pos: 66
             grid_cell_column_pos: 0
-            grid_cell_row_span: 4
+            grid_cell_row_span: 34
             grid_cell_column_span: 4
             outline_width: 1   # debug code - This is for visualizing boundries remove for production
             outline_color: red # debug code - This is for visualizing boundries remove for production
@@ -233,14 +233,26 @@ lvgl:
                         id: forecast_condition_icon_0
                         <<: *forecast_label_base
                         src: unknown_80
-                    - label:
-                        id: forecast_temperature_hi_0
-                        <<: *forecast_label_base
-                        text: "---°"
-                    - label:
-                        id: forecast_temperature_lo_0
-                        <<: *forecast_label_base_lo
-                        text: "---°"
+                    - container:
+                        width: SIZE_CONTENT
+                        height: SIZE_CONTENT
+                        layout:
+                          type: flex
+                          flex_flow: ROW
+                          flex_align_cross: center
+                          pad_column: 4
+                        widgets:
+                          - label:
+                              id: forecast_temperature_hi_0
+                              <<: *forecast_label_base
+                              text: "---°"
+                          - label:
+                              text: "/"
+                              <<: *forecast_label_base
+                          - label:
+                              id: forecast_temperature_lo_0
+                              <<: *forecast_label_base_lo
+                              text: "---°"
               - obj:
                   <<: *forecast_obj_base
                   grid_cell_row_pos: 0
@@ -254,14 +266,26 @@ lvgl:
                         id: forecast_condition_icon_1
                         <<: *forecast_label_base
                         src: unknown_80
-                    - label:
-                        id: forecast_temperature_hi_1
-                        <<: *forecast_label_base
-                        text: "---°"
-                    - label:
-                        id: forecast_temperature_lo_1
-                        <<: *forecast_label_base_lo
-                        text: "---°"
+                    - container:
+                        width: SIZE_CONTENT
+                        height: SIZE_CONTENT
+                        layout:
+                          type: flex
+                          flex_flow: ROW
+                          flex_align_cross: center
+                          pad_column: 4
+                        widgets:
+                          - label:
+                              id: forecast_temperature_hi_1
+                              <<: *forecast_label_base
+                              text: "---°"
+                          - label:
+                              text: "/"
+                              <<: *forecast_label_base
+                          - label:
+                              id: forecast_temperature_lo_1
+                              <<: *forecast_label_base_lo
+                              text: "---°"
               - obj:
                   <<: *forecast_obj_base
                   grid_cell_row_pos: 0
@@ -275,14 +299,26 @@ lvgl:
                         id: forecast_condition_icon_2
                         <<: *forecast_label_base
                         src: unknown_80
-                    - label:
-                        id: forecast_temperature_hi_2
-                        <<: *forecast_label_base
-                        text: "---°"
-                    - label:
-                        id: forecast_temperature_lo_2
-                        <<: *forecast_label_base_lo
-                        text: "---°"
+                    - container:
+                        width: SIZE_CONTENT
+                        height: SIZE_CONTENT
+                        layout:
+                          type: flex
+                          flex_flow: ROW
+                          flex_align_cross: center
+                          pad_column: 4
+                        widgets:
+                          - label:
+                              id: forecast_temperature_hi_2
+                              <<: *forecast_label_base
+                              text: "---°"
+                          - label:
+                              text: "/"
+                              <<: *forecast_label_base
+                          - label:
+                              id: forecast_temperature_lo_2
+                              <<: *forecast_label_base_lo
+                              text: "---°"
               - obj:
                   <<: *forecast_obj_base
                   grid_cell_row_pos: 0
@@ -296,11 +332,23 @@ lvgl:
                         id: forecast_condition_icon_3
                         <<: *forecast_label_base
                         src: unknown_80
-                    - label:
-                        id: forecast_temperature_hi_3
-                        <<: *forecast_label_base
-                        text: "---°"
-                    - label:
-                        id: forecast_temperature_lo_3
-                        <<: *forecast_label_base_lo
-                        text: "---°"
+                    - container:
+                        width: SIZE_CONTENT
+                        height: SIZE_CONTENT
+                        layout:
+                          type: flex
+                          flex_flow: ROW
+                          flex_align_cross: center
+                          pad_column: 4
+                        widgets:
+                          - label:
+                              id: forecast_temperature_hi_3
+                              <<: *forecast_label_base
+                              text: "---°"
+                          - label:
+                              text: "/"
+                              <<: *forecast_label_base
+                          - label:
+                              id: forecast_temperature_lo_3
+                              <<: *forecast_label_base_lo
+                              text: "---°"
