@@ -227,7 +227,7 @@ lvgl:
             grid_cell_y_align: stretch
             grid_cell_row_pos: 6
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
+            grid_cell_row_span: 4
             grid_cell_column_span: 4
             outline_width: 1   # debug code - This is for visualizing boundries remove for production
             outline_color: red # debug code - This is for visualizing boundries remove for production
