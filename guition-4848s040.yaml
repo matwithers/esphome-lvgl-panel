@@ -153,7 +153,7 @@ script:
 lvgl:
   pages:
     - id: main_page
-      layout: 100x4
+      layout: 9x4
       styles: page_style
       <<: !include esphome-modular-lvgl-buttons/widgets/swipe_navigation.yaml
       bg_color: slate_blue_gray
@@ -163,7 +163,7 @@ lvgl:
             grid_cell_y_align: stretch
             grid_cell_row_pos: 0
             grid_cell_column_pos: 0
-            grid_cell_row_span: 33
+            grid_cell_row_span: 3
             grid_cell_column_span: 2
             outline_width: 1   # debug
             outline_color: red # debug
@@ -188,9 +188,9 @@ lvgl:
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 33
+            grid_cell_row_pos: 3
             grid_cell_column_pos: 0
-            grid_cell_row_span: 33
+            grid_cell_row_span: 3
             grid_cell_column_span: 2
             outline_width: 1   # debug
             outline_color: red # debug
@@ -212,9 +212,9 @@ lvgl:
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 66
+            grid_cell_row_pos: 6
             grid_cell_column_pos: 0
-            grid_cell_row_span: 34
+            grid_cell_row_span: 3
             grid_cell_column_span: 4
             outline_width: 1   # debug code - This is for visualizing boundries remove for production
             outline_color: red # debug code - This is for visualizing boundries remove for production
