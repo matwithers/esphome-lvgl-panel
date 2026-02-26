@@ -166,6 +166,8 @@ lvgl:
                   text_font: font_body_20
                   text_align: center
 
+
+
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
@@ -176,12 +178,31 @@ lvgl:
             # outline_width: 1   # debug code - This is for visualizing boundries remove for production
             # outline_color: red # debug code - This is for visualizing boundries remove for production
             widgets:
-              - label:
-                  text: "---°"
-                  id: weather_temperature_today
-                  align: center
-                  text_align: right
-                  text_font: font_display_72
+              #- label:
+              #    text: "---°"
+              #    id: weather_temperature_today
+              #    align: center
+              #    text_align: right
+              #    text_font: font_display_72
+              #            widgets:
+              - obj:
+                  <<: *forecast_obj_base
+                  grid_cell_row_pos: 0
+                  grid_cell_column_pos: 0
+                  widgets:
+                    - label:
+                        text: "Now"
+                        <<: *forecast_label_base
+                        text: ???
+                    - image:
+                        id: weather_condition_icon
+                        <<: *forecast_label_base
+                        src: unknown_100
+                    - label:
+                        id: weather_temperature_today
+                        <<: *forecast_label_base
+                        text: "---°"
+
 
         - container:
             grid_cell_x_align: stretch
@@ -195,7 +216,7 @@ lvgl:
             widgets:
               - image:
                   src: unknown_100
-                  id: weather_condition_icon
+                  id: weather_condition_icon_1
                   align: left_mid
 
         - container:
