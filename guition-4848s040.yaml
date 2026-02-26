@@ -141,7 +141,7 @@ lvgl:
       layout: 4x4
       styles: page_style
       <<: !include esphome-modular-lvgl-buttons/widgets/swipe_navigation.yaml
-      bg_color: White
+      bg_color: slate_blue_gray
       widgets:
         - container:
             grid_cell_x_align: stretch
