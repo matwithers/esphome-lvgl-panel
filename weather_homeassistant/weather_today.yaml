@@ -30,19 +30,6 @@ text_sensor:
               snprintf(buf, sizeof(buf), "%d°", ti);
               return std::string(buf);
 
-  - platform: homeassistant
-    entity_id: ${weather_summary}
-    id: weather_summary
-    on_value:
-      then:
-        # Update weather summary
-        - lvgl.label.update:
-            id: weather_summary_today
-            text:
-              format: "%s"
-              args: ['id(weather_summary).state.c_str()']
-
-
 # Weather icons - included automatically
 image:
   rgb565:

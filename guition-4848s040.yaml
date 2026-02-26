@@ -93,6 +93,17 @@ packages:
 
 # Styles for Weather forecast
 .forecast_styles:
+  - &now_forecast_obj_base
+    width: 100%
+    height: SIZE_CONTENT
+    layout:
+      type: flex
+      flex_flow: COLUMN
+      flex_align_cross: center
+      flex_align_track: center
+      pad_row: 2
+
+
   - &forecast_obj_base
     height: SIZE_CONTENT
     width: SIZE_CONTENT
@@ -166,75 +177,29 @@ lvgl:
                   text_font: font_body_20
                   text_align: center
 
-
-
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
             grid_cell_row_pos: 1
             grid_cell_column_pos: 0
             grid_cell_row_span: 1
-            grid_cell_column_span: 1
-            # outline_width: 1   # debug code - This is for visualizing boundries remove for production
-            # outline_color: red # debug code - This is for visualizing boundries remove for production
-            widgets:
-              #- label:
-              #    text: "---°"
-              #    id: weather_temperature_today
-              #    align: center
-              #    text_align: right
-              #    text_font: font_display_72
-              #            widgets:
-              - obj:
-                  <<: *forecast_obj_base
-                  grid_cell_row_pos: 0
-                  grid_cell_column_pos: 0
-                  widgets:
-                    - label:
-                        text: "Now"
-                        <<: *forecast_label_base
-                        text: ???
-                    - image:
-                        id: weather_condition_icon
-                        <<: *forecast_label_base
-                        src: unknown_100
-                    - label:
-                        id: weather_temperature_today
-                        <<: *forecast_label_base
-                        text: "---°"
-
-
-        - container:
-            grid_cell_x_align: stretch
-            grid_cell_y_align: stretch
-            grid_cell_row_pos: 1
-            grid_cell_column_pos: 1
-            grid_cell_row_span: 1
-            grid_cell_column_span: 1
-            # outline_width: 1   # debug code - This is for visualizing boundries remove for production
-            # outline_color: red # debug code - This is for visualizing boundries remove for production
-            widgets:
-              - image:
-                  src: unknown_100
-                  id: weather_condition_icon_1
-                  align: left_mid
-
-        - container:
-            grid_cell_x_align: stretch
-            grid_cell_y_align: stretch
-            grid_cell_row_pos: 1
-            grid_cell_column_pos: 2
-            grid_cell_row_span: 1
             grid_cell_column_span: 2
             # outline_width: 1   # debug code - This is for visualizing boundries remove for production
             # outline_color: red # debug code - This is for visualizing boundries remove for production
             widgets:
-              - label:
-                  text: "Loading..."
-                  id: weather_summary_today
-                  text_font: font_body_24
-                  long_mode: wrap
-                  width: 100%
+              - obj:
+                  <<: *now_forecast_obj_base
+                  widgets:
+                    - label:
+                        text: "Now"
+                        <<: *forecast_label_base
+                    - image:
+                        id: weather_condition_icon
+                        src: unknown_80
+                    - label:
+                        id: weather_temperature_today
+                        <<: *forecast_label_base
+                        text: "---°"
 
         - container:
             grid_cell_x_align: stretch
