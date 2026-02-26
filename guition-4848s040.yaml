@@ -186,6 +186,11 @@ lvgl:
             grid_cell_column_span: 2
             # outline_width: 1   # debug code - This is for visualizing boundries remove for production
             # outline_color: red # debug code - This is for visualizing boundries remove for production
+            layout:
+              type: flex
+              flex_flow: COLUMN
+              flex_align_main: center
+              flex_align_cross: center
             widgets:
               - obj:
                   <<: *now_forecast_obj_base
