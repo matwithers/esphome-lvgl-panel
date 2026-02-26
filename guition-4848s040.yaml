@@ -64,8 +64,7 @@ packages:
   #sensors: !include esphome-modular-lvgl-buttons/sensors/sensors_base-SDL.yaml
   sensors: !include esphome-modular-lvgl-buttons/sensors/sensors_base.yaml
   # Styles + Themes
-  # theme_style: !include esphome-modular-lvgl-buttons/common/theme_style_debug.yaml
-  theme_style: !include esphome-modular-lvgl-buttons/common/theme_style.yaml
+  theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
 
   # Harware description file
   #hardware: !include esphome-modular-lvgl-buttons/hardware/SDL-lvgl.yaml
@@ -209,14 +208,12 @@ lvgl:
                   width: 100%
                   text_align: center
                   text_font: font_display_72
-                  text_color: color_primary_text
                   pad_bottom: -6   # <-- key adjustment
               - label:
                   id: month_day
                   width: 100%
                   text_align: center
                   text_font: font_body_24
-                  text_color: color_primary_text
 
         - container:
             grid_cell_x_align: stretch
@@ -235,14 +232,17 @@ lvgl:
               - label:
                   text: "EV"
                   text_font: font_body_20
+                  text_color: color_primary_text
               - label:
                   id: ev_battery_level
                   text: "--%"
                   text_font: font_display_48
+                  text_color: color_primary_text
               - label:
                   id: ev_range
                   text: "-- mi"
                   text_font: font_body_24
+                  text_color: color_primary_text
 
         - container:
             grid_cell_x_align: stretch
@@ -259,6 +259,7 @@ lvgl:
                   widgets:
                     - label:
                         text: "Now"
+                        text_color: color_primary_text
                         <<: *forecast_label_base
                     - image:
                         id: weather_condition_icon
@@ -267,6 +268,7 @@ lvgl:
                         id: weather_temperature_today
                         <<: *forecast_label_base
                         text: "---°"
+                        text_color: color_primary_text
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
