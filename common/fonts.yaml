@@ -1,47 +1,47 @@
 ---
 font:
   # Inter (clean sans-serif). Put the TTF in assets/fonts/ (next step).
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_72
     size: 72
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_48
     size: 48
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_42
     size: 42
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_36
     size: 36
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_24
     size: 24
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_20
     size: 20
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_18
     size: 18
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_14
     size: 14
     bpp: 8
 
-  - file: "assets/fonts/Inter-SemiBold.ttf"
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: inter_12
     size: 12
     bpp: 8
