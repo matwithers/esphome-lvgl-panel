@@ -209,12 +209,14 @@ lvgl:
                   width: 100%
                   text_align: center
                   text_font: font_display_72
+                  text_color: color_primary_text
                   pad_bottom: -6   # <-- key adjustment
               - label:
                   id: month_day
                   width: 100%
                   text_align: center
                   text_font: font_body_24
+                  text_color: color_primary_text
 
         - container:
             grid_cell_x_align: stretch
