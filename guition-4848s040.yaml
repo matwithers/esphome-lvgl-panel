@@ -3,15 +3,15 @@
 substitutions:
   icon_font: mdi_icons_40
   text_font: font_body_20
-  text_color: white
-  bg_color: black
-  button_on_color: "ep_orange"
-  button_off_color: "very_dark_gray"
-  icon_on_color: "yellow"
-  icon_off_color: "gray"
-  label_on_color: "white"
-  label_off_color: "gray"
-  button_text_color: "white"
+  text_color: color_primary_text
+  bg_color: color_background
+  button_on_color: color_accent
+  button_off_color: color_outline
+  icon_on_color: color_accent
+  icon_off_color: color_secondary_text
+  label_on_color: color_primary_text
+  label_off_color: color_secondary_text
+  button_text_color: color_primary_text
 
   # LCD back light modes - Code in backlight_time.yaml
   # Set Day mode - starts at Sunrise - screen at 100%

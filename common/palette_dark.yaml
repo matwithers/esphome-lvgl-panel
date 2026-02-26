@@ -12,11 +12,12 @@ color:
   - id: color_outline
     hex: '39424F'      # subtle border tone
 
+  # required esphome-modular-lvgl-buttons colors
   - id: very_dark_gray
     hex: '313131'
   - id: slate_blue_gray
-    hex: 343645
+    hex: '343645'
   - id: steel_blue
-    hex: 606682
+    hex: '606682'
   - id: misty_blue
-    hex: 9BA2BC
+    hex: '9BA2BC'
