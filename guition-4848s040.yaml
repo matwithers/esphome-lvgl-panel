@@ -167,22 +167,24 @@ lvgl:
             grid_cell_column_span: 2
             #outline_width: 1   # debug
             #outline_color: red # debug
+            layout:
+              pad_row: 4   # controls spacing between time & date
             widgets:
               - label:
                   id: current_time
                   text: "12:00"
-                  align: top_mid
-                  width: 100%
+                  #align: top_mid
                   text_align: center
                   text_font: font_display_72
+                  pad_bottom: 4
 
               - label:
                   id: month_day
                   text: "February 26"
-                  align: bottom_mid
-                  width: 100%
+                  #align: bottom_mid
                   text_align: center
                   text_font: font_body_20
+                  pad_top: 4
 
         - container:
             grid_cell_x_align: stretch
