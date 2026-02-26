@@ -1,18 +1,22 @@
 color:
   - id: color_background
     hex: '1C2128'      # slightly deeper, less blue than 1F242D
-
   - id: color_surface
     hex: '262D36'      # lifted but not bright
-
   - id: color_primary_text
     hex: 'E4E8ED'      # softer than pure E6E6E6
-
   - id: color_secondary_text
     hex: 'A6AFBB'      # slightly muted
-
   - id: color_accent
     hex: 'FFB74D'      # warmer amber (less neon than FFB300)
-
   - id: color_outline
     hex: '39424F'      # subtle border tone
+
+  - id: very_dark_gray
+    hex: '313131'
+  - id: slate_blue_gray
+    hex: 343645
+  - id: steel_blue
+    hex: 606682
+  - id: misty_blue
+    hex: 9BA2BC

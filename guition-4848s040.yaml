@@ -175,6 +175,13 @@ text_sensor:
             snprintf(buf, sizeof(buf), "%.0f mi", range);
             return std::string(buf);
 
+image:
+  rgb565:
+    alpha_channel:
+      - file: esphome-lvgl-panel/assets/images/car_outline_dark.svg
+        id: car_outline_dark_200
+        resize: 200x200
+
 lvgl:
   pages:
     - id: main_page
