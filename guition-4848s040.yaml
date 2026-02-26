@@ -172,6 +172,7 @@ lvgl:
                   id: current_time
                   text: "12:00"
                   #align: top_mid
+                  width: 100%
                   text_align: center
                   text_font: font_display_72
                   pad_bottom: 4
@@ -180,6 +181,7 @@ lvgl:
                   id: month_day
                   text: "February 26"
                   #align: bottom_mid
+                  width: 100%
                   text_align: center
                   text_font: font_body_20
                   pad_top: 4
