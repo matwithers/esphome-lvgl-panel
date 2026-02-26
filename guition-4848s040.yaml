@@ -96,7 +96,7 @@ packages:
   - &now_forecast_obj_base
     width: 100%
     height: SIZE_CONTENT
-    bg_color: ${color_surface}
+    bg_color: color_background
     radius: 3
     pad_top: 2
     pad_bottom: 2
@@ -111,7 +111,7 @@ packages:
   - &forecast_obj_base
     height: SIZE_CONTENT
     width: SIZE_CONTENT
-    bg_color: ${color_surface}
+    bg_color: color_surface
     radius: 3
     pad_top: 2
     pad_bottom: 2
@@ -181,7 +181,7 @@ lvgl:
       layout: 9x4
       styles: page_style
       <<: !include esphome-modular-lvgl-buttons/widgets/swipe_navigation.yaml
-      bg_color: ${color_background}
+      bg_color: color_background
       widgets:
         - container:
             grid_cell_x_align: stretch
