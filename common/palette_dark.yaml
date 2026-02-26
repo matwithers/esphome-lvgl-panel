@@ -1,0 +1,7 @@
+substitutions:
+  color_background: "#1F242D"
+  color_surface: "#2A303B"
+  color_primary_text: "#E6E6E6"
+  color_secondary_text: "#AEB6C2"
+  color_accent: "#FFB300"
+  color_outline: "#3A4252"
