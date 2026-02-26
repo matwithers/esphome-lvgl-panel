@@ -163,7 +163,7 @@ lvgl:
             grid_cell_y_align: stretch
             grid_cell_row_pos: 0
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
+            grid_cell_row_span: 2
             grid_cell_column_span: 2
             outline_width: 1   # debug
             outline_color: red # debug
@@ -188,9 +188,9 @@ lvgl:
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 3
+            grid_cell_row_pos: 2
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
+            grid_cell_row_span: 4
             grid_cell_column_span: 2
             outline_width: 1   # debug
             outline_color: red # debug
