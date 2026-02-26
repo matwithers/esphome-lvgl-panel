@@ -150,6 +150,29 @@ script:
             snprintf(strftime_buf, sizeof(strftime_buf), "%s %d", time.strftime("%B").c_str(), day);
             return {strftime_buf};
 
+text_sensor:
+  - platform: homeassistant
+    entity_id: sensor.leaf_battery_level
+    id: leaf_battery_level
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: ev_battery_level
+            text:
+              format: "%s%%"
+              args: ['id(leaf_battery_level).state.c_str()']
+
+  - platform: homeassistant
+    entity_id: sensor.leaf_range_ac_off
+    id: leaf_range
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: ev_range
+            text:
+              format: "%s mi"
+              args: ['id(leaf_range).state.c_str()']
+
 lvgl:
   pages:
     - id: main_page
