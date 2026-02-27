@@ -57,15 +57,19 @@ script:
             entity_id: ${weather_entity | default("weather.home")}
           capture_response: true
           response_template: >-
-            {% set fc = response["${weather_entity | default('weather.home')}"].forecast %}
+            {% set fc = response["${weather_entity | default('weather.home')}"].forecast | default([]) %}
             {% set out = [] %}
             {% for i in range(0,4) %}
               {% set f = fc[i] if fc|length > i else dict() %}
+              {% set dt = f.datetime | default(f.datetime_iso | default(f.time | default(none))) %}
+              {% set day = (as_timestamp(dt) | timestamp_custom('%a')) if dt else "—" %}
+              {% set hi = f.temperature | default(f.temperature_high | default(0)) %}
+              {% set lo = f.templow | default(f.temperature_low | default(0)) %}
               {% set out = out + [ {
-                "day": (as_timestamp(f.datetime) | timestamp_custom('%a')) if f.datetime is defined else "—",
+                "day": day,
                 "condition": (f.condition | default('unknown')),
-                "hi": (f.temperature | default(0)),
-                "lo": (f.templow | default(0))
+                "hi": hi,
+                "lo": lo
               } ] %}
             {% endfor %}
             {{ out | tojson }}
@@ -101,25 +105,22 @@ script:
             - lvgl.image.update:
                 id: forecast_condition_icon_0
                 src: !lambda |-
-                  auto arr = response["response"].as<JsonArray>();
-                  auto c = arr[0]["condition"].as<std::string>();
-
-                  if (c == "clear-night") return std::string("clear_night_${size}");
-                  if (c == "cloudy") return std::string("cloudy_${size}");
-                  if (c == "partlycloudy") return std::string("partlycloudy_${size}");
-                  if (c == "sunny") return std::string("sunny_${size}");
-                  if (c == "rainy") return std::string("rainy_${size}");
-                  if (c == "pouring") return std::string("pouring_${size}");
-                  if (c == "snowy") return std::string("snowy_${size}");
-                  if (c == "snowy-rainy") return std::string("snowy_rainy_${size}");
-                  if (c == "windy" || c == "windy-variant") return std::string("windy_${size}");
-                  if (c == "fog") return std::string("fog_${size}");
-                  if (c == "hail") return std::string("hail_${size}");
-                  if (c == "lightning") return std::string("lightning_${size}");
-                  if (c == "lightning-rainy") return std::string("lightning_rainy_${size}");
-                  if (c == "exceptional") return std::string("exceptional_${size}");
-                  if (c == "unavailable") return std::string("unavailable_${size}");
-                  return std::string("unknown_${size}");
+                  auto c = response["response"][0]["condition"].as<std::string>();
+                  if (c == "clear-night") return id(clear_night_${size});
+                  if (c == "cloudy") return id(cloudy_${size});
+                  if (c == "exceptional") return id(exceptional_${size});
+                  if (c == "fog") return id(fog_${size});
+                  if (c == "hail") return id(hail_${size});
+                  if (c == "lightning") return id(lightning_${size});
+                  if (c == "lightning-rainy") return id(lightning_rainy_${size});
+                  if (c == "partlycloudy") return id(partlycloudy_${size});
+                  if (c == "pouring") return id(pouring_${size});
+                  if (c == "rainy") return id(rainy_${size});
+                  if (c == "snowy") return id(snowy_${size});
+                  if (c == "snowy-rainy") return id(snowy_rainy_${size});
+                  if (c == "sunny") return id(sunny_${size});
+                  if (c == "windy" || c == "windy-variant") return id(windy_${size});
+                  return id(unknown_${size});
 
             # --- Day 1 ---
             - lvgl.label.update:
