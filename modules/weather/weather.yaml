@@ -1,0 +1,312 @@
+---
+# Weather forecast using direct Home Assistant action call
+# No template sensor required in HA configuration.yaml!
+#
+# vars:
+#   size: icon size (e.g., 80)
+#   weather_entity: weather entity id (default: weather.home)
+
+# Fetch weather on startup and every hour for daily forecasts
+time:
+  - platform: homeassistant
+    on_time:
+      - hours: '*'
+        minutes: 0
+        seconds: 30
+        then:
+          - script.execute: fetch_weather_forecast
+
+api:
+  on_client_connected:
+    - delay: 3s
+    - script.execute: fetch_weather_forecast
+
+# Weather for today (Now) from Home Assistant
+text_sensor:
+  - platform: homeassistant
+    entity_id: ${weather_entity | default("weather.home")}
+    id: weather_condition
+    on_value:
+      then: !include {file: weather_icons_update.yaml, vars: {size: "${size}", id: weather_condition_icon, input_id: weather_condition}}
+
+sensor:
+  - platform: homeassistant
+    entity_id: ${weather_entity | default("weather.home")}
+    attribute: temperature
+    id: outdoor_temperature
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: weather_temperature_today
+            text: !lambda |-
+              int ti = (int) lroundf(id(outdoor_temperature).state);
+              char buf[8];
+              snprintf(buf, sizeof(buf), "%d°", ti);
+              return std::string(buf);
+
+script:
+  - id: fetch_weather_forecast
+    then:
+      - logger.log:
+          level: INFO
+          format: "Requesting weather forecast from Home Assistant..."
+      - homeassistant.action:
+          action: weather.get_forecasts
+          data:
+            type: daily
+            entity_id: ${weather_entity | default("weather.home")}
+          capture_response: true
+          response_template: >-
+            {% set fc = response["${weather_entity | default('weather.home')}"].forecast %}
+            {% set out = [] %}
+            {% for i in range(0,4) %}
+              {% set f = fc[i] if fc|length > i else dict() %}
+              {% set out = out + [ {
+                "day": (as_timestamp(f.datetime) | timestamp_custom('%a')) if f.datetime is defined else "—",
+                "condition": (f.condition | default('unknown')),
+                "hi": (f.temperature | default(0)),
+                "lo": (f.templow | default(0))
+              } ] %}
+            {% endfor %}
+            {{ out | tojson }}
+
+          on_success:
+            # --- Day 0 ---
+            - lvgl.label.update:
+                id: forecast_day_0
+                text: !lambda |-
+                  return response["response"][0]["day"].as<std::string>();
+
+            - lvgl.label.update:
+                id: forecast_temperature_hi_0
+                text: !lambda |-
+                  float t = response["response"][0]["hi"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+
+            - lvgl.label.update:
+                id: forecast_temperature_lo_0
+                text: !lambda |-
+                  float t = response["response"][0]["lo"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+
+            - lvgl.image.update:
+                id: forecast_condition_icon_0
+                src: !lambda |-
+                  auto c = response["response"][0]["condition"].as<std::string>();
+                  if (c == "clear-night") return id(clear_night_${size});
+                  if (c == "cloudy") return id(cloudy_${size});
+                  if (c == "exceptional") return id(exceptional_${size});
+                  if (c == "fog") return id(fog_${size});
+                  if (c == "hail") return id(hail_${size});
+                  if (c == "lightning") return id(lightning_${size});
+                  if (c == "lightning-rainy") return id(lightning_rainy_${size});
+                  if (c == "partlycloudy") return id(partlycloudy_${size});
+                  if (c == "pouring") return id(pouring_${size});
+                  if (c == "rainy") return id(rainy_${size});
+                  if (c == "snowy") return id(snowy_${size});
+                  if (c == "snowy-rainy") return id(snowy_rainy_${size});
+                  if (c == "sunny") return id(sunny_${size});
+                  if (c == "windy" || c == "windy-variant") return id(windy_${size});
+                  return id(unknown_${size});
+
+            # --- Day 1 ---
+            - lvgl.label.update:
+                id: forecast_day_1
+                text: !lambda |-
+                  return response["response"][1]["day"].as<std::string>();
+            - lvgl.label.update:
+                id: forecast_temperature_hi_1
+                text: !lambda |-
+                  float t = response["response"][1]["hi"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+            - lvgl.label.update:
+                id: forecast_temperature_lo_1
+                text: !lambda |-
+                  float t = response["response"][1]["lo"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+            - lvgl.image.update:
+                id: forecast_condition_icon_1
+                src: !lambda |-
+                  auto c = response["response"][1]["condition"].as<std::string>();
+                  if (c == "clear-night") return id(clear_night_${size});
+                  if (c == "cloudy") return id(cloudy_${size});
+                  if (c == "exceptional") return id(exceptional_${size});
+                  if (c == "fog") return id(fog_${size});
+                  if (c == "hail") return id(hail_${size});
+                  if (c == "lightning") return id(lightning_${size});
+                  if (c == "lightning-rainy") return id(lightning_rainy_${size});
+                  if (c == "partlycloudy") return id(partlycloudy_${size});
+                  if (c == "pouring") return id(pouring_${size});
+                  if (c == "rainy") return id(rainy_${size});
+                  if (c == "snowy") return id(snowy_${size});
+                  if (c == "snowy-rainy") return id(snowy_rainy_${size});
+                  if (c == "sunny") return id(sunny_${size});
+                  if (c == "windy" || c == "windy-variant") return id(windy_${size});
+                  return id(unknown_${size});
+
+            # --- Day 2 ---
+            - lvgl.label.update:
+                id: forecast_day_2
+                text: !lambda |-
+                  return response["response"][2]["day"].as<std::string>();
+            - lvgl.label.update:
+                id: forecast_temperature_hi_2
+                text: !lambda |-
+                  float t = response["response"][2]["hi"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+            - lvgl.label.update:
+                id: forecast_temperature_lo_2
+                text: !lambda |-
+                  float t = response["response"][2]["lo"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+            - lvgl.image.update:
+                id: forecast_condition_icon_2
+                src: !lambda |-
+                  auto c = response["response"][2]["condition"].as<std::string>();
+                  if (c == "clear-night") return id(clear_night_${size});
+                  if (c == "cloudy") return id(cloudy_${size});
+                  if (c == "exceptional") return id(exceptional_${size});
+                  if (c == "fog") return id(fog_${size});
+                  if (c == "hail") return id(hail_${size});
+                  if (c == "lightning") return id(lightning_${size});
+                  if (c == "lightning-rainy") return id(lightning_rainy_${size});
+                  if (c == "partlycloudy") return id(partlycloudy_${size});
+                  if (c == "pouring") return id(pouring_${size});
+                  if (c == "rainy") return id(rainy_${size});
+                  if (c == "snowy") return id(snowy_${size});
+                  if (c == "snowy-rainy") return id(snowy_rainy_${size});
+                  if (c == "sunny") return id(sunny_${size});
+                  if (c == "windy" || c == "windy-variant") return id(windy_${size});
+                  return id(unknown_${size});
+
+            # --- Day 3 ---
+            - lvgl.label.update:
+                id: forecast_day_3
+                text: !lambda |-
+                  return response["response"][3]["day"].as<std::string>();
+            - lvgl.label.update:
+                id: forecast_temperature_hi_3
+                text: !lambda |-
+                  float t = response["response"][3]["hi"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+            - lvgl.label.update:
+                id: forecast_temperature_lo_3
+                text: !lambda |-
+                  float t = response["response"][3]["lo"].as<float>();
+                  int ti = (int) lroundf(t);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+            - lvgl.image.update:
+                id: forecast_condition_icon_3
+                src: !lambda |-
+                  auto c = response["response"][3]["condition"].as<std::string>();
+                  if (c == "clear-night") return id(clear_night_${size});
+                  if (c == "cloudy") return id(cloudy_${size});
+                  if (c == "exceptional") return id(exceptional_${size});
+                  if (c == "fog") return id(fog_${size});
+                  if (c == "hail") return id(hail_${size});
+                  if (c == "lightning") return id(lightning_${size});
+                  if (c == "lightning-rainy") return id(lightning_rainy_${size});
+                  if (c == "partlycloudy") return id(partlycloudy_${size});
+                  if (c == "pouring") return id(pouring_${size});
+                  if (c == "rainy") return id(rainy_${size});
+                  if (c == "snowy") return id(snowy_${size});
+                  if (c == "snowy-rainy") return id(snowy_rainy_${size});
+                  if (c == "sunny") return id(sunny_${size});
+                  if (c == "windy" || c == "windy-variant") return id(windy_${size});
+                  return id(unknown_${size});
+
+          on_error:
+            - logger.log:
+                level: ERROR
+                format: "Failed to fetch weather forecast from Home Assistant"
+
+# Weather icons - included automatically
+image:
+  rgb565:
+    alpha_channel:
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-night-clear.svg
+        id: clear_night_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-cloudy.svg
+        id: cloudy_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/tstorms.svg
+        id: exceptional_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/fog.svg
+        id: fog_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/sleet.svg
+        id: hail_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/chancetstorms.svg
+        id: lightning_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/tstorms.svg
+        id: lightning_rainy_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-cloudy.svg
+        id: partlycloudy_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-rain.svg
+        id: pouring_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-showers.svg
+        id: rainy_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/snow.svg
+        id: snowy_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/chancesleet.svg
+        id: snowy_rainy_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-sunny.svg
+        id: sunny_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/windy.svg
+        id: windy_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/unknown.svg
+        id: unknown_${size}
+        resize: ${size}x${size}
+
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/circle-slash.svg
+        id: unavailable_${size}
+        resize: ${size}x${size}

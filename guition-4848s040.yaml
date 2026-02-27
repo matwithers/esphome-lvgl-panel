@@ -80,17 +80,17 @@ packages:
   # Display weather forecast using direct HA action (no template sensor needed!)
   # Icons are included automatically in the action file
   weather_forecast_80: !include
-    file: esphome-lvgl-panel/weather_homeassistant/weather_forecast_action.yaml
+    file: esphome-lvgl-panel/modules/weather/weather.yaml
     vars:
       size: 80
       weather_entity: weather.met_office_totton
   # Get todays weather and display it (icons included automatically)
-  weather_today_200: !include
-    file: esphome-lvgl-panel/weather_homeassistant/weather_today.yaml
-    vars:
-      size: 80
-      weather_entity: weather.met_office_totton
-      weather_summary: sensor.home_hourly_summary
+  #weather_today_200: !include
+  #  file: esphome-lvgl-panel/weather_homeassistant/weather_today.yaml
+  #  vars:
+  #    size: 80
+  #    weather_entity: weather.met_office_totton
+  #    weather_summary: sensor.home_hourly_summary
 
 # Styles for Weather forecast
 .forecast_styles:
