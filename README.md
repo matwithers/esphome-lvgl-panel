@@ -37,11 +37,11 @@ Alerting (for example heating activity) is contextual and subtle — not full-sc
 
 This configuration is specifically tuned for:
 
-- Guition 4848S040
-- 480×480 resolution
-- ESP32-based
-- Capacitive touch
-- LVGL via ESPHome
+- Guition 4848S040  
+- 480×480 resolution  
+- ESP32-based  
+- Capacitive touch  
+- LVGL via ESPHome  
 
 While components may work on similar displays, this project assumes the Guition layout and dimensions.
 
@@ -57,6 +57,24 @@ This version replaces it with Inter and introduces semantic font IDs to decouple
 - Font purpose  
 
 This makes it easy to change typography later without rewriting layout code.
+
+---
+
+## Weather Icons
+
+Weather icons are based on the excellent **Weather Icons** project by Erik Flowers:
+
+https://github.com/erikflowers/weather-icons
+
+Icons used in this project are derived from that set and have been:
+
+- Converted to SVG assets for ESPHome use  
+- Recoloured to match the panel’s light/dark theme system  
+- Normalised for consistent sizing within a 480×480 layout  
+- Slightly adapted where necessary (e.g. `unknown` and `unavailable` states)
+
+All credit for the original icon designs belongs to Erik Flowers.  
+This project only adapts and styles the assets for embedded display use.
 
 ---
 
@@ -86,7 +104,10 @@ Over time, dependency on the original repository will reduce as components are c
 
 ## Credits
 
-Massive thanks to **agillis** for creating the original modular LVGL button framework. This project builds upon that foundation with hardware-specific refinement and a more opinionated UI direction.
+Massive thanks to **agillis** for creating the original modular LVGL button framework.  
+Weather icon designs by **Erik Flowers** (Weather Icons project).
+
+This project builds upon both foundations with hardware-specific refinement and a more opinionated UI direction.
 
 ---
 
