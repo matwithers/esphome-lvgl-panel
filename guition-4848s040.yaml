@@ -160,19 +160,20 @@ text_sensor:
             char buf[8];
             snprintf(buf, sizeof(buf), "%d%%", level);
 
-            lvgl::Label *label = id(ev_battery_level);
+            // id(ev_battery_level) is an lv_obj_t* (LVGL label object)
+            lv_obj_t *label = id(ev_battery_level);
 
-            // Update text
-            label->set_text(buf);
+            // Update label text
+            lv_label_set_text(label, buf);
 
-            // Update color based on level
-            if (level >= 60) {
-              label->set_text_color(id(battery_green));
-            } else if (level >= 30) {
-              label->set_text_color(id(battery_amber));
-            } else {
-              label->set_text_color(id(battery_red));
-            }
+            // Pick a colour (Material-ish)
+            uint32_t hex =
+              (level >= 60) ? 0x4CAF50 :   // green
+              (level >= 30) ? 0xFFB300 :   // amber
+                              0xE53935;    // red
+
+            // Apply text colour
+            lv_obj_set_style_text_color(label, lv_color_hex(hex), LV_PART_MAIN);
 
   - platform: homeassistant
     entity_id: sensor.leaf_range_ac_off
