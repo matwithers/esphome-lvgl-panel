@@ -651,7 +651,7 @@ image:
         id: pouring_${size}
         resize: ${size}x${size}
 
-      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-showers.svg.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-showers.svg
         id: rainy_${size}
         resize: ${size}x${size}
 
