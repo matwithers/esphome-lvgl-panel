@@ -22,6 +22,11 @@ font:
     bpp: 8
 
   - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
+    id: font_display_32
+    size: 32
+    bpp: 8
+
+  - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: font_body_24
     size: 24
     bpp: 8
