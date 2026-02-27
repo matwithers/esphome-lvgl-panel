@@ -28,7 +28,6 @@ substitutions:
   screen_height: '480'
   screen_width: '480'
 
-
 esphome:
   name: "guition-4848s040"
   friendly_name: "Guition 4848s040"
@@ -84,13 +83,6 @@ packages:
     vars:
       size: 80
       weather_entity: weather.met_office_totton
-  # Get todays weather and display it (icons included automatically)
-  #weather_today_200: !include
-  #  file: esphome-lvgl-panel/weather_homeassistant/weather_today.yaml
-  #  vars:
-  #    size: 80
-  #    weather_entity: weather.met_office_totton
-  #    weather_summary: sensor.home_hourly_summary
 
 # Styles for Weather forecast
 .forecast_styles:

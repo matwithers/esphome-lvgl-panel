@@ -71,6 +71,9 @@ script:
             {{ out | tojson }}
 
           on_success:
+            - logger.log:
+                level: INFO
+                format: "Forecast fetch OK: updating widgets"
             # --- Day 0 ---
             - lvgl.label.update:
                 id: forecast_day_0
@@ -98,22 +101,25 @@ script:
             - lvgl.image.update:
                 id: forecast_condition_icon_0
                 src: !lambda |-
-                  auto c = response["response"][0]["condition"].as<std::string>();
-                  if (c == "clear-night") return id(clear_night_${size});
-                  if (c == "cloudy") return id(cloudy_${size});
-                  if (c == "exceptional") return id(exceptional_${size});
-                  if (c == "fog") return id(fog_${size});
-                  if (c == "hail") return id(hail_${size});
-                  if (c == "lightning") return id(lightning_${size});
-                  if (c == "lightning-rainy") return id(lightning_rainy_${size});
-                  if (c == "partlycloudy") return id(partlycloudy_${size});
-                  if (c == "pouring") return id(pouring_${size});
-                  if (c == "rainy") return id(rainy_${size});
-                  if (c == "snowy") return id(snowy_${size});
-                  if (c == "snowy-rainy") return id(snowy_rainy_${size});
-                  if (c == "sunny") return id(sunny_${size});
-                  if (c == "windy" || c == "windy-variant") return id(windy_${size});
-                  return id(unknown_${size});
+                  auto arr = response["response"].as<JsonArray>();
+                  auto c = arr[0]["condition"].as<std::string>();
+
+                  if (c == "clear-night") return std::string("clear_night_${size}");
+                  if (c == "cloudy") return std::string("cloudy_${size}");
+                  if (c == "partlycloudy") return std::string("partlycloudy_${size}");
+                  if (c == "sunny") return std::string("sunny_${size}");
+                  if (c == "rainy") return std::string("rainy_${size}");
+                  if (c == "pouring") return std::string("pouring_${size}");
+                  if (c == "snowy") return std::string("snowy_${size}");
+                  if (c == "snowy-rainy") return std::string("snowy_rainy_${size}");
+                  if (c == "windy" || c == "windy-variant") return std::string("windy_${size}");
+                  if (c == "fog") return std::string("fog_${size}");
+                  if (c == "hail") return std::string("hail_${size}");
+                  if (c == "lightning") return std::string("lightning_${size}");
+                  if (c == "lightning-rainy") return std::string("lightning_rainy_${size}");
+                  if (c == "exceptional") return std::string("exceptional_${size}");
+                  if (c == "unavailable") return std::string("unavailable_${size}");
+                  return std::string("unknown_${size}");
 
             # --- Day 1 ---
             - lvgl.label.update:
