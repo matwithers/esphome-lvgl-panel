@@ -168,8 +168,8 @@ text_sensor:
 
             // Pick a colour (Material-ish)
             uint32_t hex =
-              (level >= 60) ? 0x4CAF50 :   // green
-              (level >= 30) ? 0xFFB300 :   // amber
+              (level >= 40) ? 0x4CAF50 :   // green
+              (level >= 15) ? 0xFFB300 :   // amber
                               0xE53935;    // red
 
             // Apply text colour
