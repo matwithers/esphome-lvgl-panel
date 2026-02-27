@@ -66,11 +66,11 @@ image:
         id: now_partlycloudy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/rain.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-rain.svg
         id: now_pouring_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/chancerain.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-showers.svg
         id: now_rainy_${size}
         resize: ${size}x${size}
 
