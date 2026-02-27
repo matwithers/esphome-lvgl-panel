@@ -110,7 +110,6 @@ packages:
   - &forecast_obj_base
     height: SIZE_CONTENT
     width: SIZE_CONTENT
-    #bg_color: color_surface
     radius: 3
     pad_top: 2
     pad_bottom: 2
@@ -156,7 +155,7 @@ text_sensor:
     on_value:
       then:
         - lvgl.label.update:
-            id: ev_battery_level
+            id: ev_battery_percent
             text:
               format: "%s%%"
               args: ['id(leaf_battery_level).state.c_str()']
@@ -216,30 +215,66 @@ lvgl:
                   text_font: font_body_24
 
         - container:
+            id: ev_tile
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
             grid_cell_row_pos: 0
             grid_cell_column_pos: 2
             grid_cell_row_span: 3
             grid_cell_column_span: 2
+            bg_color: color_background
             layout:
               type: flex
-              flex_flow: COLUMN
-              flex_align_main: center
+              flex_flow: ROW
+              flex_align_main: space_evenly
               flex_align_cross: center
-              pad_row: 2
             widgets:
-              - label:
-                  text: "EV"
-                  text_font: font_body_20
-              - label:
-                  id: ev_battery_level
-                  text: "--%"
-                  text_font: font_display_48
-              - label:
-                  id: ev_range
-                  text: "-- mi"
-                  text_font: font_body_24
+              # Left: car image
+              - image:
+                  id: ev_car_icon
+                  src: car_outline_dark_200
+                  align: center
+
+              # Right: values
+              - container:
+                  id: ev_values_col
+                  width: SIZE_CONTENT
+                  height: SIZE_CONTENT
+                  layout:
+                    type: flex
+                    flex_flow: COLUMN
+                    flex_align_main: center
+                    flex_align_cross: start
+                  widgets:
+                    # Battery row: icon + %
+                    - container:
+                        width: SIZE_CONTENT
+                        height: SIZE_CONTENT
+                        layout:
+                          type: flex
+                          flex_flow: ROW
+                          flex_align_main: start
+                          flex_align_cross: center
+                        widgets:
+                          - label:
+                              id: ev_battery_icon
+                              text: "🔋"
+                              text_font: font_body_24
+                              text_color: color_primary_text
+                          - label:
+                              id: ev_battery_percent
+                              text: "--%"
+                              text_font: font_body_24
+                              text_color: color_primary_text
+                              pad_left: 6
+
+                    # Range row
+                    - label:
+                        id: ev_range
+                        text: "--- mi"
+                        text_font: font_body_24
+                        text_color: color_secondary_text
+                        pad_top: 4
 
         - container:
             grid_cell_x_align: stretch
