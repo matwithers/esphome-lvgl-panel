@@ -170,7 +170,7 @@ text_sensor:
           text: !lambda |-
             float range = atof(id(leaf_range).state.c_str());
             char buf[16];
-            snprintf(buf, sizeof(buf), "%.0f mi", range);
+            snprintf(buf, sizeof(buf), "%.0f miles", range);
             return std::string(buf);
 
 image:
@@ -250,7 +250,7 @@ lvgl:
                         id: ev_battery_level
                         text: "--%"
                         align: center
-                        x: 30       # tweak this
+                        x: 20       # tweak this
                         y: -8       # tweak this
                         text_font: font_body_32
                         text_color: color_primary_text
@@ -259,7 +259,7 @@ lvgl:
               # ---- Range below car ----
               - label:
                   id: ev_range
-                  text: "--- mi"
+                  text: "--- miles"
                   text_font: font_body_24
                   text_color: color_secondary_text
                   text_align: center
