@@ -215,67 +215,56 @@ lvgl:
                   text_font: font_body_24
 
         - container:
-            id: ev_tile
+            id: ev_container
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
             grid_cell_row_pos: 0
             grid_cell_column_pos: 2
             grid_cell_row_span: 3
             grid_cell_column_span: 2
+
             bg_color: color_background
+
             layout:
               type: flex
-              flex_flow: ROW
-              flex_align_main: space_evenly
+              flex_flow: COLUMN
               flex_align_cross: center
-            widgets:
-              # Left: car image
-              - image:
-                  id: ev_car_icon
-                  src: car_outline_dark_200
-                  align: center
+              flex_align_main: center
+              pad_row: 6
 
-              # Right: values
-              - container:
-                  id: ev_values_col
+            widgets:
+              # ---- Car + % overlay ----
+              - obj:
+                  id: ev_car_overlay
                   width: SIZE_CONTENT
                   height: SIZE_CONTENT
-                  layout:
-                    type: flex
-                    flex_flow: COLUMN
-                    flex_align_main: center
-                    flex_align_cross: start
+                  bg_opa: TRANSP
+
                   widgets:
-                    # Battery row: icon + %
-                    - container:
-                        width: SIZE_CONTENT
-                        height: SIZE_CONTENT
-                        layout:
-                          type: flex
-                          flex_flow: ROW
-                          flex_align_main: start
-                          flex_align_cross: center
-                        widgets:
-                          - label:
-                              id: ev_battery_icon
-                              text: "🔋"
-                              text_font: font_body_24
-                              text_color: color_primary_text
-                          - label:
-                              id: ev_battery_percent
-                              text: "--%"
-                              text_font: font_body_24
-                              text_color: color_primary_text
-                              pad_left: 6
+                    - image:
+                        id: ev_car_icon
+                        src: car_outline_dark_200
+                        align: center
 
-                    # Range row
                     - label:
-                        id: ev_range
-                        text: "--- mi"
-                        text_font: font_body_24
-                        text_color: color_secondary_text
-                        pad_top: 4
+                        id: ev_battery_level
+                        text: "--%"
+                        align: center
+                        x: 45       # tweak this
+                        y: -8       # tweak this
+                        text_font: font_body_32
+                        text_color: color_primary_text
+                        text_align: center
 
+              # ---- Range below car ----
+              - label:
+                  id: ev_range
+                  text: "--- mi"
+                  text_font: font_body_24
+                  text_color: color_secondary_text
+                  text_align: center
+
+                  
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
