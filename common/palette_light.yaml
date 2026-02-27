@@ -1,16 +1,16 @@
 color:
   - id: color_background
-    hex: '1C2128'      # slightly deeper, less blue than 1F242D
+    hex: 'F5F7FA'      # soft off-white (slightly cool)
   - id: color_surface
-    hex: '262D36'      # lifted but not bright
+    hex: 'FFFFFF'      # cards/pop areas
   - id: color_primary_text
-    hex: 'E4E8ED'      # softer than pure E6E6E6
+    hex: '1F2328'      # soft near-black
   - id: color_secondary_text
-    hex: 'A6AFBB'      # slightly muted
+    hex: '5B6675'      # readable muted text
   - id: color_accent
-    hex: 'FFB74D'      # warmer amber (less neon than FFB300)
+    hex: 'E08A00'      # deeper amber (visible on white)
   - id: color_outline
-    hex: '39424F'      # subtle border tone
+    hex: 'D7DEE8'      # subtle divider
 
   - id: battery_green
     hex: "4CAF50"
