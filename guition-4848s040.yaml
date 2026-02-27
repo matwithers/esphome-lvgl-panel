@@ -3,7 +3,7 @@
 substitutions:
   icon_font: mdi_icons_40
   text_font: font_body_20
-  display_mode: light   # or light
+  display_mode: dark   # or light
   text_color: color_primary_text
   bg_color: color_background
   button_on_color: color_accent
@@ -54,8 +54,8 @@ time:
 packages:
   # Generic configuration for ESP32 screens
   # All the colors
-  #colors: !include esphome-lvgl-panel/common/palette_dark.yaml
-  colors: !include esphome-lvgl-panel/common/palette_light.yaml
+  colors: !include esphome-lvgl-panel/common/palette_dark.yaml
+  #colors: !include esphome-lvgl-panel/common/palette_light.yaml
   # Fonts you need
   fonts: !include esphome-lvgl-panel/common/fonts.yaml
   # 1000s of glyphs
