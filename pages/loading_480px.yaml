@@ -7,10 +7,10 @@ globals:
 image:
   rgb565:
     alpha_channel:
-      - file: 'esphome-modular-lvgl-buttons/assets/images/loading/homeassistant.png'
+      - file: 'esphome-lvgl-page/assets/loading/homeassistant.png'
         id: ha_img
         resize: 400x82
-      - file: 'esphome-modular-lvgl-buttons/assets/images/loading/esphome.png'
+      - file: 'esphome-lvgl-page/assets/loading/esphome.png'
         id: esphome_img
         resize: 320x95
 

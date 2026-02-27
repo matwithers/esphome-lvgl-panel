@@ -9,7 +9,7 @@ lvgl:
     - id: info_screen
       styles: boot_screen_style
       <<: !include
-        file: ../../esphome-modular-lvgl-buttons/widgets/swipe_navigation.yaml
+        file: ../modules/swipe_navigation/swipe_navigation.yaml
       widgets:
         - obj:
             width: 100%

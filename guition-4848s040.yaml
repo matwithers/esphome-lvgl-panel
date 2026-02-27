@@ -58,18 +58,16 @@ packages:
   # Fonts you need
   fonts: !include esphome-lvgl-panel/common/fonts.yaml
   # 1000s of glyphs
-  glyphs: !include esphome-modular-lvgl-buttons/common/mdi_glyph_substitutions.yaml
+  glyphs: !include esphome-lvgl-panel/common/mdi_glyph_substitutions.yaml
   # SDL has no Wi-Fi wifi: 
-  wifi: !include esphome-modular-lvgl-buttons/common/wifi.yaml
+  wifi: !include esphome-lvgl-panel/common/wifi.yaml
   # Some basic sensors
-  #sensors: !include esphome-modular-lvgl-buttons/sensors/sensors_base-SDL.yaml
-  sensors: !include esphome-modular-lvgl-buttons/sensors/sensors_base.yaml
+  sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
   # Styles + Themes
   theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
 
   # Harware description file
-  #hardware: !include esphome-modular-lvgl-buttons/hardware/SDL-lvgl.yaml
-  hardware: !include esphome-modular-lvgl-buttons/hardware/guition-esp32-s3-4848s040.yaml
+  hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
 
   # Basic boot screen with ESPHome logo and device diagnostic info
   loading_screen: !include esphome-lvgl-panel/pages/loading_480px.yaml
@@ -194,7 +192,7 @@ lvgl:
     - id: main_page
       layout: 9x4
       styles: page_style
-      <<: !include esphome-modular-lvgl-buttons/widgets/swipe_navigation.yaml
+      <<: !include esphome-lvgl-panel/modules/swipe_navigation/swipe_navigation.yaml
       bg_color: color_background
       widgets:
         - container:
