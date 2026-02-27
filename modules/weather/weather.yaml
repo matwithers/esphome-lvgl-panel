@@ -299,7 +299,7 @@ image:
         id: sunny_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/windy.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-cloudy-gusts.svg
         id: windy_${size}
         resize: ${size}x${size}
 
