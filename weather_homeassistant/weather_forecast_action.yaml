@@ -615,11 +615,11 @@ script:
 image:
   rgb565:
     alpha_channel:
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/nt_clear.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-night-clear.svg
         id: clear_night_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/cloudy.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-cloudy.svg
         id: cloudy_${size}
         resize: ${size}x${size}
 
@@ -663,7 +663,7 @@ image:
         id: snowy_rainy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/sunny.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-sunny.svg
         id: sunny_${size}
         resize: ${size}x${size}
 
