@@ -643,7 +643,7 @@ image:
         id: lightning_rainy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/partlycloudy.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-cloudy.svg
         id: partlycloudy_${size}
         resize: ${size}x${size}
 
@@ -663,7 +663,7 @@ image:
         id: snowy_rainy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-sunny.svg
+      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/sunny.svg
         id: sunny_${size}
         resize: ${size}x${size}
 

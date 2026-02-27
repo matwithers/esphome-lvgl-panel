@@ -62,7 +62,7 @@ image:
         id: now_lightning_rainy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/partlycloudy.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-cloudy.svg
         id: now_partlycloudy_${size}
         resize: ${size}x${size}
 
