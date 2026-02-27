@@ -57,22 +57,18 @@ script:
             entity_id: ${weather_entity | default("weather.home")}
           capture_response: true
           response_template: >-
-            {% set fc = response["${weather_entity | default('weather.home')}"].forecast | default([]) %}
-            {% set out = [] %}
-            {% for i in range(0,4) %}
-              {% set f = fc[i] if fc|length > i else dict() %}
-              {% set dt = f.datetime | default(f.datetime_iso | default(f.time | default(none))) %}
-              {% set day = (as_timestamp(dt) | timestamp_custom('%a')) if dt else "—" %}
-              {% set hi = f.temperature | default(f.temperature_high | default(0)) %}
-              {% set lo = f.templow | default(f.temperature_low | default(0)) %}
-              {% set out = out + [ {
-                "day": day,
+            {% set fc = response["${weather_entity | default('weather.home')}"]["forecast"] %}
+            {% set ns = namespace(out=[]) %}
+            {% for i in range(0, 4) %}
+              {% set f = fc[i] if fc is defined and fc|length > i else dict() %}
+              {% set ns.out = ns.out + [ {
+                "day": (as_timestamp(f.datetime) | timestamp_custom('%a')) if f.datetime is defined else "—",
                 "condition": (f.condition | default('unknown')),
-                "hi": hi,
-                "lo": lo
+                "hi": (f.temperature | default(0)),
+                "lo": (f.templow | default(0))
               } ] %}
             {% endfor %}
-            {{ out | tojson }}
+            {{ ns.out | tojson }}
 
           on_success:
             - logger.log:
