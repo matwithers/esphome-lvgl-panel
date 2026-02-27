@@ -155,7 +155,7 @@ text_sensor:
     on_value:
       then:
         - lvgl.label.update:
-            id: ev_battery_percent
+            id: ev_battery_level
             text:
               format: "%s%%"
               args: ['id(leaf_battery_level).state.c_str()']
@@ -264,7 +264,7 @@ lvgl:
                   text_color: color_secondary_text
                   text_align: center
 
-                  
+
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
