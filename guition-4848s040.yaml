@@ -250,7 +250,7 @@ lvgl:
                         id: ev_battery_level
                         text: "--%"
                         align: center
-                        x: 45       # tweak this
+                        x: 30       # tweak this
                         y: -8       # tweak this
                         text_font: font_body_32
                         text_color: color_primary_text
