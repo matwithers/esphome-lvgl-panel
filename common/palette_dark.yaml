@@ -12,6 +12,13 @@ color:
   - id: color_outline
     hex: '39424F'      # subtle border tone
 
+  - id: battery_green
+    hex: "4CAF50"
+  - id: battery_amber
+    hex: "FFB300"
+  - id: battery_red
+    hex: "E53935"
+
   # required esphome-modular-lvgl-buttons colors
   - id: very_dark_gray
     hex: '313131'

@@ -1,21 +1,23 @@
 color:
   - id: color_background
     hex: '1C2128'      # slightly deeper, less blue than 1F242D
-
   - id: color_surface
     hex: '262D36'      # lifted but not bright
-
   - id: color_primary_text
     hex: 'E4E8ED'      # softer than pure E6E6E6
-
   - id: color_secondary_text
     hex: 'A6AFBB'      # slightly muted
-
   - id: color_accent
     hex: 'FFB74D'      # warmer amber (less neon than FFB300)
-
   - id: color_outline
     hex: '39424F'      # subtle border tone
+
+  - id: battery_green
+    hex: "4CAF50"
+  - id: battery_amber
+    hex: "FFB300"
+  - id: battery_red
+    hex: "E53935"
 
   # required esphome-modular-lvgl-buttons colors
   - id: very_dark_gray
