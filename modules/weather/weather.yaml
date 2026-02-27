@@ -255,23 +255,23 @@ image:
         id: cloudy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/tstorms.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-thunderstorm.svg
         id: exceptional_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/fog.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-fog.svg
         id: fog_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/sleet.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-hail.svg
         id: hail_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/chancetstorms.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-lightning.svg
         id: lightning_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/tstorms.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-thunderstorm.svg
         id: lightning_rainy_${size}
         resize: ${size}x${size}
 
@@ -287,11 +287,11 @@ image:
         id: rainy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/snow.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-snow.svg
         id: snowy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/chancesleet.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-sleet.svg
         id: snowy_rainy_${size}
         resize: ${size}x${size}
 
@@ -303,10 +303,10 @@ image:
         id: windy_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/unknown.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/unknown.svg
         id: unknown_${size}
         resize: ${size}x${size}
 
-      - file: esphome-modular-lvgl-buttons/weather_homeassistant/assets/images/circle-slash.svg
+      - file: esphome-lvgl-panel/modules/weather/assets/images/unavailable.svg
         id: unavailable_${size}
         resize: ${size}x${size}
