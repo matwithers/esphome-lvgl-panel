@@ -55,10 +55,6 @@ api:
   on_client_connected:
     - script.execute: time_update
 
-time:
-  - platform: homeassistant
-    id: system_time
-
 packages:
   # Generic configuration for ESP32 screens
   # All the colors
