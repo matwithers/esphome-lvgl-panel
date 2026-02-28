@@ -1,0 +1,19 @@
+---
+# Time and Date core
+#
+# Simply shows the time and date
+
+script:
+  - id: time_update
+    then:
+      - lvgl.label.update:
+          id: current_time
+          text: !lambda 'return id(system_time).now().strftime("%H:%M");'
+      - lvgl.label.update:
+          id: month_day
+          text: !lambda |- # Month Day
+            auto time = id(system_time).now();
+            int day = time.day_of_month;
+            char strftime_buf[64];
+            snprintf(strftime_buf, sizeof(strftime_buf), "%s %d", time.strftime("%B").c_str(), day);
+            return {strftime_buf};
