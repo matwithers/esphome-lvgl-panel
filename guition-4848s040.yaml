@@ -77,11 +77,6 @@ packages:
     !include
     file: esphome-lvgl-panel/modules/ev/ev_status.yaml
     vars:
-      page_id: main_page
-      row_pos: "0"
-      column_pos: "2"
-      row_span: "3"
-      column_span: "2"
       battery_level_entity: sensor.leaf_battery_level
       range_entity: sensor.leaf_range_ac_off
       charging_state_entity: binary_sensor.leaf_charging
@@ -186,6 +181,10 @@ lvgl:
                   width: 100%
                   text_align: center
                   text_font: font_body_24
+
+        - !include
+            file: esphome-lvgl-panel/modules/ev/ev_widget.yaml
+            vars: { row_pos: "0", column_pos: "6", row_span: "4", column_span: "6" }
 
         - container:
             grid_cell_x_align: stretch

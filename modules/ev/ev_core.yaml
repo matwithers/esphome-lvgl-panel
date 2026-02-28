@@ -1,0 +1,77 @@
+---
+# EV Status core
+#
+# Shows charge, range and charge indicator
+#
+# vars:
+#   battery_level_entity: eg. sensor.leaf_battery_level
+#   range_entity: eg. sensor.leaf_range_ac_off
+#   charging_state_entity: eg. binary_sensor.leaf_charging
+
+script:
+  - id: render_ev_battery
+    then:
+      - lambda: |-
+          // Battery %
+          int level = atoi(id(leaf_battery_level).state.c_str());
+          bool charging = id(leaf_charging).state;
+
+          if (charging) {
+            lv_obj_clear_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
+          } else {
+            lv_obj_add_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
+          }
+
+          // Build label text
+          char buf[16];
+          snprintf(buf, sizeof(buf), "%d%%", level);
+          lv_obj_t *label = id(ev_battery_level);
+          lv_label_set_text(label, buf);
+
+          uint32_t hex;
+          if (charging) {
+            hex = 0x2196F3; // Material-ish blue
+          } else {
+            hex =
+              (level >= 40) ? 0x4CAF50 :   // green
+              (level >= 15) ? 0xFFB300 :   // amber
+                             0xE53935;    // red
+          }
+
+          lv_obj_set_style_text_color(label, lv_color_hex(hex), LV_PART_MAIN);
+
+text_sensor:
+  - platform: homeassistant
+    entity_id: ${battery_level_entity | default("sensor.leaf_battery_level")}
+    id: leaf_battery_level
+    on_value:
+      then:
+        - script.execute: render_ev_battery
+
+  - platform: homeassistant
+    entity_id: ${range_entity | default("sensor.leaf_range_ac_off")}
+    id: leaf_range
+    on_value:
+      then:
+      - lvgl.label.update:
+          id: ev_range
+          text: !lambda |-
+            float range = atof(id(leaf_range).state.c_str());
+            char buf[16];
+            snprintf(buf, sizeof(buf), "%.0f miles", range);
+            return std::string(buf);
+
+binary_sensor:
+  - platform: homeassistant
+    entity_id: ${charging_state_entity | default("binary_sensor.leaf_charging")}
+    id: leaf_charging
+    on_state:
+      then:
+        - script.execute: render_ev_battery
+
+image:
+  rgb565:
+    alpha_channel:
+      - file: esphome-lvgl-panel/modules/ev/assets/images/car_outline_${display_mode}.svg
+        id: car_outline_dark_200
+        resize: 200x200
