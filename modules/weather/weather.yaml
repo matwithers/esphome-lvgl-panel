@@ -11,6 +11,7 @@ time:
   - platform: homeassistant
     on_time:
       - minutes: /15
+        seconds: 0
         then:
           - script.execute: fetch_weather_forecast
 
