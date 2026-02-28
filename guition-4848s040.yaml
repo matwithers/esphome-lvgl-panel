@@ -75,7 +75,7 @@ packages:
 
   ev_widget:
     !include
-    file: esphome-lvgl-panel/modules/ev/ev_status.yaml
+    file: esphome-lvgl-panel/modules/ev/ev_core.yaml
     vars:
       battery_level_entity: sensor.leaf_battery_level
       range_entity: sensor.leaf_range_ac_off
