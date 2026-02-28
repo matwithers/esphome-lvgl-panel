@@ -125,6 +125,11 @@ packages:
   - &forecast_image_base
     height: SIZE_CONTENT
 
+globals:
+  - id: leaf_is_charging
+    type: bool
+    initial_value: "false"
+
 script:
   - id: time_update
     then:
@@ -140,32 +145,58 @@ script:
             snprintf(strftime_buf, sizeof(strftime_buf), "%s %d", time.strftime("%B").c_str(), day);
             return {strftime_buf};
 
+  - id: render_ev_battery
+    then:
+      - lambda: |-
+          // Battery %
+          int level = atoi(id(leaf_battery_level).state.c_str());
+          bool charging = id(leaf_is_charging);
+
+          // Build label text (lightning when charging)
+          char buf[16];
+          if (charging) {
+            // UTF-8 lightning. If your font doesn't include it, it'll show as tofu.
+            // Alternative: use "⚡ " or just "CHG " prefix.
+            snprintf(buf, sizeof(buf), "⚡ %d%%", level);
+          } else {
+            snprintf(buf, sizeof(buf), "%d%%", level);
+          }
+
+          lv_obj_t *label = id(ev_battery_level);
+          lv_label_set_text(label, buf);
+
+          // Colour rules:
+          // - If charging: force blue
+          // - Else: keep your traffic-light scheme
+          uint32_t hex;
+          if (charging) {
+            hex = 0x2196F3; // Material-ish blue
+          } else {
+            hex =
+              (level >= 40) ? 0x4CAF50 :   // green
+              (level >= 15) ? 0xFFB300 :   // amber
+                             0xE53935;    // red
+          }
+
+          lv_obj_set_style_text_color(label, lv_color_hex(hex), LV_PART_MAIN);
+
 text_sensor:
   - platform: homeassistant
     entity_id: sensor.leaf_battery_level
     id: leaf_battery_level
     on_value:
       then:
+        - script.execute: render_ev_battery
+
+binary_sensor:
+  - platform: homeassistant
+    entity_id: binary_sensor.leaf_charging
+    id: leaf_charging
+    on_state:
+      then:
         - lambda: |-
-            int level = atoi(id(leaf_battery_level).state.c_str());
-
-            char buf[8];
-            snprintf(buf, sizeof(buf), "%d%%", level);
-
-            // id(ev_battery_level) is an lv_obj_t* (LVGL label object)
-            lv_obj_t *label = id(ev_battery_level);
-
-            // Update label text
-            lv_label_set_text(label, buf);
-
-            // Pick a colour (Material-ish)
-            uint32_t hex =
-              (level >= 40) ? 0x4CAF50 :   // green
-              (level >= 15) ? 0xFFB300 :   // amber
-                              0xE53935;    // red
-
-            // Apply text colour
-            lv_obj_set_style_text_color(label, lv_color_hex(hex), LV_PART_MAIN);
+            id(leaf_is_charging) = id(leaf_charging).state;
+        - script.execute: render_ev_battery
 
   - platform: homeassistant
     entity_id: sensor.leaf_range_ac_off
