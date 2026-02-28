@@ -7,5 +7,5 @@
 ## complexity
 ---
 substitutions:
-  mdi_home_lightning_bolt: "\U000F1903"
-  mdi_home_lightning_bolt_outline: "\U000F1904"
+  mdi_lightning_bolt: "\U000F140B"
+  mdi_lightning_bolt_outline: "\U000F140C"
