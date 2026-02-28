@@ -73,6 +73,10 @@ packages:
   loading_screen: !include esphome-lvgl-panel/pages/loading_480px.yaml
   info_screen: !include esphome-lvgl-panel/pages/info.yaml
 
+  time_date_widget:
+    !include
+    file: esphome-lvgl-panel/modules/time_date/time_date_core.yaml
+
   ev_widget:
     !include
     file: esphome-lvgl-panel/modules/ev/ev_core.yaml
@@ -133,20 +137,6 @@ packages:
   - &forecast_image_base
     height: SIZE_CONTENT
 
-script:
-  - id: time_update
-    then:
-      - lvgl.label.update:
-          id: current_time
-          text: !lambda 'return id(system_time).now().strftime("%H:%M");'
-      - lvgl.label.update:
-          id: month_day
-          text: !lambda |- # Month Day
-            auto time = id(system_time).now();
-            int day = time.day_of_month;
-            char strftime_buf[64];
-            snprintf(strftime_buf, sizeof(strftime_buf), "%s %d", time.strftime("%B").c_str(), day);
-            return {strftime_buf};
 
 lvgl:
   pages:
