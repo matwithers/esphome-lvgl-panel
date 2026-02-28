@@ -73,6 +73,19 @@ packages:
   loading_screen: !include esphome-lvgl-panel/pages/loading_480px.yaml
   info_screen: !include esphome-lvgl-panel/pages/info.yaml
 
+  ev_widget:
+    !include
+    file: esphome-lvgl-panel/modules/ev/ev_widget.yaml
+    vars:
+      page_id: main_page
+      row_pos: "0"
+      column_pos: "2"
+      row_span: "3"
+      column_span: "2"
+      battery_level_entity: sensor.leaf_battery_level
+      range_entity: sensor.leaf_range_ac_off
+      charging_state_entity: binary_sensor.leaf_charging
+
   # Weather packages
   # Display weather forecast using direct HA action (no template sensor needed!)
   # Icons are included automatically in the action file
@@ -140,80 +153,10 @@ script:
             snprintf(strftime_buf, sizeof(strftime_buf), "%s %d", time.strftime("%B").c_str(), day);
             return {strftime_buf};
 
-  - id: render_ev_battery
-    then:
-      - lambda: |-
-          // Battery %
-          int level = atoi(id(leaf_battery_level).state.c_str());
-          bool charging = id(leaf_charging).state;
-
-          if (charging) {
-            lv_obj_clear_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
-          } else {
-            lv_obj_add_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
-          }
-
-          // Build label text
-          char buf[16];
-          snprintf(buf, sizeof(buf), "%d%%", level);
-          lv_obj_t *label = id(ev_battery_level);
-          lv_label_set_text(label, buf);
-
-          // Colour rules:
-          // - If charging: force blue
-          // - Else: keep your traffic-light scheme
-          uint32_t hex;
-          if (charging) {
-            hex = 0x2196F3; // Material-ish blue
-          } else {
-            hex =
-              (level >= 40) ? 0x4CAF50 :   // green
-              (level >= 15) ? 0xFFB300 :   // amber
-                             0xE53935;    // red
-          }
-
-          lv_obj_set_style_text_color(label, lv_color_hex(hex), LV_PART_MAIN);
-
-text_sensor:
-  - platform: homeassistant
-    entity_id: sensor.leaf_battery_level
-    id: leaf_battery_level
-    on_value:
-      then:
-        - script.execute: render_ev_battery
-
-  - platform: homeassistant
-    entity_id: sensor.leaf_range_ac_off
-    id: leaf_range
-    on_value:
-      then:
-      - lvgl.label.update:
-          id: ev_range
-          text: !lambda |-
-            float range = atof(id(leaf_range).state.c_str());
-            char buf[16];
-            snprintf(buf, sizeof(buf), "%.0f miles", range);
-            return std::string(buf);
-
-binary_sensor:
-  - platform: homeassistant
-    entity_id: binary_sensor.leaf_charging
-    id: leaf_charging
-    on_state:
-      then:
-        - script.execute: render_ev_battery
-
-image:
-  rgb565:
-    alpha_channel:
-      - file: esphome-lvgl-panel/assets/images/car_outline_${display_mode}.svg
-        id: car_outline_dark_200
-        resize: 200x200
-
 lvgl:
   pages:
     - id: main_page
-      layout: 9x4
+      layout: 12x12
       styles: page_style
       <<: !include esphome-lvgl-panel/modules/swipe_navigation/swipe_navigation.yaml
       bg_color: color_background
@@ -223,8 +166,8 @@ lvgl:
             grid_cell_y_align: stretch
             grid_cell_row_pos: 0
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
-            grid_cell_column_span: 2
+            grid_cell_row_span: 4
+            grid_cell_column_span: 6
             layout:
               type: flex
               flex_flow: COLUMN
@@ -245,80 +188,12 @@ lvgl:
                   text_font: font_body_24
 
         - container:
-            id: ev_container
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 0
-            grid_cell_column_pos: 2
-            grid_cell_row_span: 3
-            grid_cell_column_span: 2
-
-            bg_color: color_background
-
-            layout:
-              type: flex
-              flex_flow: COLUMN
-              flex_align_cross: center
-              flex_align_main: center
-              pad_row: 6
-
-            widgets:
-              # ---- Car + % overlay ----
-              - obj:
-                  id: ev_car_overlay
-                  width: SIZE_CONTENT
-                  height: SIZE_CONTENT
-                  bg_opa: TRANSP
-
-                  widgets:
-                    - image:
-                        id: ev_car_icon
-                        src: car_outline_dark_200
-                        align: center
-                    - obj:
-                        id: ev_battery_row
-                        width: SIZE_CONTENT
-                        height: SIZE_CONTENT
-                        bg_opa: TRANSP
-                        align: center
-                        x: 12
-                        y: -3
-                        layout:
-                          type: flex
-                          flex_flow: ROW
-                          flex_align_main: center
-                          flex_align_cross: center
-                          pad_column: 3
-                        widgets:
-                          - label:
-                              id: ev_charge_icon
-                              text: "${mdi_lightning_bolt}"
-                              text_font: font_mdi_32
-                              text_color: 0x2196F3
-                              hidden: true
-                          - label:
-                              id: ev_battery_level
-                              text: "--%"
-                              text_font: font_body_32
-                              text_color: color_primary_text
-                              text_align: center
-
-              # ---- Range below car ----
-              - label:
-                  id: ev_range
-                  text: "--- miles"
-                  text_font: font_body_24
-                  text_color: color_secondary_text
-                  text_align: center
-
-
-        - container:
-            grid_cell_x_align: stretch
-            grid_cell_y_align: stretch
-            grid_cell_row_pos: 3
+            grid_cell_row_pos: 4
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
-            grid_cell_column_span: 2
+            grid_cell_row_span: 4
+            grid_cell_column_span: 6
             #outline_width: 1   # debug
             #outline_color: red # debug
             widgets:
@@ -341,10 +216,10 @@ lvgl:
         - container:
             grid_cell_x_align: stretch
             grid_cell_y_align: stretch
-            grid_cell_row_pos: 6
+            grid_cell_row_pos: 8
             grid_cell_column_pos: 0
-            grid_cell_row_span: 3
-            grid_cell_column_span: 4
+            grid_cell_row_span: 4
+            grid_cell_column_span: 12
             #outline_width: 1   # debug code - This is for visualizing boundries remove for production
             #outline_color: red # debug code - This is for visualizing boundries remove for production
             layout: 1x4
