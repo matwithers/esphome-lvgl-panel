@@ -75,7 +75,7 @@ packages:
 
   ev_widget:
     !include
-    file: esphome-lvgl-panel/modules/ev/ev_widget.yaml
+    file: esphome-lvgl-panel/modules/ev/ev_status.yaml
     vars:
       page_id: main_page
       row_pos: "0"
