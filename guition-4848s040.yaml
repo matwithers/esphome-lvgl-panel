@@ -28,6 +28,15 @@ substitutions:
   screen_height: '480'
   screen_width: '480'
 
+  # LCD backlight modes - Code in backlight.yaml
+  # Day mode is set to Sunrise
+  # Evening mode is set to sunset
+  # Set Night mode  at Midnight here
+  screen_night_hour: "23"
+  screen_night_minute: "0"
+  screen_day_hour: "7"
+  screen_day_minute: "0"
+
 esphome:
   name: "guition-4848s040"
   friendly_name: "Guition 4848s040"
