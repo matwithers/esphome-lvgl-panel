@@ -157,8 +157,7 @@ script:
           if (charging) {
             // UTF-8 lightning. If your font doesn't include it, it'll show as tofu.
             // Alternative: use "⚡ " or just "CHG " prefix.
-            snprintf(buf, sizeof(buf), "⚡%d%%", level);
-            snprintf(buf, sizeof(buf), "${mdi_home_lightning_bolt}%d%%", level);
+            snprintf(buf, sizeof(buf), "%s%d%%", "${mdi_home_lightning_bolt}", level);
           } else {
             snprintf(buf, sizeof(buf), "%d%%", level);
           }
