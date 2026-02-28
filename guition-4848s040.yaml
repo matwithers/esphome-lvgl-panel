@@ -187,17 +187,7 @@ text_sensor:
     on_value:
       then:
         - script.execute: render_ev_battery
-
-binary_sensor:
-  - platform: homeassistant
-    entity_id: binary_sensor.leaf_charging
-    id: leaf_charging
-    on_state:
-      then:
-        - lambda: |-
-            id(leaf_is_charging) = id(leaf_charging).state;
-        - script.execute: render_ev_battery
-
+        
   - platform: homeassistant
     entity_id: sensor.leaf_range_ac_off
     id: leaf_range
@@ -210,6 +200,18 @@ binary_sensor:
             char buf[16];
             snprintf(buf, sizeof(buf), "%.0f miles", range);
             return std::string(buf);
+
+binary_sensor:
+  - platform: homeassistant
+    entity_id: binary_sensor.leaf_charging
+    id: leaf_charging
+    on_state:
+      then:
+        - lambda: |-
+            id(leaf_is_charging) = id(leaf_charging).state;
+        - script.execute: render_ev_battery
+
+
 
 image:
   rgb565:
