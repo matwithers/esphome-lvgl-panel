@@ -75,6 +75,8 @@ packages:
   sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
   # Styles + Themes
   theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
+  # Include if your touch screen has a backlight. Also sets the time from HA
+  backlight: !include esphome-lvgl-panel/common/backlight_time.yaml
   # Harware description file
   hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
 
