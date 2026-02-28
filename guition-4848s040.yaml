@@ -28,15 +28,6 @@ substitutions:
   screen_height: '480'
   screen_width: '480'
 
-  # LCD backlight modes - Code in backlight.yaml
-  # Day mode is set to Sunrise
-  # Evening mode is set to sunset
-  # Set Night mode  at Midnight here
-  screen_night_hour: "23"
-  screen_night_minute: "0"
-  screen_day_hour: "7"
-  screen_day_minute: "0"
-
 esphome:
   name: "guition-4848s040"
   friendly_name: "Guition 4848s040"
@@ -66,13 +57,15 @@ packages:
   glyphs: !include esphome-lvgl-panel/common/mdi_glyph_substitutions.yaml
   # SDL has no Wi-Fi wifi: 
   wifi: !include esphome-lvgl-panel/common/wifi.yaml
-  time: !include esphome-lvgl-panel/common/time_sntp.yaml
   # Some basic sensors
   sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
   # Styles + Themes
   theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
   # Include if your touch screen has a backlight. Also sets the time from HA
+  # *** ONLY INCLUDE ONE OF THE BELOW
   backlight: !include esphome-lvgl-panel/common/backlight_time.yaml
+  #time: !include esphome-lvgl-panel/common/time_sntp.yaml
+  #time: !include esphome-lvgl-panel/common/time_homeassistant.yaml
   # Harware description file
   hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
 
