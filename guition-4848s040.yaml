@@ -20,8 +20,8 @@ substitutions:
   # Set Evening mode -  starts at Sunset - screen at 50% (may need to be brighter for some screens)
   touchscreen_nighttime_brightness: "50%"
   # Set Night mode start time (default is midnight)
-  touchscreen_night_hour: "0"      # Hour for night mode (0-23)
-  touchscreen_night_minute: "0"    # Minute for night mode (0-59)
+  touchscreen_night_hour: "23"      # Hour for night mode (0-23)
+  touchscreen_night_minute: "30"    # Minute for night mode (0-59)
   # Set touchscreen idle timeout - In night mode back light goes off after this amount of time
   touchscreen_idle_timeout: "60s"
   # Screen Size
