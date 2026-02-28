@@ -150,9 +150,9 @@ script:
           // Build label text (lightning when charging)
           char buf[16];
           if (charging) {
-            snprintf(buf, sizeof(buf), "%s%d%%", "${mdi_lightning_bolt}", level);
+            lv_obj_clear_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
           } else {
-            snprintf(buf, sizeof(buf), "%d%%", level);
+            lv_obj_add_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
           }
 
           lv_obj_t *label = id(ev_battery_level);
