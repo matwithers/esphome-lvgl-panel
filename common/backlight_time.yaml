@@ -38,6 +38,13 @@ time:
     on_time_sync:
       - script.execute: time_update
 
+      # Always decide the correct mode on boot/sync
+      - logger.log:
+          level: INFO
+          format: "Setting brightness mode on boot"
+      - script.execute: set_brightness_mode_on_boot
+      - script.execute: apply_brightness_mode   # optional but recommended
+
       # Update last restart time (only once)
       - if:
           condition:
@@ -46,10 +53,10 @@ time:
             - text_sensor.template.publish:
                 id: device_last_restart
                 state: !lambda 'return id(system_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
-            - logger.log:
-                level: INFO
-                format: "Setting brightness mode on boot"
-            - script.execute: set_brightness_mode_on_boot
+          #  - logger.log:
+          #      level: INFO
+          #      format: "Setting brightness mode on boot"
+          #  - script.execute: set_brightness_mode_on_boot
 
     on_time:
       # Trigger night mode at configured time
