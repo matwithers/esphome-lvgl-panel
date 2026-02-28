@@ -61,11 +61,11 @@ packages:
   glyphs: !include esphome-lvgl-panel/common/mdi_glyph_substitutions.yaml
   # SDL has no Wi-Fi wifi: 
   wifi: !include esphome-lvgl-panel/common/wifi.yaml
+  time: !include esphome-lvgl-panel/common/time_sntp.yaml
   # Some basic sensors
   sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
   # Styles + Themes
   theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
-
   # Harware description file
   hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
 
@@ -130,7 +130,7 @@ script:
     then:
       - lvgl.label.update:
           id: current_time
-          text: !lambda 'return id(system_time).now().strftime("%H:%M");'  # 12-hour format, no am/pm
+          text: !lambda 'return id(system_time).now().strftime("%H:%M");'
       - lvgl.label.update:
           id: month_day
           text: !lambda |- # Month Day
