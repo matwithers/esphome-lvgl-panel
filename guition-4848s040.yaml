@@ -125,11 +125,6 @@ packages:
   - &forecast_image_base
     height: SIZE_CONTENT
 
-globals:
-  - id: leaf_is_charging
-    type: bool
-    initial_value: "false"
-
 script:
   - id: time_update
     then:
@@ -150,13 +145,11 @@ script:
       - lambda: |-
           // Battery %
           int level = atoi(id(leaf_battery_level).state.c_str());
-          bool charging = id(leaf_is_charging);
+          bool charging = id(leaf_charging).state;
 
           // Build label text (lightning when charging)
           char buf[16];
           if (charging) {
-            // UTF-8 lightning. If your font doesn't include it, it'll show as tofu.
-            // Alternative: use "⚡ " or just "CHG " prefix.
             snprintf(buf, sizeof(buf), "%s%d%%", "${mdi_home_lightning_bolt}", level);
           } else {
             snprintf(buf, sizeof(buf), "%d%%", level);
@@ -207,11 +200,7 @@ binary_sensor:
     id: leaf_charging
     on_state:
       then:
-        - lambda: |-
-            id(leaf_is_charging) = id(leaf_charging).state;
         - script.execute: render_ev_battery
-
-
 
 image:
   rgb565:
