@@ -156,31 +156,9 @@ lvgl:
       <<: !include esphome-lvgl-panel/modules/swipe_navigation/swipe_navigation.yaml
       bg_color: color_background
       widgets:
-        - container:
-            grid_cell_x_align: stretch
-            grid_cell_y_align: stretch
-            grid_cell_row_pos: 0
-            grid_cell_column_pos: 0
-            grid_cell_row_span: 4
-            grid_cell_column_span: 6
-            layout:
-              type: flex
-              flex_flow: COLUMN
-              flex_align_main: center
-              flex_align_cross: center
-              pad_row: 2
-            widgets:
-              - label:
-                  id: current_time
-                  width: 100%
-                  text_align: center
-                  text_font: font_display_72
-                  pad_bottom: -6   # <-- key adjustment
-              - label:
-                  id: month_day
-                  width: 100%
-                  text_align: center
-                  text_font: font_body_24
+        - !include
+            file: esphome-lvgl-panel/modules/time_date/time_date_widget.yaml
+            vars: { row_pos: "0", column_pos: "0", row_span: "4", column_span: "6" }
 
         - !include
             file: esphome-lvgl-panel/modules/ev/ev_widget.yaml
