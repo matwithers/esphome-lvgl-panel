@@ -3,7 +3,7 @@
 # vars:
 #   row_pos, column_pos, row_span, column_span
 
-- container:
+container:
     id: ev_container
     grid_cell_x_align: stretch
     grid_cell_y_align: stretch
