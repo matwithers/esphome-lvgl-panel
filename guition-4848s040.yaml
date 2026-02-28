@@ -147,14 +147,15 @@ script:
           int level = atoi(id(leaf_battery_level).state.c_str());
           bool charging = id(leaf_charging).state;
 
-          // Build label text (lightning when charging)
-          char buf[16];
           if (charging) {
             lv_obj_clear_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
           } else {
             lv_obj_add_flag(id(ev_charge_icon), LV_OBJ_FLAG_HIDDEN);
           }
 
+          // Build label text
+          char buf[16];
+          snprintf(buf, sizeof(buf), "%d%%", level);
           lv_obj_t *label = id(ev_battery_level);
           lv_label_set_text(label, buf);
 
