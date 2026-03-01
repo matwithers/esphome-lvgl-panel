@@ -3,81 +3,64 @@ image:
     alpha_channel:
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-night-clear.svg
         id: clear_night
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-cloudy.svg
         id: cloudy
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-thunderstorm.svg
         id: exceptional
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-fog.svg
         id: fog
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-hail.svg
         id: hail
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-lightning.svg
         id: lightning
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-thunderstorm.svg
         id: lightning_rainy
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-cloudy.svg
         id: partlycloudy
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-rain.svg
         id: pouring
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-showers.svg
         id: rainy
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-snow.svg
         id: snowy
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-sleet.svg
         id: snowy_rainy
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-sunny.svg
         id: sunny
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-cloudy-gusts.svg
         id: windy
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/unknown.svg
         id: unknown
-        width: 80
-        height: 80
+        resize: 80x80
 
       - file: esphome-lvgl-panel/modules/weather/assets/images/unavailable.svg
         id: unavailable
-        width: 80
-        height: 80
-        
+        resize: 80x80
