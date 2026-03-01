@@ -1,0 +1,44 @@
+# Weather Now Widget (to be included inside an existing lvgl page widgets list)
+#
+# vars:
+#   row_pos, column_pos, row_span, column_span
+
+container:
+    grid_cell_x_align: stretch
+    grid_cell_y_align: stretch
+    grid_cell_row_pos: ${row_pos}
+    grid_cell_column_pos: ${column_pos}
+    grid_cell_row_span: ${row_span}
+    grid_cell_column_span: ${column_span}
+    widgets:
+      - obj:
+          width: 100%
+          height: SIZE_CONTENT
+          bg_color: color_background
+          radius: 3
+          pad_top: 2
+          pad_bottom: 2
+          layout:
+            type: flex
+            flex_flow: COLUMN
+            flex_align_cross: center
+            flex_align_track: center
+            pad_row: 2
+
+          widgets:
+            - label:
+                text: "Now"
+                text_color: color_primary_text
+                text_font: font_body_24
+                height: SIZE_CONTENT
+
+            - image:
+                id: weather_condition_icon
+                src: unknown
+
+            - label:
+                id: weather_temperature_today
+                text: "---°"
+                text_color: color_primary_text
+                text_font: font_body_24
+                height: SIZE_CONTENT

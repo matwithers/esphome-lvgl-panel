@@ -86,13 +86,7 @@ packages:
       charging_state_entity: binary_sensor.leaf_charging
 
   # Weather packages
-  # Display weather forecast using direct HA action (no template sensor needed!)
-  # Icons are included automatically in the action file
-  #weather_forecast_80: !include
-  #  file: esphome-lvgl-panel/modules/weather/weather.yaml
-  #  vars:
-  #    size: 80
-  #    weather_entity: weather.met_office_totton
+  # Display weather today/forecast using direct HA action (no template sensor needed!)
   weather_icons: !include esphome-lvgl-panel/modules/weather/weather_icons.yaml
   weather_core: !include
     file: esphome-lvgl-panel/modules/weather/weather_core.yaml
@@ -101,50 +95,6 @@ packages:
       enable_today: "true"
       enable_forecast: "true"
       refresh_minutes: "15"
-
-# Styles for Weather forecast
-.forecast_styles:
-  - &now_forecast_obj_base
-    width: 100%
-    height: SIZE_CONTENT
-    bg_color: color_background
-    radius: 3
-    pad_top: 2
-    pad_bottom: 2
-    layout:
-      type: flex
-      flex_flow: COLUMN
-      flex_align_cross: center
-      flex_align_track: center
-      pad_column: 0
-      pad_row: 2
-
-  - &forecast_obj_base
-    height: SIZE_CONTENT
-    width: SIZE_CONTENT
-    radius: 3
-    pad_top: 2
-    pad_bottom: 2
-    layout:
-      type: flex
-      flex_flow: COLUMN
-      flex_align_cross: center
-      flex_align_track: center
-      pad_column: 0
-      pad_row: 2
-
-  - &forecast_label_base
-    text_font: font_body_24
-    height: SIZE_CONTENT
-
-  - &forecast_label_base_lo
-    height: SIZE_CONTENT
-    text_font: font_body_20
-    text_color: dodgerblue
-
-  - &forecast_image_base
-    height: SIZE_CONTENT
-
 
 lvgl:
   pages:
@@ -162,172 +112,11 @@ lvgl:
             file: esphome-lvgl-panel/modules/ev/ev_widget.yaml
             vars: { row_pos: "0", column_pos: "6", row_span: "4", column_span: "6" }
 
-        - container:
-            grid_cell_x_align: stretch
-            grid_cell_y_align: stretch
-            grid_cell_row_pos: 4
-            grid_cell_column_pos: 0
-            grid_cell_row_span: 4
-            grid_cell_column_span: 6
-            #outline_width: 1   # debug
-            #outline_color: red # debug
-            widgets:
-              - obj:
-                  <<: *now_forecast_obj_base
-                  widgets:
-                    - label:
-                        text: "Now"
-                        text_color: color_primary_text
-                        <<: *forecast_label_base
-                    - image:
-                        id: weather_condition_icon
-                        src: unknown
-                    - label:
-                        id: weather_temperature_today
-                        <<: *forecast_label_base
-                        text: "---°"
-                        text_color: color_primary_text
+        - !include
+            file: esphome-lvgl-panel/modules/weather/weather_now_widget.yaml
+            vars: { row_pos: "4", column_pos: "0", row_span: "4", column_span: "6" }
 
-        - container:
-            grid_cell_x_align: stretch
-            grid_cell_y_align: stretch
-            grid_cell_row_pos: 8
-            grid_cell_column_pos: 0
-            grid_cell_row_span: 4
-            grid_cell_column_span: 12
-            #outline_width: 1   # debug code - This is for visualizing boundries remove for production
-            #outline_color: red # debug code - This is for visualizing boundries remove for production
-            layout: 1x4
-            widgets:
-              - obj:
-                  <<: *forecast_obj_base
-                  grid_cell_row_pos: 0
-                  grid_cell_column_pos: 0
-                  widgets:
-                    - label:
-                        id: forecast_day_0
-                        <<: *forecast_label_base
-                        text: ???
-                    - image:
-                        id: forecast_condition_icon_0
-                        <<: *forecast_label_base
-                        src: unknown
-                    - container:
-                        width: SIZE_CONTENT
-                        height: SIZE_CONTENT
-                        layout:
-                          type: flex
-                          flex_flow: ROW
-                          flex_align_cross: center
-                          pad_column: 4
-                        widgets:
-                          - label:
-                              id: forecast_temperature_hi_0
-                              <<: *forecast_label_base
-                              text: "---°"
-                          - label:
-                              text: "/"
-                              <<: *forecast_label_base
-                          - label:
-                              id: forecast_temperature_lo_0
-                              <<: *forecast_label_base_lo
-                              text: "---°"
-              - obj:
-                  <<: *forecast_obj_base
-                  grid_cell_row_pos: 0
-                  grid_cell_column_pos: 1
-                  widgets:
-                    - label:
-                        id: forecast_day_1
-                        <<: *forecast_label_base
-                        text: ???
-                    - image:
-                        id: forecast_condition_icon_1
-                        <<: *forecast_label_base
-                        src: unknown
-                    - container:
-                        width: SIZE_CONTENT
-                        height: SIZE_CONTENT
-                        layout:
-                          type: flex
-                          flex_flow: ROW
-                          flex_align_cross: center
-                          pad_column: 4
-                        widgets:
-                          - label:
-                              id: forecast_temperature_hi_1
-                              <<: *forecast_label_base
-                              text: "---°"
-                          - label:
-                              text: "/"
-                              <<: *forecast_label_base
-                          - label:
-                              id: forecast_temperature_lo_1
-                              <<: *forecast_label_base_lo
-                              text: "---°"
-              - obj:
-                  <<: *forecast_obj_base
-                  grid_cell_row_pos: 0
-                  grid_cell_column_pos: 2
-                  widgets:
-                    - label:
-                        id: forecast_day_2
-                        <<: *forecast_label_base
-                        text: ???
-                    - image:
-                        id: forecast_condition_icon_2
-                        <<: *forecast_label_base
-                        src: unknown
-                    - container:
-                        width: SIZE_CONTENT
-                        height: SIZE_CONTENT
-                        layout:
-                          type: flex
-                          flex_flow: ROW
-                          flex_align_cross: center
-                          pad_column: 4
-                        widgets:
-                          - label:
-                              id: forecast_temperature_hi_2
-                              <<: *forecast_label_base
-                              text: "---°"
-                          - label:
-                              text: "/"
-                              <<: *forecast_label_base
-                          - label:
-                              id: forecast_temperature_lo_2
-                              <<: *forecast_label_base_lo
-                              text: "---°"
-              - obj:
-                  <<: *forecast_obj_base
-                  grid_cell_row_pos: 0
-                  grid_cell_column_pos: 3
-                  widgets:
-                    - label:
-                        id: forecast_day_3
-                        <<: *forecast_label_base
-                        text: ???
-                    - image:
-                        id: forecast_condition_icon_3
-                        <<: *forecast_label_base
-                        src: unknown
-                    - container:
-                        width: SIZE_CONTENT
-                        height: SIZE_CONTENT
-                        layout:
-                          type: flex
-                          flex_flow: ROW
-                          flex_align_cross: center
-                          pad_column: 4
-                        widgets:
-                          - label:
-                              id: forecast_temperature_hi_3
-                              <<: *forecast_label_base
-                              text: "---°"
-                          - label:
-                              text: "/"
-                              <<: *forecast_label_base
-                          - label:
-                              id: forecast_temperature_lo_3
-                              <<: *forecast_label_base_lo
-                              text: "---°"
+        - !include
+            file: esphome-lvgl-panel/modules/weather/weather_forecast_widget.yaml
+            vars: { row_pos: "8", column_pos: "0", row_span: "4", column_span: "12" }
+

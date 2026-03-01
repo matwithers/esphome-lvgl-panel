@@ -1,0 +1,218 @@
+# Weather Forecast Widget (to be included inside an existing lvgl page widgets list)
+#
+# vars:
+#   row_pos, column_pos, row_span, column_span
+
+container:
+    grid_cell_x_align: stretch
+    grid_cell_y_align: stretch
+    grid_cell_row_pos: ${row_pos}
+    grid_cell_column_pos: ${column_pos}
+    grid_cell_row_span: ${row_span}
+    grid_cell_column_span: ${column_span}
+    layout: 1x4
+
+    widgets:
+      - obj:
+          height: SIZE_CONTENT
+          width: SIZE_CONTENT
+          radius: 3
+          pad_top: 2
+          pad_bottom: 2
+          layout:
+            type: flex
+            flex_flow: COLUMN
+            flex_align_cross: center
+            flex_align_track: center
+            pad_row: 2
+
+          grid_cell_row_pos: 0
+          grid_cell_column_pos: 0
+          widgets:
+            - label:
+                id: forecast_day_0
+                text: ???
+                text_font: font_body_24
+                height: SIZE_CONTENT
+
+            - image:
+                id: forecast_condition_icon_0
+                src: unknown
+
+            - container:
+                width: SIZE_CONTENT
+                height: SIZE_CONTENT
+                layout:
+                  type: flex
+                  flex_flow: ROW
+                  flex_align_cross: center
+                  pad_column: 4
+                widgets:
+                  - label:
+                      id: forecast_temperature_hi_0
+                      text: "---°"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      text: "/"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      id: forecast_temperature_lo_0
+                      text: "---°"
+                      text_font: font_body_20
+                      text_color: dodgerblue
+                      height: SIZE_CONTENT
+
+      - obj:
+          height: SIZE_CONTENT
+          width: SIZE_CONTENT
+          radius: 3
+          pad_top: 2
+          pad_bottom: 2
+          layout:
+            type: flex
+            flex_flow: COLUMN
+            flex_align_cross: center
+            flex_align_track: center
+            pad_row: 2
+
+          grid_cell_row_pos: 0
+          grid_cell_column_pos: 1
+          widgets:
+            - label:
+                id: forecast_day_1
+                text: ???
+                text_font: font_body_24
+                height: SIZE_CONTENT
+
+            - image:
+                id: forecast_condition_icon_1
+                src: unknown
+
+            - container:
+                width: SIZE_CONTENT
+                height: SIZE_CONTENT
+                layout:
+                  type: flex
+                  flex_flow: ROW
+                  flex_align_cross: center
+                  pad_column: 4
+                widgets:
+                  - label:
+                      id: forecast_temperature_hi_1
+                      text: "---°"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      text: "/"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      id: forecast_temperature_lo_1
+                      text: "---°"
+                      text_font: font_body_20
+                      text_color: dodgerblue
+                      height: SIZE_CONTENT
+
+      - obj:
+          height: SIZE_CONTENT
+          width: SIZE_CONTENT
+          radius: 3
+          pad_top: 2
+          pad_bottom: 2
+          layout:
+            type: flex
+            flex_flow: COLUMN
+            flex_align_cross: center
+            flex_align_track: center
+            pad_row: 2
+
+          grid_cell_row_pos: 0
+          grid_cell_column_pos: 2
+          widgets:
+            - label:
+                id: forecast_day_2
+                text: ???
+                text_font: font_body_24
+                height: SIZE_CONTENT
+
+            - image:
+                id: forecast_condition_icon_2
+                src: unknown
+
+            - container:
+                width: SIZE_CONTENT
+                height: SIZE_CONTENT
+                layout:
+                  type: flex
+                  flex_flow: ROW
+                  flex_align_cross: center
+                  pad_column: 4
+                widgets:
+                  - label:
+                      id: forecast_temperature_hi_2
+                      text: "---°"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      text: "/"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      id: forecast_temperature_lo_2
+                      text: "---°"
+                      text_font: font_body_20
+                      text_color: dodgerblue
+                      height: SIZE_CONTENT
+
+      - obj:
+          height: SIZE_CONTENT
+          width: SIZE_CONTENT
+          radius: 3
+          pad_top: 2
+          pad_bottom: 2
+          layout:
+            type: flex
+            flex_flow: COLUMN
+            flex_align_cross: center
+            flex_align_track: center
+            pad_row: 2
+
+          grid_cell_row_pos: 0
+          grid_cell_column_pos: 3
+          widgets:
+            - label:
+                id: forecast_day_3
+                text: ???
+                text_font: font_body_24
+                height: SIZE_CONTENT
+
+            - image:
+                id: forecast_condition_icon_3
+                src: unknown
+
+            - container:
+                width: SIZE_CONTENT
+                height: SIZE_CONTENT
+                layout:
+                  type: flex
+                  flex_flow: ROW
+                  flex_align_cross: center
+                  pad_column: 4
+                widgets:
+                  - label:
+                      id: forecast_temperature_hi_3
+                      text: "---°"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      text: "/"
+                      text_font: font_body_24
+                      height: SIZE_CONTENT
+                  - label:
+                      id: forecast_temperature_lo_3
+                      text: "---°"
+                      text_font: font_body_20
+                      text_color: dodgerblue
+                      height: SIZE_CONTENT
