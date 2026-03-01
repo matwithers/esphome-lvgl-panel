@@ -1,0 +1,213 @@
+---
+# Weather (Home Assistant) — Now + Daily Forecast (optional)
+#
+# This module fetches weather data directly from Home Assistant using:
+#   weather.get_forecasts
+#
+# ✅ No HA template sensors needed.
+# ✅ Single service call can update BOTH:
+#   - "Today / Now" (condition icon + current temperature)
+#   - "Forecast" (4-day daily forecast)
+#
+# ------------------------------------------------------------------------------
+# Vars (optional)
+# ------------------------------------------------------------------------------
+# weather_entity:
+#   Weather entity id in Home Assistant.
+#   Default: weather.home
+#
+# enable_today:
+#   "true" / "false" (string, because substitutions are strings)
+#   If true: updates Today/Now widgets (weather_condition_icon + weather_temperature_today)
+#   Default: "true"
+#
+# enable_forecast:
+#   "true" / "false"
+#   If true: updates Forecast widgets (forecast_day_0..3 etc.)
+#   Default: "true"
+#
+# refresh_minutes:
+#   How often to refresh (minutes). Default: "15"
+#
+# ------------------------------------------------------------------------------
+# Widget IDs expected (only if that section enabled)
+# ------------------------------------------------------------------------------
+# Today / Now widgets (enable_today: "true"):
+#   - weather_condition_icon  (lvgl image)
+#   - weather_temperature_today (lvgl label)
+#
+# Forecast widgets (enable_forecast: "true"):
+#   - forecast_day_0..3 (lvgl label)
+#   - forecast_temperature_hi_0..3 (lvgl label)
+#   - forecast_temperature_lo_0..3 (lvgl label)
+#   - forecast_condition_icon_0..3 (lvgl image)
+#
+# ------------------------------------------------------------------------------
+# Icon Image IDs expected (must exist in your `image:` section)
+# ------------------------------------------------------------------------------
+# clear_night, cloudy, exceptional, fog, hail, lightning, lightning_rainy,
+# partlycloudy, pouring, rainy, snowy, snowy_rainy, sunny, windy, unknown, unavailable
+# ------------------------------------------------------------------------------
+
+substitutions:
+  enable_today: "true"
+  enable_forecast: "true"
+  refresh_minutes: "15"
+
+# ------------------------------------------------------------------------------
+# Refresh triggers
+# ------------------------------------------------------------------------------
+time:
+  - platform: homeassistant
+    on_time:
+      # Every N minutes, on the minute boundary
+      - minutes: "/${refresh_minutes}"
+        seconds: 0
+        then:
+          - script.execute: fetch_weather
+
+api:
+  on_client_connected:
+    - delay: 3s
+    - script.execute: fetch_weather
+
+# ------------------------------------------------------------------------------
+# Core: one script = one HA call = update enabled sections
+# ------------------------------------------------------------------------------
+script:
+  - id: fetch_weather
+    then:
+      - logger.log:
+          level: INFO
+          format: "Requesting weather (now + daily forecast) from Home Assistant..."
+      - homeassistant.action:
+          action: weather.get_forecasts
+          data:
+            type: daily
+            entity_id: ${weather_entity | default("weather.home")}
+          capture_response: true
+
+          # We return a single JSON object:
+          #   { now: { condition, temp }, forecast: [ {day, condition, hi, lo}, ... ] }
+          response_template: >-
+            {% set e = "${weather_entity | default('weather.home')}" %}
+            {% set fc = response[e]["forecast"] %}
+            {% set ns = namespace(out=[]) %}
+
+            {# "Now" comes from the weather entity state/attributes #}
+            {% set now_cond = states(e) %}
+            {% set now_temp = state_attr(e, "temperature") %}
+
+            {# 4-day forecast #}
+            {% for i in range(0, 4) %}
+              {% set f = fc[i] if fc is defined and fc|length > i else dict() %}
+              {% set ns.out = ns.out + [ {
+                "day": (as_timestamp(f.datetime) | timestamp_custom('%a')) if f.datetime is defined else "—",
+                "condition": (f.condition | default('unknown')),
+                "hi": (f.temperature | default(0)),
+                "lo": (f.templow | default(0))
+              } ] %}
+            {% endfor %}
+
+            {{ {
+              "now": {
+                "condition": now_cond | default("unknown"),
+                "temp": now_temp | default(0)
+              },
+              "forecast": ns.out
+            } | tojson }}
+
+          on_success:
+            - logger.log:
+                level: INFO
+                format: "Weather fetch OK: updating enabled widgets"
+            - lambda: |-
+                // Root object from response_template
+                auto root = response["response"];
+
+                // --- helpers --------------------------------------------------
+                auto pick_icon = [&](const std::string &c) -> esphome::image::Image* {
+                  if (c == "clear-night") return id(clear_night);
+                  if (c == "cloudy") return id(cloudy);
+                  if (c == "exceptional") return id(exceptional);
+                  if (c == "fog") return id(fog);
+                  if (c == "hail") return id(hail);
+                  if (c == "lightning") return id(lightning);
+                  if (c == "lightning-rainy") return id(lightning_rainy);
+                  if (c == "partlycloudy") return id(partlycloudy);
+                  if (c == "pouring") return id(pouring);
+                  if (c == "rainy") return id(rainy);
+                  if (c == "snowy") return id(snowy);
+                  if (c == "snowy-rainy") return id(snowy_rainy);
+                  if (c == "sunny") return id(sunny);
+                  if (c == "windy" || c == "windy-variant") return id(windy);
+                  if (c == "unavailable") return id(unavailable);
+                  return id(unknown);
+                };
+
+                auto fmt_deg = [](float v) -> std::string {
+                  int ti = (int) lroundf(v);
+                  char buf[8];
+                  snprintf(buf, sizeof(buf), "%d°", ti);
+                  return std::string(buf);
+                };
+
+                auto enabled = [](const char *s) -> bool {
+                  if (s == nullptr) return false;
+                  std::string v(s);
+                  for (auto &ch : v) ch = (char) tolower(ch);
+                  return (v == "true" || v == "1" || v == "yes" || v == "on");
+                };
+
+                const bool do_today = enabled("${enable_today}");
+                const bool do_forecast = enabled("${enable_forecast}");
+
+                // --- TODAY / NOW ---------------------------------------------
+                if (do_today) {
+                  std::string now_cond = root["now"]["condition"].as<std::string>();
+                  float now_temp = root["now"]["temp"].as<float>();
+
+                  // Update now icon + temp label
+                  lvgl::image_update(id(weather_condition_icon), pick_icon(now_cond));
+                  id(weather_temperature_today).set_text(fmt_deg(now_temp).c_str());
+                }
+
+                // --- FORECAST (4 days) ---------------------------------------
+                if (do_forecast) {
+                  auto arr = root["forecast"];
+
+                  for (int i = 0; i < 4; i++) {
+                    auto o = arr[i];
+                    std::string day = o["day"].as<std::string>();
+                    std::string cond = o["condition"].as<std::string>();
+                    float hi = o["hi"].as<float>();
+                    float lo = o["lo"].as<float>();
+
+                    if (i == 0) {
+                      id(forecast_day_0).set_text(day.c_str());
+                      id(forecast_temperature_hi_0).set_text(fmt_deg(hi).c_str());
+                      id(forecast_temperature_lo_0).set_text(fmt_deg(lo).c_str());
+                      lvgl::image_update(id(forecast_condition_icon_0), pick_icon(cond));
+                    } else if (i == 1) {
+                      id(forecast_day_1).set_text(day.c_str());
+                      id(forecast_temperature_hi_1).set_text(fmt_deg(hi).c_str());
+                      id(forecast_temperature_lo_1).set_text(fmt_deg(lo).c_str());
+                      lvgl::image_update(id(forecast_condition_icon_1), pick_icon(cond));
+                    } else if (i == 2) {
+                      id(forecast_day_2).set_text(day.c_str());
+                      id(forecast_temperature_hi_2).set_text(fmt_deg(hi).c_str());
+                      id(forecast_temperature_lo_2).set_text(fmt_deg(lo).c_str());
+                      lvgl::image_update(id(forecast_condition_icon_2), pick_icon(cond));
+                    } else if (i == 3) {
+                      id(forecast_day_3).set_text(day.c_str());
+                      id(forecast_temperature_hi_3).set_text(fmt_deg(hi).c_str());
+                      id(forecast_temperature_lo_3).set_text(fmt_deg(lo).c_str());
+                      lvgl::image_update(id(forecast_condition_icon_3), pick_icon(cond));
+                    }
+                  }
+                }
+
+          on_error:
+            - logger.log:
+                level: ERROR
+                format: "Failed to fetch weather from Home Assistant"

@@ -88,11 +88,19 @@ packages:
   # Weather packages
   # Display weather forecast using direct HA action (no template sensor needed!)
   # Icons are included automatically in the action file
-  weather_forecast_80: !include
-    file: esphome-lvgl-panel/modules/weather/weather.yaml
+  #weather_forecast_80: !include
+  #  file: esphome-lvgl-panel/modules/weather/weather.yaml
+  #  vars:
+  #    size: 80
+  #    weather_entity: weather.met_office_totton
+  weather_icons: !include esphome-lvgl-panel/modules/weather/weather_icons.yaml
+  weather_core: !include
+    file: esphome-lvgl-panel/modules/weather/weather_core.yaml
     vars:
-      size: 80
       weather_entity: weather.met_office_totton
+      enable_today: "true"
+      enable_forecast: "true"
+      refresh_minutes: "15"
 
 # Styles for Weather forecast
 .forecast_styles:

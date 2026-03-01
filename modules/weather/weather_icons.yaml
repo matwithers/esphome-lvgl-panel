@@ -1,0 +1,50 @@
+image:
+  rgb565:
+    alpha_channel:
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-night-clear.svg
+        id: clear_night
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-cloudy.svg
+        id: cloudy
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-thunderstorm.svg
+        id: exceptional
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-fog.svg
+        id: fog
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-hail.svg
+        id: hail
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-lightning.svg
+        id: lightning
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-thunderstorm.svg
+        id: lightning_rainy
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-cloudy.svg
+        id: partlycloudy
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-rain.svg
+        id: pouring
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-showers.svg
+        id: rainy
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-snow.svg
+        id: snowy
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-sleet.svg
+        id: snowy_rainy
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-day-sunny.svg
+        id: sunny
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-cloudy-gusts.svg
+        id: windy
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/unknown.svg
+        id: unknown
+
+      - file: esphome-lvgl-panel/modules/weather/assets/images/unavailable.svg
+        id: unavailable
