@@ -1,7 +1,7 @@
 ---
 substitutions:
-  screen_width: ${screen_width | default("480")}
-  screen_height: ${screen_height | default("480")}
+  screen_width: "480"
+  screen_height: "480"
 
 esphome:
   on_boot:
