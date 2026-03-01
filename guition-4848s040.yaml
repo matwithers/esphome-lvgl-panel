@@ -32,19 +32,12 @@ esphome:
   name: "guition-4848s040"
   friendly_name: "Guition 4848s040"
   comment: "Guition ESP32-S3-4848S040 480px * 480px Smart Screen"
-  on_boot:
-    - priority: 400
-      then:
-        - script.execute: update_loading_page
+
 ota:
   - platform: esphome
 
 logger:
   level: DEBUG
-
-api:
-  on_client_connected:
-    - script.execute: time_update
 
 packages:
   # Generic configuration for ESP32 screens

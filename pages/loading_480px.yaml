@@ -1,4 +1,10 @@
 ---
+esphome:
+  on_boot:
+    - priority: 400
+      then:
+        - script.execute: update_loading_page
+
 globals:
   - id: ha_connected
     type: bool

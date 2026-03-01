@@ -3,6 +3,10 @@
 #
 # Simply shows the time and date
 
+api:
+  on_client_connected:
+    - script.execute: time_update
+
 script:
   - id: time_update
     then:
