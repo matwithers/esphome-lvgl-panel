@@ -23,7 +23,7 @@ substitutions:
   touchscreen_night_hour: "23"      # Hour for night mode (0-23)
   touchscreen_night_minute: "30"    # Minute for night mode (0-59)
   # Set touchscreen idle timeout - In night mode back light goes off after this amount of time
-  touchscreen_idle_timeout: "60s"
+  touchscreen_idle_timeout: "600s"
   # Screen Size
   screen_height: '480'
   screen_width: '480'
