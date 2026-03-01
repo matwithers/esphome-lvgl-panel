@@ -120,12 +120,14 @@ script:
           on_success:
             - logger.log:
                 level: INFO
-                format: "Weather fetch OK: updating enabled widgets"
-            - lambda: |-
-                // Root object from response_template
-                auto root = response["response"];
+                format: "Weather fetch OK: updating widgets"
 
-                // --- helpers --------------------------------------------------
+            - lambda: |-
+                // response["response"] is the JSON created by response_template
+                auto root = response["response"];
+                auto now = root["now"];
+                auto arr = root["forecast"];  // JSON array
+
                 auto pick_icon = [&](const std::string &c) -> esphome::image::Image* {
                   if (c == "clear-night") return id(clear_night);
                   if (c == "cloudy") return id(cloudy);
@@ -152,59 +154,53 @@ script:
                   return std::string(buf);
                 };
 
-                auto enabled = [](const char *s) -> bool {
-                  if (s == nullptr) return false;
-                  std::string v(s);
-                  for (auto &ch : v) ch = (char) tolower(ch);
-                  return (v == "true" || v == "1" || v == "yes" || v == "on");
-                };
+                // ─────────────────────────────────────────────────────────────
+                // TODAY (Now)
+                // ─────────────────────────────────────────────────────────────
+                if (${enable_today | default("true")}) {
+                  std::string now_cond = now["condition"].as<std::string>();
+                  float now_temp = now["temp"].as<float>();
 
-                const bool do_today = enabled("${enable_today}");
-                const bool do_forecast = enabled("${enable_forecast}");
+                  // icon
+                  lv_obj_t *img = id(weather_condition_icon);
+                  lv_img_set_src(img, pick_icon(now_cond));
 
-                // --- TODAY / NOW ---------------------------------------------
-                if (do_today) {
-                  std::string now_cond = root["now"]["condition"].as<std::string>();
-                  float now_temp = root["now"]["temp"].as<float>();
-
-                  // Update now icon + temp label
-                  lvgl::image_update(id(weather_condition_icon), pick_icon(now_cond));
-                  id(weather_temperature_today).set_text(fmt_deg(now_temp).c_str());
+                  // temperature label
+                  std::string t = fmt_deg(now_temp);
+                  lv_obj_t *lbl = id(weather_temperature_today);
+                  lv_label_set_text(lbl, t.c_str());
                 }
 
-                // --- FORECAST (4 days) ---------------------------------------
-                if (do_forecast) {
-                  auto arr = root["forecast"];
+                // Helper to set a single forecast row
+                auto set_row = [&](int idx,
+                                  lv_obj_t *day_lbl,
+                                  lv_obj_t *hi_lbl,
+                                  lv_obj_t *lo_lbl,
+                                  lv_obj_t *img) {
+                  auto o = arr[idx];
+                  std::string day = o["day"].as<std::string>();
+                  std::string cond = o["condition"].as<std::string>();
+                  float hi = o["hi"].as<float>();
+                  float lo = o["lo"].as<float>();
 
-                  for (int i = 0; i < 4; i++) {
-                    auto o = arr[i];
-                    std::string day = o["day"].as<std::string>();
-                    std::string cond = o["condition"].as<std::string>();
-                    float hi = o["hi"].as<float>();
-                    float lo = o["lo"].as<float>();
+                  lv_label_set_text(day_lbl, day.c_str());
 
-                    if (i == 0) {
-                      id(forecast_day_0).set_text(day.c_str());
-                      id(forecast_temperature_hi_0).set_text(fmt_deg(hi).c_str());
-                      id(forecast_temperature_lo_0).set_text(fmt_deg(lo).c_str());
-                      lvgl::image_update(id(forecast_condition_icon_0), pick_icon(cond));
-                    } else if (i == 1) {
-                      id(forecast_day_1).set_text(day.c_str());
-                      id(forecast_temperature_hi_1).set_text(fmt_deg(hi).c_str());
-                      id(forecast_temperature_lo_1).set_text(fmt_deg(lo).c_str());
-                      lvgl::image_update(id(forecast_condition_icon_1), pick_icon(cond));
-                    } else if (i == 2) {
-                      id(forecast_day_2).set_text(day.c_str());
-                      id(forecast_temperature_hi_2).set_text(fmt_deg(hi).c_str());
-                      id(forecast_temperature_lo_2).set_text(fmt_deg(lo).c_str());
-                      lvgl::image_update(id(forecast_condition_icon_2), pick_icon(cond));
-                    } else if (i == 3) {
-                      id(forecast_day_3).set_text(day.c_str());
-                      id(forecast_temperature_hi_3).set_text(fmt_deg(hi).c_str());
-                      id(forecast_temperature_lo_3).set_text(fmt_deg(lo).c_str());
-                      lvgl::image_update(id(forecast_condition_icon_3), pick_icon(cond));
-                    }
-                  }
+                  std::string hi_s = fmt_deg(hi);
+                  std::string lo_s = fmt_deg(lo);
+                  lv_label_set_text(hi_lbl, hi_s.c_str());
+                  lv_label_set_text(lo_lbl, lo_s.c_str());
+
+                  lv_img_set_src(img, pick_icon(cond));
+                };
+
+                // ─────────────────────────────────────────────────────────────
+                // FORECAST (4 days)
+                // ─────────────────────────────────────────────────────────────
+                if (${enable_forecast | default("true")}) {
+                  set_row(0, id(forecast_day_0), id(forecast_temperature_hi_0), id(forecast_temperature_lo_0), id(forecast_condition_icon_0));
+                  set_row(1, id(forecast_day_1), id(forecast_temperature_hi_1), id(forecast_temperature_lo_1), id(forecast_condition_icon_1));
+                  set_row(2, id(forecast_day_2), id(forecast_temperature_hi_2), id(forecast_temperature_lo_2), id(forecast_condition_icon_2));
+                  set_row(3, id(forecast_day_3), id(forecast_temperature_hi_3), id(forecast_temperature_lo_3), id(forecast_condition_icon_3));
                 }
 
           on_error:
