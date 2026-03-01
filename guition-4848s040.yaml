@@ -181,7 +181,7 @@ lvgl:
                         <<: *forecast_label_base
                     - image:
                         id: weather_condition_icon
-                        src: unknown_80
+                        src: unknown
                     - label:
                         id: weather_temperature_today
                         <<: *forecast_label_base
@@ -211,7 +211,7 @@ lvgl:
                     - image:
                         id: forecast_condition_icon_0
                         <<: *forecast_label_base
-                        src: unknown_80
+                        src: unknown
                     - container:
                         width: SIZE_CONTENT
                         height: SIZE_CONTENT
@@ -244,7 +244,7 @@ lvgl:
                     - image:
                         id: forecast_condition_icon_1
                         <<: *forecast_label_base
-                        src: unknown_80
+                        src: unknown
                     - container:
                         width: SIZE_CONTENT
                         height: SIZE_CONTENT
@@ -277,7 +277,7 @@ lvgl:
                     - image:
                         id: forecast_condition_icon_2
                         <<: *forecast_label_base
-                        src: unknown_80
+                        src: unknown
                     - container:
                         width: SIZE_CONTENT
                         height: SIZE_CONTENT
@@ -310,7 +310,7 @@ lvgl:
                     - image:
                         id: forecast_condition_icon_3
                         <<: *forecast_label_base
-                        src: unknown_80
+                        src: unknown
                     - container:
                         width: SIZE_CONTENT
                         height: SIZE_CONTENT
