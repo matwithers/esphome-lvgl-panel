@@ -1,4 +1,8 @@
 ---
+substitutions:
+  screen_width: ${screen_width | default("480")}
+  screen_height: ${screen_height | default("480")}
+
 esphome:
   on_boot:
     - priority: 400
