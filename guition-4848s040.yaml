@@ -48,7 +48,6 @@ packages:
   # Some basic sensors
   sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
 
-
   # Generic configuration for ESP32 screens
   # All the colors
   colors: !include esphome-lvgl-panel/common/palette_dark.yaml
