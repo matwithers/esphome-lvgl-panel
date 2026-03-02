@@ -41,7 +41,7 @@ container:
                 height: SIZE_CONTENT
                 bg_opa: TRANSP
                 align: center
-                x: 6
+                x: 9
                 y: -3
                 layout:
                   type: flex

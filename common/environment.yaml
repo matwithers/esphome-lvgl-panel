@@ -1,0 +1,14 @@
+---
+
+# TIME provider (Home Assistant)
+## Provides:
+#   id: system_time
+time:
+  - platform: homeassistant
+    id: system_time
+
+# Common Sun provider
+# Enables use of `sun.is_above_horizon` conditions in any module.
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
