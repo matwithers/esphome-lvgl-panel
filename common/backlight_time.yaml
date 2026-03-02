@@ -67,11 +67,6 @@ time:
           - select.set:
               id: brightness_mode
               option: "Night"
-      # Update time display every minute
-      - seconds: 0
-        minutes: '*'
-        then:
-          - script.execute: time_update
 
 lvgl:
   on_idle:

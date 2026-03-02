@@ -1,0 +1,168 @@
+---
+# BACKLIGHT CORE
+#
+# Controls brightness mode (Day/Evening/Night), LVGL idle behavior, and wake-on-touch.
+# Time source is intentionally NOT included here (use time_homeassistant.yaml or time_sntp.yaml)
+
+substitutions:
+  touchscreen_daytime_brightness: "100%"
+  touchscreen_nighttime_brightness: "50%"
+  touchscreen_idle_timeout: "30s"
+  touchscreen_enable_blanking: "true"   # <--- set "false" to disable blanking/pause
+  touchscreen_night_hour: "0"
+  touchscreen_night_minute: "0"
+
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
+  on_sunset:
+    - elevation: -3.5°
+      then:
+        - select.set:
+            id: brightness_mode
+            option: "Evening"
+  on_sunrise:
+    - then:
+        - select.set:
+            id: brightness_mode
+            option: "Day"
+
+lvgl:
+  on_idle:
+    timeout: ${touchscreen_idle_timeout}
+    then:
+      - logger.log:
+          level: INFO
+          format: "LVGL is idle"
+
+      # Day -> full brightness
+      - if:
+          condition:
+            lambda: 'return id(brightness_mode).current_option() == "Day";'
+          then:
+            - light.turn_on:
+                id: display_backlight
+                brightness: ${touchscreen_daytime_brightness}
+
+      # Evening -> dim
+      - if:
+          condition:
+            lambda: 'return id(brightness_mode).current_option() == "Evening";'
+          then:
+            - light.turn_on:
+                id: display_backlight
+                brightness: ${touchscreen_nighttime_brightness}
+
+      # Night behavior:
+      # - if blanking enabled -> backlight off + pause
+      # - else -> keep dimmed on
+      - if:
+          condition:
+            lambda: 'return id(brightness_mode).current_option() == "Night";'
+          then:
+            - if:
+                condition:
+                  lambda: 'return std::string("${touchscreen_enable_blanking}") == "true";'
+                then:
+                  - light.turn_off: display_backlight
+                  - lvgl.pause:
+                      show_snow: true
+                else:
+                  - light.turn_on:
+                      id: display_backlight
+                      brightness: ${touchscreen_nighttime_brightness}
+
+# Wake on touch (extends your hardware touchscreen)
+touchscreen:
+  - id: !extend my_touchscreen
+    on_touch:
+      then:
+        - logger.log:
+            level: INFO
+            format: "LVGL is active"
+        - lvgl.resume
+        - lvgl.widget.redraw
+        - script.execute: apply_brightness_mode
+
+select:
+  - platform: template
+    name: "Brightness mode"
+    id: brightness_mode
+    icon: mdi:television-shimmer
+    optimistic: true
+    options:
+      - Day
+      - Evening
+      - Night
+    initial_option: Day
+    on_value:
+      then:
+        - lvgl.resume
+        - lvgl.widget.redraw
+        - script.execute: apply_brightness_mode
+
+script:
+  - id: apply_brightness_mode
+    then:
+      - if:
+          condition:
+            lambda: 'return id(brightness_mode).current_option() == "Day";'
+          then:
+            - light.turn_on:
+                id: display_backlight
+                brightness: ${touchscreen_daytime_brightness}
+
+      - if:
+          condition:
+            lambda: 'return id(brightness_mode).current_option() == "Evening";'
+          then:
+            - light.turn_on:
+                id: display_backlight
+                brightness: ${touchscreen_nighttime_brightness}
+
+      - if:
+          condition:
+            lambda: 'return id(brightness_mode).current_option() == "Night";'
+          then:
+            # If blanking enabled, Night mode will blank on idle; until idle keep it dim.
+            - light.turn_on:
+                id: display_backlight
+                brightness: ${touchscreen_nighttime_brightness}
+
+  - id: set_brightness_mode_on_boot
+    then:
+      - if:
+          condition:
+            sun.is_above_horizon:
+          then:
+            - logger.log:
+                level: INFO
+                format: "Boot: Sun is up - Day mode"
+            - select.set:
+                id: brightness_mode
+                option: "Day"
+          else:
+            - if:
+                condition:
+                  lambda: |-
+                    auto now = id(system_time).now();
+                    int current = now.hour * 60 + now.minute;
+                    int night = ${touchscreen_night_hour} * 60 + ${touchscreen_night_minute};
+                    if (night == 0) {
+                      return now.hour < 12;
+                    }
+                    return current >= night || now.hour < 12;
+                then:
+                  - logger.log:
+                      level: INFO
+                      format: "Boot: Night mode"
+                  - select.set:
+                      id: brightness_mode
+                      option: "Night"
+                else:
+                  - logger.log:
+                      level: INFO
+                      format: "Boot: Evening mode"
+                  - select.set:
+                      id: brightness_mode
+                      option: "Evening"

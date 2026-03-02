@@ -3,6 +3,11 @@
 #
 # Simply shows the time and date
 
+interval:
+  - interval: 60s
+    then:
+      - script.execute: time_update
+
 api:
   on_client_connected:
     - script.execute: time_update

@@ -1,0 +1,10 @@
+---
+# TIME PROVIDER (Home Assistant)
+#
+# Provides:
+#   id: system_time
+# Nothing else. Pure provider.
+
+time:
+  - platform: homeassistant
+    id: system_time

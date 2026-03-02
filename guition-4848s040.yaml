@@ -16,17 +16,17 @@ substitutions:
 
   # LCD back light modes - Code in backlight_time.yaml
   # Set Day mode - starts at Sunrise - screen at 100%
-  touchscreen_daytime_brightness: "100%"
+  #touchscreen_daytime_brightness: "100%"
   # Set Evening mode -  starts at Sunset - screen at 50% (may need to be brighter for some screens)
-  touchscreen_nighttime_brightness: "50%"
+  #touchscreen_nighttime_brightness: "50%"
   # Set Night mode start time (default is midnight)
-  touchscreen_night_hour: "23"      # Hour for night mode (0-23)
-  touchscreen_night_minute: "30"    # Minute for night mode (0-59)
+  #touchscreen_night_hour: "23"      # Hour for night mode (0-23)
+  #touchscreen_night_minute: "30"    # Minute for night mode (0-59)
   # Set touchscreen idle timeout - In night mode back light goes off after this amount of time
-  touchscreen_idle_timeout: "600s"
-  # Screen Size
-  #screen_height: '480'
-  #screen_width: '480'
+  #touchscreen_idle_timeout: "600s"
+  # Screen Size (used in modules/boot_screen)
+  # screen_height: '480'
+  # screen_width: '480'
 
 esphome:
   name: "guition-4848s040"
@@ -56,9 +56,9 @@ packages:
   theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
   # Include if your touch screen has a backlight. Also sets the time from HA
   # *** ONLY INCLUDE ONE OF THE BELOW
-  backlight: !include esphome-lvgl-panel/common/backlight_time.yaml
+  backlight: !include esphome-lvgl-panel/modules/backlight/backlight_core.yaml
   #time: !include esphome-lvgl-panel/common/time_sntp.yaml
-  #time: !include esphome-lvgl-panel/common/time_homeassistant.yaml
+  time: !include esphome-lvgl-panel/common/time.yaml
   # Harware description file
   hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
 

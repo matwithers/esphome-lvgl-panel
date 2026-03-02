@@ -57,14 +57,10 @@ substitutions:
 # ------------------------------------------------------------------------------
 # Refresh triggers
 # ------------------------------------------------------------------------------
-time:
-  - platform: homeassistant
-    on_time:
-      # Every N minutes, on the minute boundary
-      - minutes: "/${refresh_minutes}"
-        seconds: 0
-        then:
-          - script.execute: fetch_weather
+interval:
+  - interval: ${refresh_minutes}min
+    then:
+      - script.execute: fetch_weather
 
 api:
   on_client_connected:
