@@ -36,13 +36,12 @@ lvgl:
             - lvgl.pause:
                 show_snow: true
 
-touchscreen:
-  - id: !extend my_touchscreen
-    on_touch:
-      then:
-        - lvgl.resume
-        - lvgl.widget.redraw
-        - script.execute: apply_brightness_mode
+script:
+  - id: backlight_on_touch
+    then:
+      - lvgl.resume
+      - lvgl.widget.redraw
+      - script.execute: apply_brightness_mode
 
 select:
   - platform: template
