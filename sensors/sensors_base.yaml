@@ -49,17 +49,11 @@ binary_sensor:
     name: "Status"
     icon: mdi:check-network-outline
     entity_category: diagnostic
-    
+
   - platform: status
     name: "Status"
     icon: mdi:check-network-outline
     entity_category: diagnostic
-
-  # Internal "event bus" for touchscreen activity.
-  # Hardware publishes ON briefly when the screen is touched.
-  - platform: template
-    id: touchscreen_activity
-    internal: true
 
 text_sensor:
   - platform: template

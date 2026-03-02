@@ -3,21 +3,28 @@
 #
 # - Day: full brightness
 # - Evening: dim brightness
-# - Optional: blank/pause on LVGL idle when in Evening
+# - Idle behavior (Evening only): off | dim | none
 #
 # Requires:
-# - sun component configured somewhere (latitude/longitude)
+# - sun: configured somewhere (latitude/longitude)
 # - light id: display_backlight
-# - hardware touchscreen on_touch calling script.execute: backlight_on_touch
+# - touchscreen id: my_touchscreen (hardware file)
 
 substitutions:
   touchscreen_daytime_brightness: "100%"
   touchscreen_evening_brightness: "50%"
   touchscreen_idle_timeout: "30s"
-  touchscreen_enable_blanking: "true"
+
+  # Idle behavior when in Evening:
+  # - off  -> backlight off + lvgl.pause
+  # - dim  -> backlight to touchscreen_idle_brightness (no pause)
+  # - none -> do nothing special
+  touchscreen_idle_behavior: "dim"
+  touchscreen_idle_brightness: "5%"
+
   touchscreen_poll_minutes: "5"
 
-# Ensure we pick the correct mode early after boot
+# Pick correct mode early after boot
 esphome:
   on_boot:
     priority: 200
@@ -25,11 +32,18 @@ esphome:
       - script.execute: update_brightness_mode_from_sun
       - script.execute: apply_brightness_mode
 
-# Re-evaluate sun state periodically (configurable)
+# Re-evaluate sun state periodically
 interval:
   - interval: ${touchscreen_poll_minutes}min
     then:
       - script.execute: update_brightness_mode_from_sun
+
+# Wake on touch (module owns this, not hardware)
+touchscreen:
+  - id: !extend my_touchscreen
+    on_touch:
+      then:
+        - script.execute: backlight_on_touch
 
 lvgl:
   on_idle:
@@ -39,19 +53,31 @@ lvgl:
           level: INFO
           format: "LVGL idle"
 
-      # Apply brightness first
-      - script.execute: apply_brightness_mode
-
-      # Optional blanking (Evening only)
+      # Only apply idle behavior in Evening
       - if:
           condition:
-            lambda: |-
-              return std::string("${touchscreen_enable_blanking}") == "true"
-                  && id(brightness_mode).current_option() == "Evening";
+            lambda: 'return id(brightness_mode).current_option() == "Evening";'
           then:
-            - light.turn_off: display_backlight
-            - lvgl.pause:
-                show_snow: true
+            - if:
+                condition:
+                  lambda: 'return std::string("${touchscreen_idle_behavior}") == "off";'
+                then:
+                  - light.turn_off: display_backlight
+                  - lvgl.pause:
+                      show_snow: true
+                else:
+                  - if:
+                      condition:
+                        lambda: 'return std::string("${touchscreen_idle_behavior}") == "dim";'
+                      then:
+                        - light.turn_on:
+                            id: display_backlight
+                            brightness: ${touchscreen_idle_brightness}
+                      else:
+                        # "none" -> do nothing
+                        - logger.log:
+                            level: DEBUG
+                            format: "Idle behavior: none"
 
 select:
   - platform: template
@@ -59,9 +85,7 @@ select:
     id: brightness_mode
     icon: mdi:television-shimmer
     optimistic: true
-    options:
-      - Day
-      - Evening
+    options: [Day, Evening]
     initial_option: Day
     on_value:
       then:
@@ -69,15 +93,13 @@ select:
         - lvgl.widget.redraw
         - script.execute: apply_brightness_mode
 
-binary_sensor:
-  - id: touchscreen_activity
-    on_press:
-      then:
-        - lvgl.resume
-        - lvgl.widget.redraw
-        - script.execute: apply_brightness_mode
-
 script:
+  - id: backlight_on_touch
+    then:
+      - lvgl.resume
+      - lvgl.widget.redraw
+      - script.execute: apply_brightness_mode
+
   # Decide mode purely from sun state
   - id: update_brightness_mode_from_sun
     then:
@@ -93,7 +115,7 @@ script:
                 id: brightness_mode
                 option: "Evening"
 
-  # Apply brightness for current mode
+  # Apply normal brightness for current mode (non-idle)
   - id: apply_brightness_mode
     then:
       - if:
