@@ -50,11 +50,6 @@ binary_sensor:
     icon: mdi:check-network-outline
     entity_category: diagnostic
 
-  - platform: status
-    name: "Status"
-    icon: mdi:check-network-outline
-    entity_category: diagnostic
-
 text_sensor:
   - platform: template
     id: device_last_restart
