@@ -12,3 +12,8 @@ time:
 sun:
   latitude: !secret latitude
   longitude: !secret longitude
+
+script:
+  - id: touchscreen_touched
+    then:
+      - lambda: 'return;'

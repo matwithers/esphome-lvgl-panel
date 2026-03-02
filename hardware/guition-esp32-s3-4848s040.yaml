@@ -77,17 +77,15 @@ touchscreen:
   i2c_id: bus_a
   transform:
     mirror_x: false
-#   on_touch:
-#     - logger.log:
-#           format: Touch at (%d, %d)
-#           args: [touch.x, touch.y]
-#     - lambda: |-
-#           ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
-#               touch.x,
-#               touch.y,
-#               touch.x_raw,
-#               touch.y_raw
-#               );
+  on_touch:
+    then:
+      - binary_sensor.template.publish:
+          id: touchscreen_activity
+          state: ON
+      - delay: 10ms
+      - binary_sensor.template.publish:
+          id: touchscreen_activity
+          state: OFF
 
 # -------------------------------------------
 # Display st7701s spi

@@ -1,5 +1,14 @@
 ---
 # BACKLIGHT CORE (Sun-driven, no Night state)
+#
+# - Day: full brightness
+# - Evening: dim brightness
+# - Optional: blank/pause on LVGL idle when in Evening
+#
+# Requires:
+# - sun component configured somewhere (latitude/longitude)
+# - light id: display_backlight
+# - hardware touchscreen on_touch calling script.execute: backlight_on_touch
 
 substitutions:
   touchscreen_daytime_brightness: "100%"
@@ -7,6 +16,14 @@ substitutions:
   touchscreen_idle_timeout: "30s"
   touchscreen_enable_blanking: "true"
   touchscreen_poll_minutes: "5"
+
+# Ensure we pick the correct mode early after boot
+esphome:
+  on_boot:
+    priority: 200
+    then:
+      - script.execute: update_brightness_mode_from_sun
+      - script.execute: apply_brightness_mode
 
 # Re-evaluate sun state periodically (configurable)
 interval:
@@ -36,13 +53,6 @@ lvgl:
             - lvgl.pause:
                 show_snow: true
 
-script:
-  - id: backlight_on_touch
-    then:
-      - lvgl.resume
-      - lvgl.widget.redraw
-      - script.execute: apply_brightness_mode
-
 select:
   - platform: template
     name: "Brightness mode"
@@ -55,6 +65,16 @@ select:
     initial_option: Day
     on_value:
       then:
+        - lvgl.resume
+        - lvgl.widget.redraw
+        - script.execute: apply_brightness_mode
+
+binary_sensor:
+  - id: touchscreen_activity
+    on_press:
+      then:
+        - lvgl.resume
+        - lvgl.widget.redraw
         - script.execute: apply_brightness_mode
 
 script:
