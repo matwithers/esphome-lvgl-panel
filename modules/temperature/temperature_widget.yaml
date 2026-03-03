@@ -15,10 +15,10 @@ container:
           width: 100%
           height: SIZE_CONTENT
           bg_color: color_background
-          radius: 10
+          radius: 15
           pad_top: 2
           pad_bottom: 2
-          outline_width: 5
+          outline_width: 15
           outline_color: 0xe37400
           layout:
             type: flex
