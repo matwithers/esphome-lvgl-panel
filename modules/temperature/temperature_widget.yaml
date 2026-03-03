@@ -40,7 +40,7 @@ container:
 
             - label:
                 id: room_temperature
-                text: "--°"
+                text: "--°/--°"
                 text_color: color_primary_text
                 text_font: font_body_24
                 height: SIZE_CONTENT
