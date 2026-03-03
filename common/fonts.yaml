@@ -6,6 +6,13 @@ font:
     size: 72
     bpp: 8
 
+  - file: "esphome-lvgl-panel/assets/fonts/materialdesignicons-webfont.ttf"
+    id: font_mdi_72
+    size: 72
+    glyphs:
+      - ${mdi_thermometer}
+      - ${mdi_water_percent}
+
   - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: font_display_48
     size: 48

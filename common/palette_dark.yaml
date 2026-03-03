@@ -18,6 +18,8 @@ color:
     hex: "FFB300"
   - id: battery_red
     hex: "E53935"
+  - id: nest_heat_orange
+    hex: "E37400"
 
   # required esphome-modular-lvgl-buttons colors
   - id: very_dark_gray
