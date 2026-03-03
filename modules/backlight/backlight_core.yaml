@@ -11,18 +11,18 @@
 # - touchscreen id: my_touchscreen (hardware file)
 
 substitutions:
-  touchscreen_daytime_brightness: "100%"
-  touchscreen_evening_brightness: "50%"
-  touchscreen_idle_timeout: "30s"
+  touchscreen_daytime_brightness: "66%"
+  touchscreen_evening_brightness: "33%"
+  touchscreen_idle_timeout: "15min"
 
   # Idle behavior when in Evening:
   # - off  -> backlight off + lvgl.pause
   # - dim  -> backlight to touchscreen_idle_brightness (no pause)
   # - none -> do nothing special
   touchscreen_idle_behavior: "dim"
-  touchscreen_idle_brightness: "5%"
+  touchscreen_idle_brightness: "25%"
 
-  touchscreen_poll_minutes: "1"
+  touchscreen_poll_interval: "1min"
 
 # Pick correct mode early after boot
 esphome:
@@ -34,7 +34,7 @@ esphome:
 
 # Re-evaluate sun state periodically
 interval:
-  - interval: ${touchscreen_poll_minutes}min
+  - interval: ${touchscreen_poll_interval}
     then:
       - script.execute: update_brightness_mode_from_sun
 

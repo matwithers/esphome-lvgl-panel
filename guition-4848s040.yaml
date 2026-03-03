@@ -65,9 +65,6 @@ packages:
     file: esphome-lvgl-panel/modules/backlight/backlight_core.yaml
     vars:
       touchscreen_idle_behavior: "dim"
-      touchscreen_idle_brightness: "25%"
-      touchscreen_daytime_brightness: "66%"
-      touchscreen_evening_brightness: "33%"
 
   # Basic boot screen with ESPHome logo and device diagnostic info
   boot_screen: !include esphome-lvgl-panel/modules/boot_screen/boot_screen_core.yaml
