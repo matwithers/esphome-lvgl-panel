@@ -103,17 +103,16 @@ script:
   # Decide mode purely from sun state
   - id: update_brightness_mode_from_sun
     then:
-      - if:
-          condition:
-            sun.is_above_horizon:
-          then:
-            - select.set:
-                id: brightness_mode
-                option: "Day"
-          else:
-            - select.set:
-                id: brightness_mode
-                option: "Evening"
+      - lambda: |-
+          const bool sun_up = id(sun).is_above_horizon();  // see note below
+          const std::string target = sun_up ? "Day" : "Evening";
+
+          // Only change if different (prevents waking the screen)
+          if (id(brightness_mode).current_option() != target) {
+            auto call = id(brightness_mode).make_call();
+            call.set_option(target);
+            call.perform();
+          }
 
   # Apply normal brightness for current mode (non-idle)
   - id: apply_brightness_mode
