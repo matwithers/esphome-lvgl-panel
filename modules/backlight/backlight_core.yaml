@@ -110,18 +110,18 @@ script:
             - if:
                 condition:
                   lambda: 'return id(brightness_mode).current_option() != "Day";'
-              then:
-                - select.set:
-                    id: brightness_mode
-                    option: "Day"
+                then:
+                  - select.set:
+                      id: brightness_mode
+                      option: "Day"
           else:
             - if:
                 condition:
                   lambda: 'return id(brightness_mode).current_option() != "Evening";'
-              then:
-                - select.set:
-                    id: brightness_mode
-                    option: "Evening"
+                then:
+                  - select.set:
+                      id: brightness_mode
+                      option: "Evening"
 
   # Apply normal brightness for current mode (non-idle)
   - id: apply_brightness_mode
