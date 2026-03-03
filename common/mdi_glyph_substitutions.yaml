@@ -7,5 +7,7 @@
 ## complexity
 ---
 substitutions:
+  mdi_thermometer: "\U000F050F"
+  mdi_water_percent: "\U000F058E"
   mdi_lightning_bolt: "\U000F140B"
   mdi_lightning_bolt_outline: "\U000F140C"
