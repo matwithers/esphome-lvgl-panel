@@ -22,7 +22,7 @@ substitutions:
   touchscreen_idle_behavior: "dim"
   touchscreen_idle_brightness: "25%"
 
-  touchscreen_poll_interval: "1min"
+  touchscreen_poll_interval: "5min"
 
 # Pick correct mode early after boot
 esphome:
