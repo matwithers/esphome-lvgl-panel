@@ -15,7 +15,7 @@ container:
           width: 100%
           height: SIZE_CONTENT
           bg_color: 0xe37400
-          radius: 3
+          radius: 10
           pad_top: 2
           pad_bottom: 2
           layout:
