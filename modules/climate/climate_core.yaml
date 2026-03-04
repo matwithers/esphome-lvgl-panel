@@ -1,0 +1,160 @@
+---
+# CLIMATE CORE
+#
+# Drives:
+#  - Temperature widget (current/target + heating icon)
+#  - Humidity widget (value + warning icon)
+#
+# Required widget IDs (if enabled):
+#   Temp:
+#     - climate_state_indicator (label)
+#     - climate_temp_current (label)
+#     - climate_temp_target (label)
+#   Humidity:
+#     - humidity_state_indicator (label)
+#     - room_humidity (label)
+#
+# Vars:
+#   climate_entity: "climate.nest"
+#   enable_temp_widget: "true" | "false"
+#   enable_humidity_widget: "true" | "false"
+#   humidity_warn_level: "70"
+#   refresh_interval: "30s" (or "60s", "5min", etc.)
+
+substitutions:
+  climate_entity: "climate.nest"
+  enable_temp_widget: "true"
+  enable_humidity_widget: "true"
+  humidity_warn_level: "70"
+  refresh_interval: "30s"
+
+# ------------------------------------------------------------------------------
+# Data inputs from Home Assistant
+# ------------------------------------------------------------------------------
+text_sensor:
+  # "heating" / "idle" / etc (attribute)
+  - platform: homeassistant
+    entity_id: ${climate_entity}
+    attribute: hvac_action
+    id: climate_hvac_action
+    on_value:
+      then:
+        - script.execute: render_climate
+
+sensor:
+  - platform: homeassistant
+    entity_id: ${climate_entity}
+    attribute: current_temperature
+    id: climate_current_temperature
+    on_value:
+      then:
+        - script.execute: render_climate
+
+  - platform: homeassistant
+    entity_id: ${climate_entity}
+    attribute: temperature
+    id: climate_target_temperature
+    on_value:
+      then:
+        - script.execute: render_climate
+
+  - platform: homeassistant
+    entity_id: ${climate_entity}
+    attribute: current_humidity
+    id: climate_current_humidity
+    on_value:
+      then:
+        - script.execute: render_climate
+
+# ------------------------------------------------------------------------------
+# Refresh triggers (interval + boot + HA connect)
+# ------------------------------------------------------------------------------
+interval:
+  - interval: ${refresh_interval}
+    then:
+      - script.execute: render_climate
+
+esphome:
+  on_boot:
+    priority: 200
+    then:
+      - script.execute: render_climate
+
+api:
+  on_client_connected:
+    - delay: 2s
+    - script.execute: render_climate
+
+# ------------------------------------------------------------------------------
+# Rendering
+# ------------------------------------------------------------------------------
+script:
+  - id: render_climate
+    then:
+      - lambda: |-
+          const bool enable_temp = (std::string("${enable_temp_widget}") == "true");
+          const bool enable_hum  = (std::string("${enable_humidity_widget}") == "true");
+
+          // --- Read latest states (fail-soft defaults) ---
+          const std::string action = id(climate_hvac_action).has_state() ? id(climate_hvac_action).state : "idle";
+          const bool heating = (action == "heating");
+
+          const float t_cur = id(climate_current_temperature).has_state() ? id(climate_current_temperature).state : 0.0f;
+          const float t_tgt = id(climate_target_temperature).has_state() ? id(climate_target_temperature).state : 0.0f;
+          const float hum   = id(climate_current_humidity).has_state() ? id(climate_current_humidity).state : 0.0f;
+
+          // --- helpers ---
+          auto fmt_deg = [](float v) -> std::string {
+            int ti = (int) lroundf(v);
+            char buf[8];
+            snprintf(buf, sizeof(buf), "%d°", ti);
+            return std::string(buf);
+          };
+
+          auto fmt_pct = [](float v) -> std::string {
+            int vi = (int) lroundf(v);
+            char buf[8];
+            snprintf(buf, sizeof(buf), "%d%%", vi);
+            return std::string(buf);
+          };
+
+          // ----------------------------------------------------------------------------
+          // TEMP WIDGET
+          // ----------------------------------------------------------------------------
+          if (enable_temp) {
+            // icon: heating vs idle/off
+            if (heating) {
+              lv_label_set_text(id(climate_state_indicator), "${mdi_heat_wave}");
+              lv_obj_set_style_text_color(id(climate_state_indicator), lv_color_hex(0xFF8A00), LV_PART_MAIN); // nest-ish orange
+            } else {
+              lv_label_set_text(id(climate_state_indicator), "${mdi_thermometer}");
+              // Use your theme primary text colour (keep as-is if already styled in YAML)
+              // We won't force colour here to avoid fighting theme.
+            }
+
+            // current / target text
+            lv_label_set_text(id(climate_temp_current), fmt_deg(t_cur).c_str());
+            lv_label_set_text(id(climate_temp_target), fmt_deg(t_tgt).c_str());
+
+            // If you want the target to go orange only when heating, uncomment this:
+            // lv_obj_set_style_text_color(id(climate_temp_target),
+            //   lv_color_hex(heating ? 0xFF8A00 : 0xB0B0B0), LV_PART_MAIN);
+          }
+
+          // ----------------------------------------------------------------------------
+          // HUMIDITY WIDGET
+          // ----------------------------------------------------------------------------
+          if (enable_hum) {
+            lv_label_set_text(id(room_humidity), fmt_pct(hum).c_str());
+
+            const float warn = atof("${humidity_warn_level}");
+            const bool warn_on = (warn > 0.0f) && (hum >= warn);
+
+            if (warn_on) {
+              lv_label_set_text(id(humidity_state_indicator), "${mdi_water_percent_alert}");
+            } else {
+              lv_label_set_text(id(humidity_state_indicator), "${mdi_water_percent}");
+            }
+
+            // Colour is already rain_blue from your widget YAML; leave it alone here.
+          }
