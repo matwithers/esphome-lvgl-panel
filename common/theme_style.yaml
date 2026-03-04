@@ -18,7 +18,7 @@ lvgl:
       scrollbar_mode: "OFF"
       border_width: 0
       scrollable: false
-      text_font: $text_font
+      text_font: font_body_20
       text_color: color_primary_text
 
     image:
@@ -38,7 +38,7 @@ lvgl:
       press_lock: false
       scroll_on_focus: true
       bg_opa: COVER
-      bg_color: $button_off_color
+      bg_color: color_outline
 
   style_definitions:
     - id: page_style
@@ -49,6 +49,6 @@ lvgl:
 
     - id: time_style
       scrollbar_mode: "OFF"
-      text_font: $text_font
+      text_font: font_body_20
       text_color: color_primary_text
       align: center
