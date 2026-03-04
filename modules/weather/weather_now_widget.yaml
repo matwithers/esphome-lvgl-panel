@@ -23,8 +23,6 @@ container:
           widgets:
             - label:
                 text: "Now"
-                height: SIZE_CONTENT
-
             - image:
                 id: weather_condition_icon
                 src: unknown
@@ -32,4 +30,3 @@ container:
             - label:
                 id: weather_temperature_today
                 text: "---°"
-                height: SIZE_CONTENT

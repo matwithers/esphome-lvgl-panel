@@ -29,7 +29,6 @@ container:
             - label:
                 id: forecast_day_0
                 text: ???
-                height: SIZE_CONTENT
 
             - image:
                 id: forecast_condition_icon_0
@@ -47,16 +46,13 @@ container:
                   - label:
                       id: forecast_temperature_hi_0
                       text: "---°"
-                      height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_0
                       text: "---°"
                       text_font: font_body_20
                       text_color: dodgerblue
-                      height: SIZE_CONTENT
 
       - obj:
           height: SIZE_CONTENT
@@ -74,7 +70,6 @@ container:
             - label:
                 id: forecast_day_1
                 text: ???
-                height: SIZE_CONTENT
 
             - image:
                 id: forecast_condition_icon_1
@@ -92,16 +87,13 @@ container:
                   - label:
                       id: forecast_temperature_hi_1
                       text: "---°"
-                      height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_1
                       text: "---°"
                       text_font: font_body_20
                       text_color: dodgerblue
-                      height: SIZE_CONTENT
 
       - obj:
           height: SIZE_CONTENT
@@ -119,7 +111,6 @@ container:
             - label:
                 id: forecast_day_2
                 text: ???
-                height: SIZE_CONTENT
 
             - image:
                 id: forecast_condition_icon_2
@@ -137,16 +128,13 @@ container:
                   - label:
                       id: forecast_temperature_hi_2
                       text: "---°"
-                      height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_2
                       text: "---°"
                       text_font: font_body_20
                       text_color: dodgerblue
-                      height: SIZE_CONTENT
 
       - obj:
           height: SIZE_CONTENT
@@ -164,7 +152,6 @@ container:
             - label:
                 id: forecast_day_3
                 text: ???
-                height: SIZE_CONTENT
 
             - image:
                 id: forecast_condition_icon_3
@@ -182,13 +169,10 @@ container:
                   - label:
                       id: forecast_temperature_hi_3
                       text: "---°"
-                      height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_3
                       text: "---°"
                       text_font: font_body_20
                       text_color: dodgerblue
-                      height: SIZE_CONTENT

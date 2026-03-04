@@ -23,16 +23,11 @@ container:
           widgets:
             - label:
                 text: "Climate"
-                text_color: color_primary_text
-                text_font: font_body_24
-                height: SIZE_CONTENT
 
             - label:
                 id: climate_state_indicator
                 text: "${mdi_thermometer}"
-                text_color: color_primary_text
                 text_font: font_mdi_72
-                height: SIZE_CONTENT
 
             - container:
                 width: SIZE_CONTENT
@@ -46,16 +41,11 @@ container:
                   - label:
                       id: climate_temp_current
                       text: "---°"
-                      text_font: font_body_24
-                      height: SIZE_CONTENT
                   - label:
                       id: climate_temp_separator
                       text: "/"
-                      text_font: font_body_24
-                      height: SIZE_CONTENT
                   - label:
                       id: climate_temp_target
                       text: "---°"
                       text_font: font_body_20
                       text_color: nest_heat_orange
-                      height: SIZE_CONTENT
