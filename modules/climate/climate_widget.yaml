@@ -40,7 +40,7 @@ container:
 
             - label:
                 id: room_temperature
-                text: "18°"
+                text: "18°/21°"
                 text_color: nest_heat_orange
                 text_font: font_body_24
                 height: SIZE_CONTENT
