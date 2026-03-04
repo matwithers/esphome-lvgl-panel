@@ -40,17 +40,14 @@ sensor:
     id: cpu_temperature
     name: "CPU Temperature"
     entity_category: diagnostic
-    # Keep your existing °F behaviour for now
-    filters:
-      - lambda: return (x * 1.8) + 32;
-    unit_of_measurement: "°F"
+    unit_of_measurement: "°C"
     icon: mdi:thermometer
     on_value:
       then:
         - lvgl.label.update:
             id: cpu_temperature_label
             text:
-              format: "%.1f°F"
+              format: "%.1f°C"
               args: ['id(cpu_temperature).state']
 
 text_sensor:
