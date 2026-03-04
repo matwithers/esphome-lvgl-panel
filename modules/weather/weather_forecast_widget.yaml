@@ -29,7 +29,6 @@ container:
             - label:
                 id: forecast_day_0
                 text: ???
-                text_font: font_body_24
                 height: SIZE_CONTENT
 
             - image:
@@ -48,11 +47,9 @@ container:
                   - label:
                       id: forecast_temperature_hi_0
                       text: "---°"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_0
@@ -77,7 +74,6 @@ container:
             - label:
                 id: forecast_day_1
                 text: ???
-                text_font: font_body_24
                 height: SIZE_CONTENT
 
             - image:
@@ -96,11 +92,9 @@ container:
                   - label:
                       id: forecast_temperature_hi_1
                       text: "---°"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_1
@@ -125,7 +119,6 @@ container:
             - label:
                 id: forecast_day_2
                 text: ???
-                text_font: font_body_24
                 height: SIZE_CONTENT
 
             - image:
@@ -144,11 +137,9 @@ container:
                   - label:
                       id: forecast_temperature_hi_2
                       text: "---°"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_2
@@ -173,7 +164,6 @@ container:
             - label:
                 id: forecast_day_3
                 text: ???
-                text_font: font_body_24
                 height: SIZE_CONTENT
 
             - image:
@@ -192,11 +182,9 @@ container:
                   - label:
                       id: forecast_temperature_hi_3
                       text: "---°"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       text: "/"
-                      text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
                       id: forecast_temperature_lo_3

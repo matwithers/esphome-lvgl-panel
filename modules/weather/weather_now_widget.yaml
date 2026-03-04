@@ -23,8 +23,6 @@ container:
           widgets:
             - label:
                 text: "Now"
-                text_color: color_primary_text
-                text_font: font_body_24
                 height: SIZE_CONTENT
 
             - image:
@@ -34,6 +32,4 @@ container:
             - label:
                 id: weather_temperature_today
                 text: "---°"
-                text_color: color_primary_text
-                text_font: font_body_24
                 height: SIZE_CONTENT

@@ -15,10 +15,11 @@ lvgl:
       bg_color: color_background
 
     label:
-  #    scrollbar_mode: "OFF"
-  #    border_width: 0
-  #    scrollable: false
-  #    text_font: font_body_20
+      scrollbar_mode: "OFF"
+      border_width: 0
+      scrollable: false
+      height: SIZE_CONTENT
+      text_font: font_body_24
       text_color: color_primary_text
 
   #  image:
