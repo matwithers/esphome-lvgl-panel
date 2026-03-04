@@ -102,7 +102,7 @@ packages:
       climate_entity: climate.nest
       enable_temp_widget: "true"
       enable_humidity_widget: "true"
-      humidity_warn_level: "55"
+      humidity_warn_level: "70"
       refresh_interval: "30s"
 
 lvgl:
