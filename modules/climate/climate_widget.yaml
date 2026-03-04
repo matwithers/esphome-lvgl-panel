@@ -54,6 +54,7 @@ container:
                       text_font: font_body_24
                       height: SIZE_CONTENT
                   - label:
+                      id: climate_temp_separater
                       text: "/"
                       text_font: font_body_24
                       height: SIZE_CONTENT
