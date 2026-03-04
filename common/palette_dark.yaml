@@ -12,6 +12,7 @@ color:
   - id: color_outline
     hex: '39424F'      # subtle border tone
 
+  # esphome-lvgl-panel custom colors
   - id: battery_green
     hex: "4CAF50"
   - id: battery_amber
@@ -20,6 +21,22 @@ color:
     hex: "E53935"
   - id: nest_heat_orange
     hex: "E37400"
+  - id: sun_yellow
+    hex: "F6D100"
+  - id: moon_blue
+    hex: "1ABBDE"
+  - id: rain_blue
+    hex: "32A4F0"
+  - id: ice_blue
+    hex: "9ED2E1"
+  - id: light_cloud_gray
+    hex: "C7CED8"
+  - id: heavy_cloud_gray
+    hex: "8F99A6"
+  - id: storm_cloud_gray
+    hex: "454B57"
+  - id: error_red
+    hex: "E7394B"
 
   # required esphome-modular-lvgl-buttons colors
   - id: very_dark_gray
