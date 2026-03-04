@@ -1,68 +1,68 @@
 color:
   - id: color_background
-    hex: ${color_background_hex}
+    hex: ${color_background}
 
   - id: color_surface
-    hex: ${color_surface_hex}
+    hex: ${color_surface}
 
   - id: color_primary_text
-    hex: ${color_primary_text_hex}
+    hex: ${color_primary_text}
 
   - id: color_secondary_text
-    hex: ${color_secondary_text_hex}
+    hex: ${color_secondary_text}
 
   - id: color_accent
-    hex: ${color_accent_hex}
+    hex: ${color_accent}
 
   - id: color_outline
-    hex: ${color_outline_hex}
+    hex: ${color_outline}
 
   # esphome-lvgl-panel custom colors
   - id: battery_green
-    hex: ${battery_green_hex}
+    hex: ${battery_green}
 
   - id: battery_amber
-    hex: ${battery_amber_hex}
+    hex: ${battery_amber}
 
   - id: battery_red
-    hex: ${battery_red_hex}
+    hex: ${battery_red}
 
   - id: nest_heat_orange
-    hex: ${nest_heat_orange_hex}
+    hex: ${nest_heat_orange}
 
   - id: sun_yellow
-    hex: ${sun_yellow_hex}
+    hex: ${sun_yellow}
 
   - id: moon_blue
-    hex: ${moon_blue_hex}
+    hex: ${moon_blue}
 
   - id: rain_blue
-    hex: ${rain_blue_hex}
+    hex: ${rain_blue}
 
   - id: ice_blue
-    hex: ${ice_blue_hex}
+    hex: ${ice_blue}
 
   - id: light_cloud_gray
-    hex: ${light_cloud_gray_hex}
+    hex: ${light_cloud_gray}
 
   - id: heavy_cloud_gray
-    hex: ${heavy_cloud_gray_hex}
+    hex: ${heavy_cloud_gray}
 
   - id: storm_cloud_gray
-    hex: ${storm_cloud_gray_hex}
+    hex: ${storm_cloud_gray}
 
   - id: error_red
-    hex: ${error_red_hex}
+    hex: ${error_red}
 
   # required esphome-modular-lvgl-buttons colors
   - id: very_dark_gray
-    hex: ${very_dark_gray_hex}
+    hex: ${very_dark_gray}
 
   - id: slate_blue_gray
-    hex: ${slate_blue_gray_hex}
+    hex: ${slate_blue_gray}
 
   - id: steel_blue
-    hex: ${steel_blue_hex}
+    hex: ${steel_blue}
 
   - id: misty_blue
-    hex: ${misty_blue_hex}
+    hex: ${misty_blue}
