@@ -33,14 +33,14 @@ container:
                 height: SIZE_CONTENT
 
             - label:
-                text: "${mdi_thermometer}"
-                text_color: color_primary_text
+                text: "${mdi_heat_wave}"
+                text_color: nest_heat_orange
                 text_font: font_mdi_72
                 height: SIZE_CONTENT
 
             - label:
                 id: room_temperature
                 text: "18°"
-                text_color: color_primary_text
+                text_color: nest_heat_orange
                 text_font: font_body_24
                 height: SIZE_CONTENT
