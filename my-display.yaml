@@ -1,18 +1,18 @@
 ---
 # Substitution variables used through the codebase
 substitutions:
-  icon_font: mdi_icons_40
-  text_font: font_body_20
+  #icon_font: mdi_icons_40
+  #text_font: font_body_20
   display_mode: dark   # or light
-  text_color: color_primary_text
-  bg_color: color_background
-  button_on_color: color_accent
-  button_off_color: color_outline
-  icon_on_color: color_accent
-  icon_off_color: color_secondary_text
-  label_on_color: color_primary_text
-  label_off_color: color_secondary_text
-  button_text_color: color_primary_text
+  #text_color: color_primary_text
+  #bg_color: color_background
+  #button_on_color: color_accent
+  #button_off_color: color_outline
+  #icon_on_color: color_accent
+  #icon_off_color: color_secondary_text
+  #label_on_color: color_primary_text
+  #label_off_color: color_secondary_text
+  #button_text_color: color_primary_text
 
   device_name: "guition-4848s040"
   device_friendly_name: "Guition 4848s040"
