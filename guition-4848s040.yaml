@@ -94,6 +94,15 @@ packages:
       enable_forecast: "true"
       refresh_minutes: "15"
 
+  climate_core: !include
+    file: esphome-lvgl-panel/modules/climate/climate_core.yaml
+    vars:
+      climate_entity: climate.nest
+      enable_temp_widget: "true"
+      enable_humidity_widget: "true"
+      humidity_warn_level: "70"
+      refresh_interval: "30s"
+
 lvgl:
   pages:
     - id: main_page
@@ -119,7 +128,7 @@ lvgl:
             vars: { row_pos: "4", column_pos: "6", row_span: "4", column_span: "3" }
 
         - !include
-            file: esphome-lvgl-panel/modules/humidity/humidity_widget.yaml
+            file: esphome-lvgl-panel/modules/climate/humidity_widget.yaml
             vars: { row_pos: "4", column_pos: "9", row_span: "4", column_span: "3" }
 
         - !include
