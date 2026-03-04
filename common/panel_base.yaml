@@ -46,3 +46,8 @@ packages:
 
   # (optional) sensors — only if you audit/split UI hooks as discussed
   sensors: !include ../sensors/sensors_base.yaml
+
+  # Basic boot screen with ESPHome logo and device diagnostic info
+  boot_screen: !include ../modules/boot_screen/boot_screen_core.yaml
+
+  info_screen: !include ../pages/info.yaml

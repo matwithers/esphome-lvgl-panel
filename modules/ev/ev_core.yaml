@@ -8,6 +8,11 @@
 #   range_entity: eg. sensor.leaf_range_ac_off
 #   charging_state_entity: eg. binary_sensor.leaf_charging
 
+substitutions:
+  battery_level_entity: sensor.leaf_battery_level
+  range_entity: sensor.leaf_range_ac_off
+  charging_state_entity: binary_sensor.leaf_charging
+
 script:
   - id: render_ev_battery
     then:

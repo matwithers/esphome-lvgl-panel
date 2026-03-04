@@ -1,64 +1,34 @@
 ---
 # Substitution variables used through the codebase
 substitutions:
-  #text_font: font_body_20
-  #button_off_color: color_outline
-
   device_name: "guition-4848s040"
   device_friendly_name: "Guition 4848s040"
   device_comment: "Guition ESP32-S3-4848S040 480px * 480px Smart Screen"
   display_mode: dark   # or light
 
 packages:
-  # Infrastructure
-  environment: !include esphome-lvgl-panel/common/panel_base.yaml
+  # Base config
+  base: !include esphome-lvgl-panel/common/panel_base.yaml
 
   # Color theme
   colors: !include esphome-lvgl-panel/common/colors_dark.yaml
   #colors: !include esphome-lvgl-panel/common/colors_light.yaml
 
-  backlight:
-    !include
-    file: esphome-lvgl-panel/modules/backlight/backlight_core.yaml
-    vars:
-      touchscreen_idle_behavior: "dim"
+  backlight: !include esphome-lvgl-panel/modules/backlight/backlight_core.yaml
 
-  # Basic boot screen with ESPHome logo and device diagnostic info
-  boot_screen: !include esphome-lvgl-panel/modules/boot_screen/boot_screen_core.yaml
+  time_date_widget: !include esphome-lvgl-panel/modules/time_date/time_date_core.yaml
 
-  info_screen: !include esphome-lvgl-panel/pages/info.yaml
+  ev_widget: !include esphome-lvgl-panel/modules/ev/ev_core.yaml
 
-  time_date_widget:
-    !include
-    file: esphome-lvgl-panel/modules/time_date/time_date_core.yaml
-
-  ev_widget:
-    !include
-    file: esphome-lvgl-panel/modules/ev/ev_core.yaml
-    vars:
-      battery_level_entity: sensor.leaf_battery_level
-      range_entity: sensor.leaf_range_ac_off
-      charging_state_entity: binary_sensor.leaf_charging
-
-  # Weather packages
-  # Display weather today/forecast using direct HA action (no template sensor needed!)
   weather_icons: !include esphome-lvgl-panel/modules/weather/weather_icons.yaml
   weather_core: !include
     file: esphome-lvgl-panel/modules/weather/weather_core.yaml
     vars:
       weather_entity: weather.met_office_totton
-      enable_today: "true"
-      enable_forecast: "true"
-      refresh_minutes: "15"
 
   climate_core: !include
     file: esphome-lvgl-panel/modules/climate/climate_core.yaml
     vars:
-      climate_entity: climate.nest
-      enable_temp_widget: "true"
-      enable_humidity_widget: "true"
-      humidity_warn_level: "70"
-      refresh_interval: "30s"    
       enable_temp_override: "true"
       temp_override_entity: "sensor.timmerflotte_temp_hmd_sensor_temperature_2"
       enable_humidity_override: "true"
