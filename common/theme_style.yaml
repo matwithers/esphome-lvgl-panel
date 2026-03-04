@@ -6,7 +6,7 @@ lvgl:
     obj:
       scrollbar_mode: "OFF"
       width: 100%
-      height: 100%
+      height: SIZE_CONTENT
       border_width: 0
       pad_all: 2
       radius: 0
@@ -22,10 +22,10 @@ lvgl:
       text_font: font_body_24
       text_color: color_primary_text
 
-  #  image:
-  #    scrollbar_mode: "OFF"
-  #    border_width: 0
-  #    scrollable: false
+    image:
+      scrollbar_mode: "OFF"
+      border_width: 0
+      scrollable: false
 
   #  button:
   #    scrollbar_mode: "OFF"
@@ -43,13 +43,7 @@ lvgl:
 
   style_definitions:
     - id: page_style
-  #    scrollbar_mode: "OFF"
+      scrollbar_mode: "OFF"
       bg_color: color_background
-  #    bg_opa: COVER
-  #    pad_all: 1
-
-  #  - id: time_style
-  #    scrollbar_mode: "OFF"
-  #    text_font: font_body_20
-  #    text_color: color_primary_text
-  #    align: center
+      bg_opa: COVER
+      pad_all: 1

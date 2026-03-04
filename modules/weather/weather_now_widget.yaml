@@ -23,6 +23,7 @@ container:
           widgets:
             - label:
                 text: "Now"
+                
             - image:
                 id: weather_condition_icon
                 src: unknown
