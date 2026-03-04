@@ -42,7 +42,7 @@ packages:
   palette: !include palette.yaml
   fonts: !include fonts.yaml
   glyphs: !include mdi_glyph_substitutions.yaml
-  theme_style: !include theme_style.yaml
+  #theme_style: !include theme_style.yaml
 
   # (optional) sensors — only if you audit/split UI hooks as discussed
   sensors: !include ../sensors/sensors_base.yaml
