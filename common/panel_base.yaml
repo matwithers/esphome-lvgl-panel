@@ -50,4 +50,5 @@ packages:
   # Basic boot screen with ESPHome logo and device diagnostic info
   boot_screen: !include ../modules/boot_screen/boot_screen_core.yaml
 
+  info_core: !include ../modules/info/info_core.yaml
   info_screen: !include ../pages/info.yaml

@@ -1,0 +1,123 @@
+---
+# Info widget (to be included inside an lvgl page widgets list)
+#
+# vars:
+#   row_pos, column_pos, row_span, column_span
+
+container:
+  grid_cell_x_align: stretch
+  grid_cell_y_align: stretch
+  grid_cell_row_pos: ${row_pos}
+  grid_cell_column_pos: ${column_pos}
+  grid_cell_row_span: ${row_span}
+  grid_cell_column_span: ${column_span}
+
+  bg_color: color_background
+  pad_all: 6
+
+  layout:
+    type: GRID
+    grid_rows: [content, content, content, content, content, content, content, content, content, content]
+    grid_columns: [FR(45), FR(55)]
+    pad_column: 6
+    pad_row: 6
+
+  widgets:
+    - label:
+        grid_cell_column_pos: 0
+        grid_cell_row_pos: 0
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "ESPHome Version:"
+    - label:
+        id: esphome_version_label
+        grid_cell_column_pos: 1
+        grid_cell_row_pos: 0
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "Loading..."
+
+    - label:
+        grid_cell_column_pos: 0
+        grid_cell_row_pos: 1
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "Build:"
+    - label:
+        grid_cell_column_pos: 1
+        grid_cell_row_pos: 1
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text:
+          format: "%s %s"
+          args: [__DATE__, __TIME__]
+
+    - label:
+        grid_cell_column_pos: 0
+        grid_cell_row_pos: 2
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "MAC Address:"
+    - label:
+        id: connected_mac_label
+        grid_cell_column_pos: 1
+        grid_cell_row_pos: 2
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "—"
+
+    - label:
+        grid_cell_column_pos: 0
+        grid_cell_row_pos: 3
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "IP Address:"
+    - label:
+        id: ip_address_label
+        grid_cell_column_pos: 1
+        grid_cell_row_pos: 3
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "—"
+
+    - label:
+        grid_cell_column_pos: 0
+        grid_cell_row_pos: 4
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "Connected SSID:"
+    - label:
+        id: connected_ssid_label
+        grid_cell_column_pos: 1
+        grid_cell_row_pos: 4
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "—"
+
+    - label:
+        grid_cell_column_pos: 0
+        grid_cell_row_pos: 5
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "WiFi Strength:"
+    - label:
+        id: wifi_signal_db_percent_label
+        grid_cell_column_pos: 1
+        grid_cell_row_pos: 5
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "—"
+
+    - label:
+        grid_cell_column_pos: 0
+        grid_cell_row_pos: 6
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "CPU Temp:"
+    - label:
+        id: cpu_temperature_label
+        grid_cell_column_pos: 1
+        grid_cell_row_pos: 6
+        grid_cell_x_align: STRETCH
+        grid_cell_y_align: CENTER
+        text: "—"

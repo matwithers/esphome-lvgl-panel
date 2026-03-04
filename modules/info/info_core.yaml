@@ -1,0 +1,108 @@
+---
+# INFO CORE
+#
+# Provides sensors/text_sensors used by the Info page widget.
+# Requires these LVGL IDs to exist (from info_widget.yaml):
+#   - esphome_version_label
+#   - connected_mac_label
+#   - ip_address_label
+#   - connected_ssid_label
+#   - wifi_signal_db_percent_label
+#   - cpu_temperature_label
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal dB"
+    id: wifi_signal_db
+    update_interval: 60s
+    internal: true
+
+  # Reports WiFi signal strength in %
+  - platform: copy
+    id: wifi_signal_db_percent
+    source_id: wifi_signal_db
+    name: "WiFi Strength"
+    icon: mdi:wifi
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+      - throttle: 60s
+    unit_of_measurement: "%"
+    entity_category: diagnostic
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: wifi_signal_db_percent_label
+            text:
+              format: "%.0f%%"
+              args: ['id(wifi_signal_db_percent).state']
+
+  - platform: internal_temperature
+    id: cpu_temperature
+    name: "CPU Temperature"
+    entity_category: diagnostic
+    # Keep your existing °F behaviour for now
+    filters:
+      - lambda: return (x * 1.8) + 32;
+    unit_of_measurement: "°F"
+    icon: mdi:thermometer
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: cpu_temperature_label
+            text:
+              format: "%.1f°F"
+              args: ['id(cpu_temperature).state']
+
+text_sensor:
+  - platform: version
+    id: esphome_version
+    name: "ESPHome Version"
+    hide_timestamp: true
+    icon: mdi:source-branch
+    entity_category: diagnostic
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: esphome_version_label
+            text:
+              format: "%s"
+              args: ['id(esphome_version).state.c_str()']
+
+  - platform: wifi_info
+    mac_address:
+      id: mac_address
+      name: "MAC Address"
+      icon: mdi:network-pos
+      entity_category: diagnostic
+      on_value:
+        - lvgl.label.update:
+            id: connected_mac_label
+            text:
+              format: "%s"
+              args: ['id(mac_address).state.c_str()']
+
+    ip_address:
+      id: ip_address
+      name: "IP Address"
+      icon: mdi:ip-network
+      entity_category: diagnostic
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: ip_address_label
+              text:
+                format: "%s"
+                args: ['id(ip_address).state.c_str()']
+
+    ssid:
+      id: connected_ssid
+      name: "Connected SSID"
+      icon: mdi:wifi-check
+      entity_category: diagnostic
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: connected_ssid_label
+              text:
+                format: "%s"
+                args: ['id(connected_ssid).state.c_str()']
