@@ -12,8 +12,11 @@ container:
     grid_cell_column_span: ${column_span}
     widgets:
       - obj:
-          <<: *flex_column_center
           layout:
+            type: flex
+            flex_flow: COLUMN
+            flex_align_cross: center
+            flex_align_track: center
             pad_row: 2
 
           widgets:
