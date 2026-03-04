@@ -16,9 +16,6 @@ container:
       - obj:
           height: SIZE_CONTENT
           width: SIZE_CONTENT
-          radius: 3
-          pad_top: 2
-          pad_bottom: 2
           layout:
             type: flex
             flex_flow: COLUMN
@@ -67,9 +64,6 @@ container:
       - obj:
           height: SIZE_CONTENT
           width: SIZE_CONTENT
-          radius: 3
-          pad_top: 2
-          pad_bottom: 2
           layout:
             type: flex
             flex_flow: COLUMN
@@ -118,9 +112,6 @@ container:
       - obj:
           height: SIZE_CONTENT
           width: SIZE_CONTENT
-          radius: 3
-          pad_top: 2
-          pad_bottom: 2
           layout:
             type: flex
             flex_flow: COLUMN
@@ -169,9 +160,6 @@ container:
       - obj:
           height: SIZE_CONTENT
           width: SIZE_CONTENT
-          radius: 3
-          pad_top: 2
-          pad_bottom: 2
           layout:
             type: flex
             flex_flow: COLUMN
