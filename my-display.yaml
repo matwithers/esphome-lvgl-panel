@@ -28,11 +28,11 @@ packages:
 
   climate_core: !include
     file: esphome-lvgl-panel/modules/climate/climate_core.yaml
-    vars:
-      enable_temp_override: "true"
-      temp_override_entity: "sensor.timmerflotte_temp_hmd_sensor_temperature_2"
-      enable_humidity_override: "true"
-      humidity_override_entity: "sensor.timmerflotte_temp_hmd_sensor_humidity_2"
+    #vars:
+    #  enable_temp_override: "true"
+    #  temp_override_entity: "sensor.timmerflotte_temp_hmd_sensor_temperature_2"
+    #  enable_humidity_override: "true"
+    #  humidity_override_entity: "sensor.timmerflotte_temp_hmd_sensor_humidity_2"
 
 lvgl:
   pages:
