@@ -1,0 +1,29 @@
+substitutions:
+  color_background_hex: "0x1C2128"
+  color_surface_hex: "0x262D36"
+  color_primary_text_hex: "0xE4E8ED"
+  color_secondary_text_hex: "0xA6AFBB"
+  color_accent_hex: "0xFFB74D"
+  color_outline_hex: "0x39424F"
+
+  battery_green_hex: "0x4CAF50"
+  battery_amber_hex: "0xFFB300"
+  battery_red_hex: "0xE53935"
+
+  nest_heat_orange_hex: "0xE37400"
+
+  sun_yellow_hex: "0xF6D100"
+  moon_blue_hex: "0x1ABBDE"
+  rain_blue_hex: "0x32A4F0"
+  ice_blue_hex: "0x9ED2E1"
+
+  light_cloud_gray_hex: "0xC7CED8"
+  heavy_cloud_gray_hex: "0x8F99A6"
+  storm_cloud_gray_hex: "0x454B57"
+
+  error_red_hex: "0xE7394B"
+
+  very_dark_gray_hex: "0x313131"
+  slate_blue_gray_hex: "0x343645"
+  steel_blue_hex: "0x606682"
+  misty_blue_hex: "0x9BA2BC"

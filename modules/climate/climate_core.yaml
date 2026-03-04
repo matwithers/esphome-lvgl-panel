@@ -132,9 +132,16 @@ script:
               // We won't force colour here to avoid fighting theme.
             }
 
-            // current / target text
+            // current always
             lv_label_set_text(id(climate_temp_current), fmt_deg(t_cur).c_str());
-            lv_label_set_text(id(climate_temp_target), fmt_deg(t_tgt).c_str());
+
+            // target only when actively heating
+            if (heating) {
+              lv_label_set_text(id(climate_temp_target), fmt_deg(t_tgt).c_str());
+              lv_obj_clear_flag(id(climate_temp_target), LV_OBJ_FLAG_HIDDEN);
+            } else {
+              lv_obj_add_flag(id(climate_temp_target), LV_OBJ_FLAG_HIDDEN);
+            }
 
             // If you want the target to go orange only when heating, uncomment this:
             // lv_obj_set_style_text_color(id(climate_temp_target),

@@ -1,4 +1,4 @@
-color:
+Icolor:
   - id: color_background
     hex: '1C2128'      # slightly deeper, less blue than 1F242D
   - id: color_surface

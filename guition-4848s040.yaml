@@ -50,8 +50,10 @@ packages:
 
   # Generic configuration for ESP32 screens
   # All the colors
-  colors: !include esphome-lvgl-panel/common/palette_dark.yaml
-  #colors: !include esphome-lvgl-panel/common/palette_light.yaml
+  colors: !include esphome-lvgl-panel/common/colors_dark.yaml
+  #colors: !include esphome-lvgl-panel/common/colors_light.yaml
+  palette: !include esphome-lvgl-panel/common/palette.yaml
+  
   # Fonts you need
   fonts: !include esphome-lvgl-panel/common/fonts.yaml
   # 1000s of glyphs
