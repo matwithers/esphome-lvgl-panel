@@ -36,17 +36,13 @@ logger:
 
 packages:
   # Board profile (THIS makes it Guition-specific)
-  hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
+  hardware: !include ../hardware/guition-esp32-s3-4848s040.yaml
 
   # Framework invariants
-  palette: !include esphome-lvgl-panel/common/palette.yaml
-  fonts: !include esphome-lvgl-panel/common/fonts.yaml
-  glyphs: !include esphome-lvgl-panel/common/mdi_glyph_substitutions.yaml
-  theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
-
-  # Environment providers
-  environment: !include esphome-lvgl-panel/common/environment.yaml
-  wifi: !include esphome-lvgl-panel/common/wifi.yaml
+  palette: !include palette.yaml
+  fonts: !include fonts.yaml
+  glyphs: !include mdi_glyph_substitutions.yaml
+  theme_style: !include theme_style.yaml
 
   # (optional) sensors — only if you audit/split UI hooks as discussed
-  sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
+  sensors: !include ../sensors/sensors_base.yaml
