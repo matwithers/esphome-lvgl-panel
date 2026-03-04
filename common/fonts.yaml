@@ -10,8 +10,11 @@ font:
     id: font_mdi_72
     size: 72
     glyphs:
+      - ${mdi_radiator}
       - ${mdi_thermometer}
       - ${mdi_water_percent}
+      - ${mdi_heat_wave}
+      - ${mdi_water_percent_alert}
 
   - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: font_display_48
@@ -44,10 +47,13 @@ font:
     id: font_mdi_32
     size: 32
     glyphs:
+    - ${mdi_radiator}
       - ${mdi_thermometer}
       - ${mdi_water_percent}
       - ${mdi_lightning_bolt}
       - ${mdi_lightning_bolt_outline}
+      - ${mdi_heat_wave}
+      - ${mdi_water_percent_alert}
 
   - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: font_body_24
