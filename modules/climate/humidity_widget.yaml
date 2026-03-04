@@ -42,6 +42,6 @@ container:
             - label:
                 id: room_humidity
                 text: "==%"
-                text_color: rain_blue
+                text_color: color_primary_text
                 text_font: font_body_24
                 height: SIZE_CONTENT

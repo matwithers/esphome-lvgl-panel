@@ -53,7 +53,7 @@ packages:
   colors: !include esphome-lvgl-panel/common/colors_dark.yaml
   #colors: !include esphome-lvgl-panel/common/colors_light.yaml
   palette: !include esphome-lvgl-panel/common/palette.yaml
-  
+
   # Fonts you need
   fonts: !include esphome-lvgl-panel/common/fonts.yaml
   # 1000s of glyphs
@@ -102,7 +102,7 @@ packages:
       climate_entity: climate.nest
       enable_temp_widget: "true"
       enable_humidity_widget: "true"
-      humidity_warn_level: "70"
+      humidity_warn_level: "55"
       refresh_interval: "30s"
 
 lvgl:

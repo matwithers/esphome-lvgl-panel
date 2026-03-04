@@ -156,8 +156,10 @@ script:
 
             if (warn_on) {
               lv_label_set_text(id(humidity_state_indicator), "${mdi_water_percent_alert}");
+              lv_obj_set_style_text_color(id(room_humidity), lv_color_hex(0x${rain_blue}), LV_PART_MAIN);
             } else {
               lv_label_set_text(id(humidity_state_indicator), "${mdi_water_percent}");
+              lv_obj_set_style_text_color(id(room_humidity), lv_color_hex(0x${color_primary_text}), LV_PART_MAIN);
             }
 
             // Colour is already rain_blue from your widget YAML; leave it alone here.
