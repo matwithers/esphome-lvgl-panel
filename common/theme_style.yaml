@@ -48,9 +48,9 @@ lvgl:
       bg_opa: COVER
       pad_all: 1
 
-flex_column_center: &flex_column_center
-  layout:
-    type: flex
-    flex_flow: COLUMN
-    flex_align_cross: center
-    flex_align_track: center
+  flex_column_center: &flex_column_center
+    layout:
+      type: flex
+      flex_flow: COLUMN
+      flex_align_cross: center
+      flex_align_track: center
