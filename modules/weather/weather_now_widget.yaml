@@ -12,12 +12,7 @@ container:
     grid_cell_column_span: ${column_span}
     widgets:
       - obj:
-          width: 100%
           height: SIZE_CONTENT
-          bg_color: color_background
-          radius: 3
-          pad_top: 2
-          pad_bottom: 2
           layout:
             type: flex
             flex_flow: COLUMN

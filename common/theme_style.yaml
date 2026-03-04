@@ -1,17 +1,17 @@
 ---
 lvgl:
-  #page_wrap: true
+  page_wrap: true
 
   theme:
     obj:
-  #    scrollbar_mode: "OFF"
-  #    width: 100%
-  #    height: 100%
-  #    border_width: 0
-  #    pad_all: 0
-  #    radius: 0
-  #    scrollable: false
-  #    bg_opa: COVER
+      scrollbar_mode: "OFF"
+      width: 100%
+      height: 100%
+      border_width: 0
+      pad_all: 2
+      radius: 0
+      scrollable: false
+      bg_opa: COVER
       bg_color: color_background
 
     label:
@@ -43,7 +43,7 @@ lvgl:
   style_definitions:
     - id: page_style
   #    scrollbar_mode: "OFF"
-  #    bg_color: color_background
+      bg_color: color_background
   #    bg_opa: COVER
   #    pad_all: 1
 
