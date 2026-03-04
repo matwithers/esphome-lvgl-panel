@@ -20,26 +20,11 @@ substitutions:
 
 packages:
   # Infrastructure
-  environment: !include esphome-lvgl-panel/common/environment.yaml
-  hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
+  environment: !include esphome-lvgl-panel/common/panel_base.yaml
 
-  # Some basic sensors
-  sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
-
-  # Generic configuration for ESP32 screens
-  # All the colors
+  # Color theme
   colors: !include esphome-lvgl-panel/common/colors_dark.yaml
   #colors: !include esphome-lvgl-panel/common/colors_light.yaml
-  palette: !include esphome-lvgl-panel/common/palette.yaml
-
-  # Fonts you need
-  fonts: !include esphome-lvgl-panel/common/fonts.yaml
-  # 1000s of glyphs
-  glyphs: !include esphome-lvgl-panel/common/mdi_glyph_substitutions.yaml
-  
-  # Styles + Themes
-  theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
-  # Include if your touch screen has a backlight. Also sets the time from HA
 
   backlight:
     !include

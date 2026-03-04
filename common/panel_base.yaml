@@ -1,0 +1,52 @@
+---
+esphome:
+  name: ${device_name}
+  friendly_name: ${device_friendly_name}
+  comment: ${device_comment}
+
+# TIME provider (Home Assistant)
+## Provides:
+#   id: system_time
+time:
+  - platform: homeassistant
+    id: system_time
+
+# Common Sun provider
+# Enables use of `sun.is_above_horizon` conditions in any module.
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
+
+script:
+  - id: touchscreen_touched
+    then:
+      - lambda: 'return;'
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+ota:
+  - platform: esphome
+
+api:
+
+logger:
+  level: DEBUG
+
+packages:
+  # Board profile (THIS makes it Guition-specific)
+  hardware: !include esphome-lvgl-panel/hardware/guition-esp32-s3-4848s040.yaml
+
+  # Framework invariants
+  palette: !include esphome-lvgl-panel/common/palette.yaml
+  fonts: !include esphome-lvgl-panel/common/fonts.yaml
+  glyphs: !include esphome-lvgl-panel/common/mdi_glyph_substitutions.yaml
+  theme_style: !include esphome-lvgl-panel/common/theme_style.yaml
+
+  # Environment providers
+  environment: !include esphome-lvgl-panel/common/environment.yaml
+  wifi: !include esphome-lvgl-panel/common/wifi.yaml
+
+  # (optional) sensors — only if you audit/split UI hooks as discussed
+  sensors: !include esphome-lvgl-panel/sensors/sensors_base.yaml
