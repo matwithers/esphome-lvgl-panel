@@ -26,25 +26,25 @@
   widgets:
 
     - !include
-        file: esphome-lvgl-panel/modules/time_date/time_date_widget.yaml
+        file: ../modules/time_date/time_date_widget.yaml
         vars: { row_pos: "0", column_pos: "0", row_span: "4", column_span: "6" }
 
     - !include
-        file: esphome-lvgl-panel/modules/ev/ev_widget.yaml
+        file: ../modules/ev/ev_widget.yaml
         vars: { row_pos: "0", column_pos: "6", row_span: "4", column_span: "6" }
 
     - !include
-        file: esphome-lvgl-panel/modules/weather/weather_now_widget.yaml
+        file: ../modules/weather/weather_now_widget.yaml
         vars: { row_pos: "4", column_pos: "0", row_span: "4", column_span: "6" }
 
     - !include
-        file: esphome-lvgl-panel/modules/climate/climate_widget.yaml
+        file: ../modules/climate/climate_widget.yaml
         vars: { row_pos: "4", column_pos: "6", row_span: "4", column_span: "3" }
 
     - !include
-        file: esphome-lvgl-panel/modules/climate/humidity_widget.yaml
+        file: ../modules/climate/humidity_widget.yaml
         vars: { row_pos: "4", column_pos: "9", row_span: "4", column_span: "3" }
 
     - !include
-        file: esphome-lvgl-panel/modules/weather/weather_forecast_widget.yaml
+        file: ../modules/weather/weather_forecast_widget.yaml
         vars: { row_pos: "8", column_pos: "0", row_span: "4", column_span: "12" }
