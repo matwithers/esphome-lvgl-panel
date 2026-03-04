@@ -11,9 +11,6 @@ container:
     grid_cell_column_pos: ${column_pos}
     grid_cell_row_span: ${row_span}
     grid_cell_column_span: ${column_span}
-
-    bg_color: color_background
-
     layout:
       type: flex
       flex_flow: COLUMN
@@ -26,7 +23,6 @@ container:
       - obj:
           id: ev_car_overlay
           width: SIZE_CONTENT
-          height: SIZE_CONTENT
           bg_opa: TRANSP
 
           widgets:
@@ -38,7 +34,6 @@ container:
             - obj:
                 id: ev_battery_row
                 width: SIZE_CONTENT
-                height: SIZE_CONTENT
                 bg_opa: TRANSP
                 align: center
                 x: 9

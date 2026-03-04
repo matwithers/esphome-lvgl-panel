@@ -12,7 +12,6 @@ container:
     grid_cell_column_span: ${column_span}
     widgets:
       - obj:
-          height: SIZE_CONTENT
           layout:
             type: flex
             flex_flow: COLUMN
