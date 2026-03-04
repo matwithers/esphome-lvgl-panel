@@ -11,13 +11,11 @@ container:
   grid_cell_column_pos: ${column_pos}
   grid_cell_row_span: ${row_span}
   grid_cell_column_span: ${column_span}
-
-  bg_color: color_background
   pad_all: 6
 
   layout:
     type: GRID
-    grid_rows: [content, content, content, content, content, content, content, content, content, content]
+    grid_rows: [content, content, content, content, content, content, content]
     grid_columns: [FR(45), FR(55)]
     pad_column: 6
     pad_row: 6
