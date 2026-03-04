@@ -33,7 +33,7 @@ container:
                 height: SIZE_CONTENT
 
             - label:
-                text: "${mdi_heat_wave}"
+                text: "${mdi_radiator}"
                 text_color: nest_heat_orange
                 text_font: font_mdi_72
                 height: SIZE_CONTENT
