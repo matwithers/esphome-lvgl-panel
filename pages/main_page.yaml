@@ -19,7 +19,11 @@
 
 - id: main_page
   layout: 12x12
-  styles: page_style
+  #styles: page_style
+  scrollbar_mode: "OFF"
+  bg_color: color_background
+  bg_opa: COVER
+  pad_all: 1
   <<: !include ../modules/swipe_navigation/swipe_navigation.yaml
   bg_color: color_background
 
