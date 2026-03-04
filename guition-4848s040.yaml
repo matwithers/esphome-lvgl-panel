@@ -103,7 +103,11 @@ packages:
       enable_temp_widget: "true"
       enable_humidity_widget: "true"
       humidity_warn_level: "70"
-      refresh_interval: "30s"
+      refresh_interval: "30s"    
+      enable_temp_override: "true"
+      temp_override_entity: "sensor.timmerflotte_temp_hmd_sensor_temperature_2"
+      enable_humidity_override: "true"
+      humidity_override_entity: "sensor.timmerflotte_temp_hmd_sensor_humidity_2"
 
 lvgl:
   pages:

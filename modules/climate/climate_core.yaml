@@ -10,6 +10,7 @@
 #     - climate_state_indicator (label)
 #     - climate_temp_current (label)
 #     - climate_temp_target (label)
+#     - climate_temp_separator (label)
 #   Humidity:
 #     - humidity_state_indicator (label)
 #     - room_humidity (label)
@@ -18,13 +19,29 @@
 #   climate_entity: "climate.nest"
 #   enable_temp_widget: "true" | "false"
 #   enable_humidity_widget: "true" | "false"
+#
+# Optional room sensor overrides
+#   enable_temp_override: "false" | "true"
+#   temp_override_entity: "sensor.bedroom_temperature"
+#
+#   enable_humidity_override: "false" | "true"
+#   humidity_override_entity: "sensor.bedroom_humidity"
+#
+# Other
 #   humidity_warn_level: "70"
-#   refresh_interval: "30s" (or "60s", "5min", etc.)
+#   refresh_interval: "30s"
 
 substitutions:
   climate_entity: "climate.nest"
   enable_temp_widget: "true"
   enable_humidity_widget: "true"
+
+  enable_temp_override: "false"
+  temp_override_entity: "sensor.none"
+
+  enable_humidity_override: "false"
+  humidity_override_entity: "sensor.none"
+
   humidity_warn_level: "70"
   refresh_interval: "30s"
 
@@ -32,7 +49,6 @@ substitutions:
 # Data inputs from Home Assistant
 # ------------------------------------------------------------------------------
 text_sensor:
-  # "heating" / "idle" / etc (attribute)
   - platform: homeassistant
     entity_id: ${climate_entity}
     attribute: hvac_action
@@ -66,8 +82,26 @@ sensor:
       then:
         - script.execute: render_climate
 
+  # Optional room temperature override
+  - platform: homeassistant
+    entity_id: ${temp_override_entity}
+    id: climate_temp_override_value
+    internal: true
+    on_value:
+      then:
+        - script.execute: render_climate
+
+  # Optional room humidity override
+  - platform: homeassistant
+    entity_id: ${humidity_override_entity}
+    id: climate_humidity_override_value
+    internal: true
+    on_value:
+      then:
+        - script.execute: render_climate
+
 # ------------------------------------------------------------------------------
-# Refresh triggers (interval + boot + HA connect)
+# Refresh triggers
 # ------------------------------------------------------------------------------
 interval:
   - interval: ${refresh_interval}
@@ -92,16 +126,36 @@ script:
   - id: render_climate
     then:
       - lambda: |-
+
           const bool enable_temp = (std::string("${enable_temp_widget}") == "true");
           const bool enable_hum  = (std::string("${enable_humidity_widget}") == "true");
 
+          const bool temp_override_enabled = (std::string("${enable_temp_override}") == "true");
+          const bool hum_override_enabled  = (std::string("${enable_humidity_override}") == "true");
+
           // --- Read latest states (fail-soft defaults) ---
-          const std::string action = id(climate_hvac_action).has_state() ? id(climate_hvac_action).state : "idle";
+          const std::string action =
+            id(climate_hvac_action).has_state() ? id(climate_hvac_action).state : "idle";
+
           const bool heating = (action == "heating");
 
-          const float t_cur = id(climate_current_temperature).has_state() ? id(climate_current_temperature).state : 0.0f;
-          const float t_tgt = id(climate_target_temperature).has_state() ? id(climate_target_temperature).state : 0.0f;
-          const float hum   = id(climate_current_humidity).has_state() ? id(climate_current_humidity).state : 0.0f;
+          float t_cur =
+            id(climate_current_temperature).has_state() ? id(climate_current_temperature).state : 0.0f;
+
+          float hum =
+            id(climate_current_humidity).has_state() ? id(climate_current_humidity).state : 0.0f;
+
+          const float t_tgt =
+            id(climate_target_temperature).has_state() ? id(climate_target_temperature).state : 0.0f;
+
+          // Optional overrides
+          if (temp_override_enabled && id(climate_temp_override_value).has_state()) {
+            t_cur = id(climate_temp_override_value).state;
+          }
+
+          if (hum_override_enabled && id(climate_humidity_override_value).has_state()) {
+            hum = id(climate_humidity_override_value).state;
+          }
 
           // --- helpers ---
           auto fmt_deg = [](float v) -> std::string {
@@ -122,25 +176,27 @@ script:
           // TEMP WIDGET
           // ----------------------------------------------------------------------------
           if (enable_temp) {
-            // icon: heating vs idle/off
+
             if (heating) {
               lv_label_set_text(id(climate_state_indicator), "${mdi_heat_wave}");
-              lv_obj_set_style_text_color(id(climate_state_indicator), lv_color_hex(0x${nest_heat_orange}), LV_PART_MAIN);
-            } else {
+              lv_obj_set_style_text_color(id(climate_state_indicator),
+                lv_color_hex(0x${nest_heat_orange}), LV_PART_MAIN);
+            }
+            else {
               lv_label_set_text(id(climate_state_indicator), "${mdi_thermometer}");
-              lv_obj_set_style_text_color(id(climate_state_indicator), lv_color_hex(0x${color_primary_text}), LV_PART_MAIN);
+              lv_obj_set_style_text_color(id(climate_state_indicator),
+                lv_color_hex(0x${color_primary_text}), LV_PART_MAIN);
             }
 
-            // current always
             lv_label_set_text(id(climate_temp_current), fmt_deg(t_cur).c_str());
 
-            // target only when actively heating
             if (heating) {
               lv_label_set_text(id(climate_temp_target), fmt_deg(t_tgt).c_str());
-              lv_obj_clear_flag(id(climate_temp_separater), LV_OBJ_FLAG_HIDDEN);
+              lv_obj_clear_flag(id(climate_temp_separator), LV_OBJ_FLAG_HIDDEN);
               lv_obj_clear_flag(id(climate_temp_target), LV_OBJ_FLAG_HIDDEN);
-            } else {
-              lv_obj_add_flag(id(climate_temp_separater), LV_OBJ_FLAG_HIDDEN);
+            }
+            else {
+              lv_obj_add_flag(id(climate_temp_separator), LV_OBJ_FLAG_HIDDEN);
               lv_obj_add_flag(id(climate_temp_target), LV_OBJ_FLAG_HIDDEN);
             }
           }
@@ -149,20 +205,30 @@ script:
           // HUMIDITY WIDGET
           // ----------------------------------------------------------------------------
           if (enable_hum) {
+
             lv_label_set_text(id(room_humidity), fmt_pct(hum).c_str());
 
             const float warn = atof("${humidity_warn_level}");
             const bool warn_on = (warn > 0.0f) && (hum >= warn);
 
             if (warn_on) {
-              lv_obj_set_style_text_color(id(room_humidity), lv_color_hex(0x${rain_blue}), LV_PART_MAIN);
-              lv_label_set_text(id(humidity_state_indicator), "${mdi_water_percent_alert}");
-              lv_obj_set_style_text_color(id(humidity_state_indicator), lv_color_hex(0x${rain_blue}), LV_PART_MAIN);
-            } else {
-              lv_obj_set_style_text_color(id(room_humidity), lv_color_hex(0x${color_primary_text}), LV_PART_MAIN);
-              lv_label_set_text(id(humidity_state_indicator), "${mdi_water_percent}");
-              lv_obj_set_style_text_color(id(humidity_state_indicator), lv_color_hex(0x${color_primary_text}), LV_PART_MAIN);
-            }
+              lv_obj_set_style_text_color(id(room_humidity),
+                lv_color_hex(0x${rain_blue}), LV_PART_MAIN);
 
-            // Colour is already rain_blue from your widget YAML; leave it alone here.
+              lv_label_set_text(id(humidity_state_indicator),
+                "${mdi_water_percent_alert}");
+
+              lv_obj_set_style_text_color(id(humidity_state_indicator),
+                lv_color_hex(0x${rain_blue}), LV_PART_MAIN);
+            }
+            else {
+              lv_obj_set_style_text_color(id(room_humidity),
+                lv_color_hex(0x${color_primary_text}), LV_PART_MAIN);
+
+              lv_label_set_text(id(humidity_state_indicator),
+                "${mdi_water_percent}");
+
+              lv_obj_set_style_text_color(id(humidity_state_indicator),
+                lv_color_hex(0x${color_primary_text}), LV_PART_MAIN);
+            }
           }
