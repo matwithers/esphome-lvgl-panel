@@ -38,7 +38,7 @@ packages:
   living_room_base: !include esphome-lvgl-panel/pages/living_room.yaml
   
   # 2. Extend it with buttons second
-  living_room_content: !include esphome-lvgl-panel/pages/living_room_buttons.yaml
+  #living_room_content: !include esphome-lvgl-panel/pages/living_room_buttons.yaml
   
   main_page: !include esphome-lvgl-panel/pages/main_page.yaml
 
