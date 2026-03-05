@@ -1,20 +1,20 @@
+package:
+  !include
+    file: ../modules/buttons/switch_button.yaml
+    vars:
+      uid: living_room_front
+      page_id: living_room
+      row_pos: 0
+      column_pos: 0
+      row_span: 4
+      column_span: 6
+      text: "Front Light"
+      icon: "${mdi_lightbulb}"
+      entity_id: light.living_room_front
+
 lvgl:
   pages:
     - id: living_room
       layout: 12x12
       styles: page_style
       <<: !include ../modules/swipe_navigation/swipe_navigation.yaml
-
-      widgets:
-        - !include
-            file: ../modules/buttons/switch_button.yaml
-            vars:
-              uid: living_room_front
-              page_id: living_room
-              row_pos: 0
-              column_pos: 0
-              row_span: 4
-              column_span: 6
-              text: "Front Light"
-              icon: "${mdi_lightbulb}"
-              entity_id: light.living_room_front
