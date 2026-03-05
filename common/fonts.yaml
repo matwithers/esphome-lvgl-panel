@@ -33,6 +33,13 @@ font:
     size: 42
     bpp: 8
 
+  - file: "esphome-lvgl-panel/assets/fonts/materialdesignicons-webfont.ttf"
+    id: font_mdi_40
+    size: 40
+    glyphs:
+      - ${mdi_lightbulb}
+      - ${mdi_lightbulb_outline}
+
   - file: "esphome-lvgl-panel/assets/fonts/Inter-SemiBold.ttf"
     id: font_display_36
     size: 36

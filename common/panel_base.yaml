@@ -1,4 +1,7 @@
 ---
+substitutions:
+  icon_font: font_mdi_40
+
 esphome:
   name: ${device_name}
   friendly_name: ${device_friendly_name}
