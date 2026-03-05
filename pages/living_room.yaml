@@ -23,7 +23,7 @@ packages:
         column_pos: 0
         row_span: 2
         column_span: 6
-        text: "Govee TV Backlight"
+        text: "Govee TV"
         icon: "${mdi_lightbulb}"
         entity_id: light.h66a0
 
