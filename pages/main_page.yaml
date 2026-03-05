@@ -1,3 +1,4 @@
+---
 # MAIN PAGE
 #
 # 12x12 layout
@@ -22,7 +23,8 @@ lvgl:
     - id: main_page
       layout: 12x12
       styles: page_style
-      <<: !include ../modules/swipe_navigation/swipe_navigation.yaml
+      <<: !include
+        file: ../modules/swipe_navigation/swipe_navigation.yaml
 
       widgets:
         - !include

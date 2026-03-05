@@ -37,3 +37,5 @@ packages:
   main_page: !include esphome-lvgl-panel/pages/main_page.yaml
   living_room: !include esphome-lvgl-panel/pages/living_room.yaml
 
+lvgl:
+  pages:

@@ -1,9 +1,11 @@
+---
 lvgl:
   pages:
     - id: living_room
       layout: 12x12
       styles: page_style
-      <<: !include ../modules/swipe_navigation/swipe_navigation.yaml
+      <<: !include
+        file: ../modules/swipe_navigation/swipe_navigation.yaml
 
       # widgets:
       #   - !include
