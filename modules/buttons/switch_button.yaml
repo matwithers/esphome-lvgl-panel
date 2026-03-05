@@ -27,7 +27,6 @@ lvgl:
             widgets:
               - button:
                   id: button_${uid}
-
                   widgets:
                     - container:
                         layout:
@@ -44,12 +43,11 @@ lvgl:
                           - label:
                               id: label_${uid}
                               text: ${text}
-
-                on_short_click:
-                  - homeassistant.action:
-                      action: homeassistant.toggle
-                      data:
-                        entity_id: ${entity_id}
+                  on_short_click:
+                    - homeassistant.action:
+                        action: homeassistant.toggle
+                        data:
+                          entity_id: ${entity_id}
 
 # This section will update button state and relay states from Home Assistant
 binary_sensor:
