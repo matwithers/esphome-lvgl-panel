@@ -5,7 +5,7 @@
 
   widgets:
     - !include
-        file: esphome-lvgl-panel/modules/buttons/switch_button.yaml
+        file: ../modules/buttons/switch_button.yaml
         vars:
           uid: living_room_front
           page_id: living_room
