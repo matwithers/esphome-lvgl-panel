@@ -6,6 +6,7 @@ lvgl:
       styles: page_style
       <<: !include
         file: ../modules/swipe_navigation/swipe_navigation.yaml
+      widgets: []
 
 # Don't wrap this in lvgl: pages: if the switch_button.yaml already has it
 # OR remove the wrapper from switch_button.yaml. 
