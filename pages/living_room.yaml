@@ -1,3 +1,10 @@
+lvgl:
+  pages:
+    - id: living_room
+      layout: 12x12
+      styles: page_style
+      <<: !include ../modules/swipe_navigation/swipe_navigation.yaml
+
 package:
   !include
     file: ../modules/buttons/switch_button.yaml
@@ -11,10 +18,3 @@ package:
       text: "Front Light"
       icon: "${mdi_lightbulb}"
       entity_id: light.living_room_front
-
-lvgl:
-  pages:
-    - id: living_room
-      layout: 12x12
-      styles: page_style
-      <<: !include ../modules/swipe_navigation/swipe_navigation.yaml
