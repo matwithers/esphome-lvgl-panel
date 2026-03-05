@@ -31,7 +31,7 @@ lvgl:
                     - container:
                         layout:
                           type: flex
-                          flex_flow: row
+                          flex_flow: ROW
                           flex_align_cross: center
                           pad_column: 6
                         widgets:
