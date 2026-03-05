@@ -73,9 +73,9 @@ lvgl:
                           data:
                             entity_id: ${entity_id}
 
-                  on_long_press:
-                    then:
-                      - lvgl.page.show: ${uid}_light_page
+                  #on_long_press:
+                  #  then:
+                  #    - lvgl.page.show: ${uid}_light_page
 
 
 # Update visual state from HA
