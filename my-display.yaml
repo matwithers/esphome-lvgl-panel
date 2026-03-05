@@ -14,7 +14,11 @@ packages:
   colors: !include esphome-lvgl-panel/common/colors_dark.yaml
   #colors: !include esphome-lvgl-panel/common/colors_light.yaml
 
-  backlight: !include esphome-lvgl-panel/modules/backlight/backlight_core.yaml
+  backlight: !include 
+    file: esphome-lvgl-panel/modules/backlight/backlight_core.yaml
+    vars:
+      touchscreen_daytime_brightness: "66%"
+      touchscreen_evening_brightness: "33%"
 
   time_date_widget: !include esphome-lvgl-panel/modules/time_date/time_date_core.yaml
 
