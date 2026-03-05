@@ -105,23 +105,33 @@ script:
     then:
       - if:
           condition:
-            sun.is_above_horizon:
+            lambda: |-
+              // Don't evaluate sun until we have a valid clock.
+              return id(system_time).now().is_valid();
           then:
             - if:
                 condition:
-                  lambda: 'return id(brightness_mode).current_option() != "Day";'
+                  sun.is_above_horizon:
                 then:
-                  - select.set:
-                      id: brightness_mode
-                      option: "Day"
+                  - if:
+                      condition:
+                        lambda: 'return id(brightness_mode).current_option() != "Day";'
+                      then:
+                        - select.set:
+                            id: brightness_mode
+                            option: "Day"
+                else:
+                  - if:
+                      condition:
+                        lambda: 'return id(brightness_mode).current_option() != "Evening";'
+                      then:
+                        - select.set:
+                            id: brightness_mode
+                            option: "Evening"
           else:
-            - if:
-                condition:
-                  lambda: 'return id(brightness_mode).current_option() != "Evening";'
-                then:
-                  - select.set:
-                      id: brightness_mode
-                      option: "Evening"
+            - logger.log:
+                level: DEBUG
+                format: "Sun check skipped (system_time not valid yet)"
 
   # Apply normal brightness for current mode (non-idle)
   - id: apply_brightness_mode
