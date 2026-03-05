@@ -7,7 +7,7 @@ lvgl:
       <<: !include
         file: ../modules/swipe_navigation/swipe_navigation.yaml
 
-      # widgets:
+      widgets:
       #   - !include
       #       file: ../modules/buttons/switch_button.yaml
       #       vars:
