@@ -36,13 +36,7 @@ packages:
 
   main_page: !include esphome-lvgl-panel/pages/main_page.yaml
   living_room: !include esphome-lvgl-panel/pages/living_room.yaml
+  living_room_buttons: !include esphome-lvgl-panel/pages/living_room_buttons.yaml
 
 lvgl:
   pages:
-    - id: living_room
-      layout: 12x12
-      styles: page_style
-      <<: !include
-        file: esphome-lvgl-panel/modules/swipe_navigation/swipe_navigation.yaml
-      widgets:
-        - !include esphome-lvgl-panel/pages/living_room.yaml
