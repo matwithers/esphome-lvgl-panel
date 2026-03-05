@@ -58,13 +58,13 @@ binary_sensor:
           then:
             - lvgl.widget.update:
                 id: button_${uid}
-                bg_color: color_accent
+                bg_color: color_primary_text
             - lvgl.widget.update:
                 id: icon_${uid}
-                text_color: color_accent
+                text_color: color_background
             - lvgl.widget.update:
                 id: label_${uid}
-                text_color: color_primary_text
+                text_color: color_background
           else:
             - lvgl.widget.update:
                 id: button_${uid}

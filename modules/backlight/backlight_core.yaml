@@ -45,6 +45,16 @@ touchscreen:
       then:
         - script.execute: backlight_on_touch
 
+api:
+  on_client_connected:
+    - if:
+        condition:
+          lambda: 'return (0 == client_info.find("Home Assistant "));'
+        then:
+          - delay: 2s
+          - script.execute: update_brightness_mode_from_sun
+          - script.execute: apply_brightness_mode
+
 lvgl:
   on_idle:
     timeout: ${touchscreen_idle_timeout}
