@@ -53,11 +53,11 @@ lvgl:
                         knob:
                           pad_top: -5
                           pad_bottom: -5
-                          bg_color: $color_background
+                          bg_color: color_background
 
                         indicator:
                           radius: 0
-                          bg_color: $color_secondary_text
+                          bg_color: color_secondary_text
 
                         on_release:
                           - homeassistant.action:
