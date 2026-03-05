@@ -13,16 +13,72 @@ lvgl:
 # Assuming you keep switch_button.yaml as it is:
 
 packages:
+  button_govee:
+    !include
+      file: ../modules/buttons/switch_button.yaml
+      vars:
+        uid: living_govee_tv
+        page_id: living_room
+        row_pos: 0
+        column_pos: 0
+        row_span: 2
+        column_span: 6
+        text: "Govee TV Backlight"
+        icon: "${mdi_lightbulb}"
+        entity_id: light.h66a0
+
   button_front:
     !include
       file: ../modules/buttons/switch_button.yaml
       vars:
         uid: living_room_front
         page_id: living_room
-        row_pos: 0
+        row_pos: 2
         column_pos: 0
-        row_span: 4
+        row_span: 2
         column_span: 6
         text: "Front Light"
         icon: "${mdi_lightbulb}"
         entity_id: light.living_room_front
+  
+  button_rear:
+    !include
+      file: ../modules/buttons/switch_button.yaml
+      vars:
+        uid: living_room_rear
+        page_id: living_room
+        row_pos: 4
+        column_pos: 0
+        row_span: 2
+        column_span: 6
+        text: "Rear Light"
+        icon: "${mdi_lightbulb}"
+        entity_id: light.living_room_rear
+
+  button_table:
+    !include
+      file: ../modules/buttons/switch_button.yaml
+      vars:
+        uid: living_table_light
+        page_id: living_room
+        row_pos: 6
+        column_pos: 0
+        row_span: 2
+        column_span: 6
+        text: "Table Light"
+        icon: "${mdi_lightbulb}"
+        entity_id: light.wiz_candle
+
+  button_bamboo:
+    !include
+      file: ../modules/buttons/switch_button.yaml
+      vars:
+        uid: living_room_bamboo
+        page_id: living_room
+        row_pos: 8
+        column_pos: 0
+        row_span: 2
+        column_span: 6
+        text: "Bamboo Light"
+        icon: "${mdi_lightbulb}"
+        entity_id: light.front_right_lights
