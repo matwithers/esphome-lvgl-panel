@@ -29,7 +29,7 @@ packages:
 
   button_front:
     !include
-      file: ../modules/buttons/switch_button.yaml
+      file: ../modules/buttons/dimmer_light_button.yaml
       vars:
         uid: living_room_front
         page_id: living_room
