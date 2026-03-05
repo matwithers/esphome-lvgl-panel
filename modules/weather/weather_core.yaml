@@ -54,6 +54,12 @@ substitutions:
   enable_forecast: "true"
   refresh_minutes: "15"
 
+# ✅ ADD THIS ONCE (same file is fine)
+globals:
+  - id: weather_is_daylight
+    type: bool
+    initial_value: "true"
+
 # ------------------------------------------------------------------------------
 # Refresh triggers
 # ------------------------------------------------------------------------------
@@ -83,18 +89,12 @@ script:
             entity_id: ${weather_entity | default("weather.home")}
           capture_response: true
 
-          # We return a single JSON object:
-          #   { now: { condition, temp }, forecast: [ {day, condition, hi, lo}, ... ] }
           response_template: >-
             {% set e = "${weather_entity | default('weather.home')}" %}
             {% set fc = response[e]["forecast"] %}
             {% set ns = namespace(out=[]) %}
-
-            {# "Now" comes from the weather entity state/attributes #}
             {% set now_cond = states(e) %}
             {% set now_temp = state_attr(e, "temperature") %}
-
-            {# 4-day forecast #}
             {% for i in range(0, 4) %}
               {% set f = fc[i] if fc is defined and fc|length > i else dict() %}
               {% set ns.out = ns.out + [ {
@@ -104,7 +104,6 @@ script:
                 "lo": (f.templow | default(0))
               } ] %}
             {% endfor %}
-
             {{ {
               "now": {
                 "condition": now_cond | default("unknown"),
@@ -118,11 +117,21 @@ script:
                 level: INFO
                 format: "Weather fetch OK: updating widgets"
 
+            # ✅ ADD: set a daylight flag using sun condition (works without sun id)
+            - if:
+                condition:
+                  sun.is_above_horizon:
+                then:
+                  - lambda: |-
+                      id(weather_is_daylight) = true;
+                else:
+                  - lambda: |-
+                      id(weather_is_daylight) = false;
+
             - lambda: |-
-                // response["response"] is the JSON created by response_template
                 auto root = response["response"];
                 auto now = root["now"];
-                auto arr = root["forecast"];  // JSON array
+                auto arr = root["forecast"];
 
                 auto pick_icon = [&](const std::string &c) -> esphome::image::Image* {
                   if (c == "clear-night") return id(clear_night);
@@ -150,6 +159,8 @@ script:
                   return std::string(buf);
                 };
 
+                const bool is_day = id(weather_is_daylight);
+
                 // ─────────────────────────────────────────────────────────────
                 // TODAY (Now)
                 // ─────────────────────────────────────────────────────────────
@@ -157,17 +168,19 @@ script:
                   std::string now_cond = now["condition"].as<std::string>();
                   float now_temp = now["temp"].as<float>();
 
-                  // icon
-                  lv_obj_t *img = id(weather_condition_icon);
-                  lv_img_set_src(img, pick_icon(now_cond));
+                  // ✅ CHANGE: Only "Now" gets night override
+                  esphome::image::Image *icon =
+                      (now_cond == "partlycloudy" && !is_day) ? id(partlycloudy_night)
+                                                             : pick_icon(now_cond);
 
-                  // temperature label
+                  lv_obj_t *img = id(weather_condition_icon);
+                  lv_img_set_src(img, icon);
+
                   std::string t = fmt_deg(now_temp);
                   lv_obj_t *lbl = id(weather_temperature_today);
                   lv_label_set_text(lbl, t.c_str());
                 }
 
-                // Helper to set a single forecast row
                 auto set_row = [&](int idx,
                                   lv_obj_t *day_lbl,
                                   lv_obj_t *hi_lbl,
@@ -186,12 +199,10 @@ script:
                   lv_label_set_text(hi_lbl, hi_s.c_str());
                   lv_label_set_text(lo_lbl, lo_s.c_str());
 
+                  // ✅ Forecast unchanged: always day icon mapping
                   lv_img_set_src(img, pick_icon(cond));
                 };
 
-                // ─────────────────────────────────────────────────────────────
-                // FORECAST (4 days)
-                // ─────────────────────────────────────────────────────────────
                 if (${enable_forecast | default("true")}) {
                   set_row(0, id(forecast_day_0), id(forecast_temperature_hi_0), id(forecast_temperature_lo_0), id(forecast_condition_icon_0));
                   set_row(1, id(forecast_day_1), id(forecast_temperature_hi_1), id(forecast_temperature_lo_1), id(forecast_condition_icon_1));

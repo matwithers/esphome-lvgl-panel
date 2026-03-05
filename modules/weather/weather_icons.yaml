@@ -33,6 +33,10 @@ image:
         id: partlycloudy
         resize: 80x80
 
+      - file: esphome-lvgl-panel/modules/weather/assets/images/wi-night-alt-cloudy.svg
+        id: partlycloudy_night
+        resize: 80x80
+
       - file: esphome-lvgl-panel/modules/weather/assets/images/wi-rain.svg
         id: pouring
         resize: 80x80
